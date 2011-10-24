@@ -3,14 +3,7 @@
  */
 
 $(document).ready(function () {
-  $show = $('.slideshow > p a.starter');
-
-  var imagedex = function () {
-    var type = $('p.current-slide').attr('slide-type');
-    if (type in window && 'files' in window[type]) {
-      return window[type].files;
-    }
-  }
+  $show = $('.slideshow a.starter');
 
   $show.click(function (e) {
     e.preventDefault();
@@ -28,16 +21,23 @@ $(document).ready(function () {
     var $origclone = $base.clone();
     $origclone
       .addClass('current-slide')
-      .attr('slide-type', slideType);
+      .attr('data-role', slideType);
     $('img', $origclone).attr('class', 'slide');
+
+    var imagedex = function ($curr) {
+      var type = $curr.attr('data-role');
+      if (type in window && 'files' in window[type]) {
+        return window[type].files;
+      }
+    }
 
     var slideFromPath = function (path, i) {
       var $clone = $origclone.clone();
       $('img', $clone)
         .attr('src', path)
         .css({
-          'max-height': '80%',
-          'max-width': '80%'
+          'max-height': '95%',
+          'max-width': '95%'
           })
         .parents('a.full-size')
           .attr('href', path);
@@ -52,15 +52,15 @@ $(document).ready(function () {
       autoOpen: false,
       closeOnEscape: true,
       height: 'auto',
-      maxHeight: 600,
-      maxWidth: 800,
+      maxHeight: 800,
+      maxWidth: 900,
       draggable: false,
       beforeClose: function () {
-        $('.slideshow a#start.started').removeClass('started');
+        $('.slideshow .started').removeClass('started');
       }
     };
 
-    $current = slideFromPath(imagedex()[0], 0);
+    $current = slideFromPath(imagedex($origclone)[0], 0);
     $current.dialog(dialogOpts);
     $current.dialog('open');
     $origclone.remove();
@@ -68,7 +68,7 @@ $(document).ready(function () {
     var $move = $('p.current-slide > a.move');
     var transition = function (index) {
       if ($current.attr('data-index') != index) {
-        var path = imagedex()[index];
+        var path = imagedex($current)[index];
         $('img', $current)
           .attr('src', path)
           .parents('a.full-size')
@@ -111,7 +111,7 @@ $(document).ready(function () {
       }
 
       //sanity check
-      var max = imagedex().length - 1;
+      var max = imagedex($current).length - 1;
       if (moveto < 0) {
         moveto = 0;
       }
