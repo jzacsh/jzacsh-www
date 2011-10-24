@@ -12,7 +12,7 @@ $(document).ready(function () {
     }
   }
 
-  $show.click(function () {
+  $show.click(function (e) {
     if ($(this).hasClass('started')) {
       return false;
     }
@@ -121,5 +121,6 @@ $(document).ready(function () {
       transition(moveto);
     });
 
+    return e.preventDefault();
   });
 });
