@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /art/paper
+Disallow: /art/tablet
