@@ -1,9 +1,0 @@
-# may cause problems with aliasing
-Options -Multiviews
-
-#handle 404 internally
-ErrorDocument 404 /index.php
-
-# redirect WITHOUT the 'www.' prefix,
-RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-RewriteRule ^ http://%1%{REQUEST_URI} [L,R=301]
