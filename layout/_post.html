@@ -3,16 +3,16 @@
 {% block content_body %}
 
 <div id="post-content">
-	{% filter typogrify %}
+  {% filter typogrify %}
 
-	{% markdown %}
+  {% markdown %}
 
-	{% block article %}
-	{% endblock %}
-		
-	{% endmarkdown %}
+  {% block article %}
+  {% endblock %}
 
-	{% endfilter %}
+  {% endmarkdown %}
+
+  {% endfilter %}
 </div>
 
 {% endblock %}
