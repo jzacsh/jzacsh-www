@@ -1,4 +1,5 @@
-.swp
-.swo
-.pyc
-/www/
+*.swp
+*.swo
+*.pyc
+www/
+site.log
