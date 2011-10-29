@@ -10,14 +10,14 @@
 
 <h2>Recent Posts</h2>
 
-	{%recent_posts recents 5 %}
+  {%recent_posts recents 5 %}
 
-	<ul>
-		{%for post in recents %}
-			<li>
-				<a href='{{post.url}}'>{{post.title}}</a>
-			</li>
-		{%endfor%}
-	</ul>
+  <ul>
+    {%for post in recents %}
+      <li>
+        <a href='{{post.url}}'>{{post.title}}</a>
+      </li>
+    {%endfor%}
+  </ul>
 
 {%endblock%}
