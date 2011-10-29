@@ -1,7 +1,7 @@
 {% extends "skeleton/_body.html" %}
 
-<section id="blog-post">
 {% block content_header %}
+<section id="blog-post">
 
 <header id="content-header">
     <h1>{{ page.title }}</h1>
@@ -11,8 +11,8 @@
 
 {% endblock %}
 
-<article id="post-content">
 {% block content_body %}
+<article id="post-content">
 
   {% filter typogrify %}
 
@@ -26,9 +26,8 @@
   {% endfilter %}
 </article>
 
-{% endblock %}
-
 </section><!--//#blog-post-->
+{% endblock %}
 
 {% block context_nav %}
 {% include "skeleton/_context_nav.html" %}
