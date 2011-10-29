@@ -71,9 +71,7 @@ ul.breadcrumbs {
     padding-bottom: 0.2em;
 }
 
-#sitenav ul { list-style-type: none; }
-
-#sitenav li {
+#sitenav span {
     display: inline;
     margin-left: .2em;
 }
