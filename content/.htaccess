@@ -118,3 +118,8 @@ AddCharset utf-8 .html .css .js .xml .json .rss
         RewriteRule ^.*$ %{REQUEST_FILENAME}.html
     {% endif %}
 </IfModule>
+
+# by jzacsh, redirect WITHOUT the 'www.' prefix,
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ http://%1%{REQUEST_URI} [L,R=301]
+
