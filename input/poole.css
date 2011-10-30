@@ -31,6 +31,11 @@ header h1 {
   text-shadow: 0 0 3px #000000;
 }
 
+header h1:hover {
+  color: #ffffff;
+  text-shadow: 0 0 10px #000000;
+}
+
 nav {
   background-color: #2e3436;
   padding: 0.6em 0 0.6em 0;
