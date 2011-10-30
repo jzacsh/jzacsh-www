@@ -54,9 +54,9 @@ free to let me know.
 
 * [etherback][]<br />
   etherback is a bash script to automatically backup any etherpad (or any
-  raw–text source) document. Specifically, its made to run in cron, as this
-  scirpt doesn't bother creating new backup files if it sees an old backup with
-  the same contents already exists in its destination directory.
+  raw–text source) document. Its made to run in cron, as this script doesn't
+  create new backup files if it finds the contents are already backed up
+  somewhere.
   <div class="fork">
   To fork this, run: <input
     value="curl -s https://raw.github.com/jzacsh/bin/master/share/etherback" />
