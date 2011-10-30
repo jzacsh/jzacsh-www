@@ -4,12 +4,16 @@ menu-position: 3
 
 ##Code
 
+<section class="code-tldr" markdown="1">
+
 **tldr;** I'm a happy [github user][github].<br />
-If you find nothing on my github page, below are utilities I wrote because I
-needed the tool myself or I wanted to play with the technology. Bottom line,
-these are the ones I tried to write with _some_ sort of re–usability in mind,
-so others can enjoy. If anything comes in handy (_or breaks_) feel free to let
-me know.
+If you find nothing fun on my github page, feel free to keep reading. Below are
+utilities I wrote because I needed the tool myself or I wanted to play with the
+technology. Bottom line, these are the ones I tried to write with _some_ sort
+of re–usability in mind, so others can enjoy. If anything comes in handy (_or
+breaks_) let me know.
+
+</section><!--//.code-tldr-->
 
 <section class="projects" markdown="1">
 
