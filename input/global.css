@@ -19,18 +19,30 @@ nav, section#content, footer {
   padding: 1em;
 }
 
+article {
+  padding-left: 1ex;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-left: -1ex;
+  margin-top: 3ex;
+  margin-bottom: 0.5ex;
+}
+
 header h1 {
   text-align: right;
-  color: #555753;
+/*color: #555753; */
+  color: rgba(125, 125, 125, 1);
   line-height: 0.4em;
   font-size: 3.15em;
   padding: 0;
   margin: 0;
   position: relative;
   right: -1px;
-  text-shadow: 0 0 3px #000000;
+  text-shadow: 0 0 1px #000000;
 }
 
+#banner:hover header h1,
 header h1:hover {
   color: #ffffff;
   text-shadow: 0 0 10px #000000;
@@ -57,6 +69,13 @@ nav a {
   float: left;
   padding: 0 3em;
   display: block;
+}
+
+.code-tldr p:first-line {
+  font-size: 1.5em;
+  font-style: italic;
+  margin-bottom: 4ex;
+  color: #555753;
 }
 
 .projects ul {
