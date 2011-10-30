@@ -1,61 +1,57 @@
 body {
-    font-family: sans;
-    width: 800px;
-    margin: 1em auto;
-    color: #2e3436;
-}
-
-div#box {
-    border: solid #2e3436 1px;
+  font-family: sans;
+  width: 800px;
+  margin: 1em auto;
+  color: #2e3436;
 }
 
 header, nav, section#content, footer {
-    padding: 1em;
+  padding: 1em;
 }
 
 nav {
-    background-color: #2e3436;
-    padding: 0.6em 0 0.6em 0;
-    height: 1.5em;
-    line-height: 1.5em;
-    margin: 0;
-    padding: 0;
+  background-color: #2e3436;
+  padding: 0.6em 0 0.6em 0;
+  height: 1.5em;
+  line-height: 1.5em;
+  margin: 0;
+  padding: 0;
 }
 
 nav span {
-    background-color: #2e3436;
-    font-weight: bold;
-    padding: 0.6em;
+  background-color: #2e3436;
+  font-weight: bold;
+  padding: 0.6em;
 }
 
 nav .current {
-    background-color: #555753;
+  background-color: #555753;
 }
 
 nav a {
-    color: #fefefc;
-    height: 100%;
-    float: left;
-    text-decoration: none;
-    padding: 0 0.25em 0 0.25em;
-    display: block;
+  color: #fefefc;
+  height: 100%;
+  float: left;
+  text-decoration: none;
+  padding: 0 0.25em 0 0.25em;
+  display: block;
 }
 
 footer {
-    color: gray;
-    text-align: center;
-    font-size: small;
+  color: gray;
+  text-align: center;
+  font-size: small;
 }
 
 footer a {
-    color: gray;
-    text-decoration: none;
+  color: gray;
+  text-decoration: none;
 }
 
 pre {
-    border: dotted black 1px;
-    background: #eeeeec;
-    font-size: small;
-    padding: 1em;
+  border: dotted black 1px;
+  background: #eeeeec;
+  font-size: small;
+  padding: 1em;
 }
 

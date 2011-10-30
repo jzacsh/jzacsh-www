@@ -1,34 +1,34 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset={{ __encoding__ }}" />
-    <title>poole - {{ page["title"] }}</title>
-    <meta name="description" content="{{ page.get("description", "a poole site") }}" />
-    <meta name="keywords" content="{{ page.get("keywords", "poole") }}" />
-    <link rel="stylesheet" type="text/css" href="poole.css" />
+  <meta http-equiv="Content-Type" content="text/html; charset={{ __encoding__ }}" />
+  <title>poole - {{ page["title"] }}</title>
+  <meta name="description" content="{{ page.get("description", "a poole site") }}" />
+  <meta name="keywords" content="{{ page.get("keywords", "poole") }}" />
+  <link rel="stylesheet" type="text/css" href="poole.css" />
 </head>
 <body>
-    <div id="box">
-    <header>
-         <h1>a poole site</h1>
-    </header>
-    <nav id="menu">
-    <!--%
-        mpages = [p for p in pages if "menu-position" in p]
-        mpages.sort(key=lambda p: int(p["menu-position"]))
-        entry = '<a class="%s" href="%s">%s</a>'
-        for p in mpages:
-            style = p["title"] == page["title"] and "current" or ""
-            print(entry % (style, p["url"], p["title"]))
-    %-->
-    </nav>
-    <section id="content">{{ __content__ }}</section><!--//#content-->
-  </div><!--//#box-->
+  <section id="box">
+  <header>
+     <h1>a poole site</h1>
+  </header>
+  <nav id="menu">
+  <!--%
+    mpages = [p for p in pages if "menu-position" in p]
+    mpages.sort(key=lambda p: int(p["menu-position"]))
+    entry = '<a class="%s" href="%s">%s</a>'
+    for p in mpages:
+        style = p["title"] == page["title"] and "current" or ""
+        print(entry % (style, p["url"], p["title"]))
+  %-->
+  </nav>
+  <article id="content">{{ __content__ }}</article><!--//#content-->
+  </section><!--//#box-->
 
-    <footer>
-        <span class="built">Built with:</span> <a href="http://bitbucket.org/obensonne/poole">Poole</a>
-        &middot;
-        <a href="https://github.com/jzacsh/bin/blob/master/share/build_int">build_int</a>
-    </footer>
+  <footer>
+    <span class="built">Built with:</span> <a href="http://bitbucket.org/obensonne/poole">Poole</a>
+    &middot;
+    <a href="https://github.com/jzacsh/bin/blob/master/share/build_int">build_int</a>
+  </footer>
 </body>
 </html>
