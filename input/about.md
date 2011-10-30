@@ -5,12 +5,12 @@ menu-position: 9
 
 ## Jonathan Zacsh
 
-I'm a computer science student, currently working full time as a web developer.
-Most of my experience is in [drupal][] module and theme development, but
-I also spend a decent amount of time studying/playing with:
+I'm a software developer, currently working full time in web developement.
+Most of my experience is with [drupal][], but I spend a decent amount of time
+studying/playing with:
 
-  * node.js
-  * python
+  * node.js, like: [study.js][studyjs]
+  * python, like: [imagedex][]
   * client-side javascript
 
 I am also a lover of the [awesome music][amazonmusic] [last.fm][lastfm] brings my way.
@@ -42,14 +42,6 @@ free to let me know.
   <div class="fork">
   To fork this, run: <input
     value="git clone git://github.com/jzacsh/bin.git" />
-  </div>
-
-* [study.js][studyjs]<br />
-  Study.js is a flash card application to help you study. Under active
-  development, study.js is being written in node.js with a mongodb data store.
-  <div class="fork">
-  To fork this, run: <input
-    value="git clone git://jzacsh.com/foss/studyjs.git" />
   </div>
 
 * [drupalsh][]<br />
@@ -97,6 +89,7 @@ Feel free to clone any project you find listed, by using the URL structure:
 [punch]: https://github.com/jzacsh/punch
 [build_int]: https://github.com/jzacsh/bin/blob/master/share/build_int
 [studyjs]: http://code.jzacsh.com/?p=foss/studyjs.git
+[imagedex]: https://github.com/jzacsh/imagedex
 [drupalsh]: https://github.com/jzacsh/drupalsh
 [etherback]: https://github.com/jzacsh/bin/blob/master/share/etherback
 [gitweb]: http://code.jzacsh.com/
