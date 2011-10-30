@@ -9,20 +9,22 @@
 </head>
 <body>
   <section>
-    <header>
-       <h1>jzacsh</h1>
-    </header>
+    <div id="banner">
+      <header>
+         <h1>jzacsh</h1>
+      </header>
 
-    <nav id="menu">
-    <!--%
-      mpages = [p for p in pages if "menu-position" in p]
-      mpages.sort(key=lambda p: int(p["menu-position"]))
-      entry = '<a class="%s" href="%s">%s</a>'
-      for p in mpages:
-          style = p["title"] == page["title"] and "current" or ""
-          print(entry % (style, p["url"], p["title"]))
-    %-->
-    </nav>
+      <nav id="menu">
+      <!--%
+        mpages = [p for p in pages if "menu-position" in p]
+        mpages.sort(key=lambda p: int(p["menu-position"]))
+        entry = '<a class="%s" href="%s">%s</a>'
+        for p in mpages:
+            style = p["title"] == page["title"] and "current" or ""
+            print(entry % (style, p["url"], p["title"]))
+      %-->
+      </nav>
+    </div><!--//#banner-->
 
     <article id="content">{{ __content__ }}</article><!--//#content-->
   </section>
