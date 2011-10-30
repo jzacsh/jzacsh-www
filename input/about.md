@@ -6,14 +6,14 @@ menu-position: 9
 ## Jonathan Zacsh
 
 I'm a computer science student, currently working full time as a web developer.
-Most of my experience is in [drupal][drupal] module and theme development, but
+Most of my experience is in [drupal][] module and theme development, but
 I also spend a decent amount of time studying/playing with:
 
 * node.js
 * python
 * client-side javascript
 
-I am also a lover of the [awesome music][amazonmusic] last.fm brings my way.
+I am also a lover of the [awesome music][amazonmusic] [last.fm][lastfm] brings my way.
 
 ###Code
 
@@ -25,7 +25,7 @@ free to let me know.
 
 <section class="projects" markdown="1">
 
-* [punch][punch]<br />
+* [punch][]<br />
   Punch is a cli utility to handle time–tracking. Though punch was first written
   in bash for a "punch–card" model of use, I am now actively porting/rewriting it
   in node.js to provide a real–time web interface.
@@ -33,7 +33,7 @@ free to let me know.
   To fork this, run: ```git clone git://github.com/jzacsh/punch.git```
   </div>
 
-* [build_int][build_int]<br />
+* [build_int][]<br />
   Build–int is a light-weight continous integration script written in bash to be
   run in cron. It works by polling for changes with `git` and rebuilding the
   target repository if necessary, always leaving out repo files, (eg.: .git/
@@ -49,14 +49,14 @@ free to let me know.
   To fork this, run: ```git clone git://jzacsh.com/foss/studyjs.git```
   </div>
 
-* [drupalsh][drupalsh]<br />
+* [drupalsh][]<br />
   Drupalsh is a set of bash scripts and functions for Drupal developers who spend
   a lot of time on the command line running through typical drupal–related tasks.
   <div class="fork">
   To fork this, run: ```git clone git://github.com/jzacsh/drupalsh.git```
   </div>
 
-* [etherback][etherback]<br />
+* [etherback][]<br />
   etherback is a bash script to automatically backup any etherpad (or any
   raw–text source) document. Specifically, its made to run in cron, as this
   scirpt doesn't bother creating new backup files if it sees an old backup with
@@ -78,7 +78,7 @@ The most useful stuff is generally in ~/bin/share and ~/bin/lib.
 
 A lot of code I write for fun isn't necessarily github-exposure-worthy,
 but still open sourced. All code not found on github is [served directly from
-gitweb][gitweb] as hosted by [gitolite][gitolite].
+gitweb][] as hosted by [gitolite][].
 
 ####Sneakily Forking my Stuff
 
@@ -104,3 +104,4 @@ just ```git clone``` the URL:
 [gitweb]: http://code.jzacsh.com/
 [gitolite]: https://github.com/sitaramc/gitolite/wiki/ "self-hosted, self-managed git repositories."
 [amazonmusic]: http://amzn.com/w/3BQ5MBGPPCPZS
+[lastfm]: http://www.last.fm/user/jzacsh
