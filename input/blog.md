@@ -1,4 +1,4 @@
-menu-position: 10
+menu-position: 3
 ---
 Poole has basic blog support. If an input page's file name has a structure like
 `page-title.YYYY-MM-DD.post-title.md`, e.g. `blog.201010-02-27.read_this.md`,
