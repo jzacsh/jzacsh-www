@@ -78,7 +78,7 @@ The most useful stuff is generally in `~/bin/share` and `~/bin/lib`.
 
 A lot of code I write for fun isn't necessarily worthy of github-exposure, but
 still open sourced. All code not found on github is [served directly from
-gitweb][gitweb] as hosted by [gitolite][].
+gitweb][gitweb] (_hat tip to [gitolite][]_).
 
 ####Sneakily Forking my Stuff
 
