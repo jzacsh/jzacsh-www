@@ -55,9 +55,10 @@ me know.
 ##Other Code
 
 If I've had particular fun writing a script, I'll probably make note of it in
-the above list (eg.: etherback). However, since none of them deserve their very
-own repo, you can find them all bundled together in my personal ~/bin/ scripts.
-The most useful stuff is generally in `~/bin/share` and `~/bin/lib`.
+the above list (_eg.: etherback_). However, since none of them deserve their very
+own repo, you can find them all bundled together in [my personal `~/bin/`
+scripts][binscripts]. The most useful stuff is generally in
+[`~/bin/share`][binshare] and [`~/bin/lib`][binlib].
 
 ###Off the Github Track, code.jzacsh.com
 
@@ -80,3 +81,6 @@ Feel free to clone any project you find listed, by using the URL structure:
 [gitweb]: http://code.jzacsh.com/
 [gitolite]: https://github.com/sitaramc/gitolite/wiki/ "self-hosted, self-managed git repositories."
 [drupalsh]: https://github.com/jzacsh/drupalsh
+[binscripts]: https://github.com/jzacsh/bin
+[binshare]: https://github.com/jzacsh/bin/tree/master/share
+[binlib]:  https://github.com/jzacsh/bin/tree/master/lib
