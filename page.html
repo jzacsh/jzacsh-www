@@ -9,20 +9,22 @@
 </head>
 <body>
   <section id="box">
-  <header>
-     <h1>jzacsh</h1>
-  </header>
-  <nav id="menu">
-  <!--%
-    mpages = [p for p in pages if "menu-position" in p]
-    mpages.sort(key=lambda p: int(p["menu-position"]))
-    entry = '<a class="%s" href="%s">%s</a>'
-    for p in mpages:
-        style = p["title"] == page["title"] and "current" or ""
-        print(entry % (style, p["url"], p["title"]))
-  %-->
-  </nav>
-  <article id="content">{{ __content__ }}</article><!--//#content-->
+    <header>
+       <h1>jzacsh</h1>
+    </header>
+
+    <nav id="menu">
+    <!--%
+      mpages = [p for p in pages if "menu-position" in p]
+      mpages.sort(key=lambda p: int(p["menu-position"]))
+      entry = '<a class="%s" href="%s">%s</a>'
+      for p in mpages:
+          style = p["title"] == page["title"] and "current" or ""
+          print(entry % (style, p["url"], p["title"]))
+    %-->
+    </nav>
+
+    <article id="content">{{ __content__ }}</article><!--//#content-->
   </section><!--//#box-->
 
   <footer>
@@ -36,8 +38,9 @@
     </div>
 
     <p class="built-with">
-    Continuously built using <a
+    Continuously built using <a title="A damn simple static website generator."
       href="http://bitbucket.org/obensonne/poole">poole</a> &amp; <a
+      title="self-hosted, self-managed git repositories."
       href="https://github.com/sitaramc/gitolite/wiki/">gitolite</a>
     </p>
   </footer>
