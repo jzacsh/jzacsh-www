@@ -23,7 +23,9 @@ though, these are utilities I tried to write with some sort of re–usability in
 mind, so others can enjoy. If anything comes in handy (or breaks) please feel
 free to let me know.
 
-* [punch][punch]
+<section class="projects" markdown="1">
+
+* [punch][punch]<br />
   Punch is a cli utility to handle time–tracking. Though punch was first written
   in bash for a "punch–card" model of use, I am now actively porting/rewriting it
   in node.js to provide a real–time web interface.
@@ -31,7 +33,7 @@ free to let me know.
   To fork this, run: ```git clone git://github.com/jzacsh/punch.git```
   </div>
 
-* [build_int][build_int]
+* [build_int][build_int]<br />
   Build–int is a light-weight continous integration script written in bash to be
   run in cron. It works by polling for changes with `git` and rebuilding the
   target repository if necessary, always leaving out repo files, (eg.: .git/
@@ -40,21 +42,21 @@ free to let me know.
   To fork this, run: ```git clone git://github.com/jzacsh/bin.git```
   </div>
 
-* [study.js][studyjs]
+* [study.js][studyjs]<br />
   Study.js is a flash card application to help you study. Under active
   development, study.js is being written in node.js with a mongodb data store.
   <div class="fork">
   To fork this, run: ```git clone git://jzacsh.com/foss/studyjs.git```
   </div>
 
-* [drupalsh][drupalsh]
+* [drupalsh][drupalsh]<br />
   Drupalsh is a set of bash scripts and functions for Drupal developers who spend
   a lot of time on the command line running through typical drupal–related tasks.
   <div class="fork">
   To fork this, run: ```git clone git://github.com/jzacsh/drupalsh.git```
   </div>
 
-* [etherback][etherback]
+* [etherback][etherback]<br />
   etherback is a bash script to automatically backup any etherpad (or any
   raw–text source) document. Specifically, its made to run in cron, as this
   scirpt doesn't bother creating new backup files if it sees an old backup with
@@ -62,6 +64,8 @@ free to let me know.
   <div class="fork">
   To fork this, run: ```curl -s https://raw.github.com/jzacsh/bin/master/share/etherback```
   </div>
+
+</section><!--//.projects-->
 
 ###Other Code
 
@@ -98,5 +102,5 @@ just ```git clone``` the URL:
 [drupalsh]: https://github.com/jzacsh/drupalsh
 [etherback]: https://github.com/jzacsh/bin/blob/master/share/etherback
 [gitweb]: http://code.jzacsh.com/
-[gitolite]: https://github.com/sitaramc/gitolite/wiki/
+[gitolite]: https://github.com/sitaramc/gitolite/wiki/ "self-hosted, self-managed git repositories."
 [amazonmusic]: http://amzn.com/w/3BQ5MBGPPCPZS
