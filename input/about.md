@@ -9,9 +9,9 @@ I'm a computer science student, currently working full time as a web developer.
 Most of my experience is in [drupal][] module and theme development, but
 I also spend a decent amount of time studying/playing with:
 
-* node.js
-* python
-* client-side javascript
+  * node.js
+  * python
+  * client-side javascript
 
 I am also a lover of the [awesome music][amazonmusic] [last.fm][lastfm] brings my way.
 
@@ -72,27 +72,22 @@ free to let me know.
 If I've had particular fun writing a script, I'll probably make note of it in
 the above list (eg.: etherback). However, since none of them deserve their very
 own repo, you can find them all bundled together in my personal ~/bin/ scripts.
-The most useful stuff is generally in ~/bin/share and ~/bin/lib.
+The most useful stuff is generally in `~/bin/share` and `~/bin/lib`.
 
 ####Off the Github Track, code.jzacsh.com
 
-A lot of code I write for fun isn't necessarily github-exposure-worthy,
-but still open sourced. All code not found on github is [served directly from
-gitweb][] as hosted by [gitolite][].
+A lot of code I write for fun isn't necessarily worthy of github-exposure, but
+still open sourced. All code not found on github is [served directly from
+gitweb][gitweb] as hosted by [gitolite][].
 
 ####Sneakily Forking my Stuff
 
 Feel free to clone any project you find listed, by using
 the URL structure: ```git://jzacsh.com/directory/repo.git```
 
-So for example, to clone the "kittens" project from the URL:
-```bash
-    http://code.jzacsh.com/?p=foss/kittens.git
+eg. For project "kittens" (```http://code.jzacsh.com/?p=foss/kittens.git```), do:
 ```
-
-just ```git clone``` the URL:
-```
-    git://jzacsh.com/foss/kittens.git
+    git clone git://jzacsh.com/foss/kittens.git
 ```
 
 [drupal]: http://drupal.org/user/427067
