@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!doctype html>
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset={{ __encoding__ }}" />
     <title>poole - {{ page["title"] }}</title>
@@ -9,28 +9,29 @@
 </head>
 <body>
     <div id="box">
-    <div id="header">
+    <header>
          <h1>a poole site</h1>
          <h2>{{ page["title"] }}</h2>
-    </div>
-    <div id="menu">
+    </header>
+    <nav id="menu">
     <!--%
         mpages = [p for p in pages if "menu-position" in p]
         mpages.sort(key=lambda p: int(p["menu-position"]))
-        entry = '<span class="%s"><a href="%s">%s</a></span>'
+        entry = '<a class="%s" href="%s">%s</a>'
         for p in mpages:
             style = p["title"] == page["title"] and "current" or ""
             print(entry % (style, p["url"], p["title"]))
     %-->
-    </div>
-    <div id="content">{{ __content__ }}</div>
-    </div>
-    <div id="footer">
-        Built with <a href="http://bitbucket.org/obensonne/poole">Poole</a>
+    </nav>
+    <section id="content">{{
+      __content__
+      }}</div><!--//#content-->
+    </section>
+
+    <footer>
+        <span class="built">Built with:</span> <a href="http://bitbucket.org/obensonne/poole">Poole</a>
         &middot;
-        Licensed as <a href="http://creativecommons.org/licenses/by-sa/3.0">CC-SA</a>
-        &middot;
-        <a href="http://validator.w3.org/check?uri=referer">Validate me</a>
-    </div>
+        <a href="https://github.com/jzacsh/bin/blob/master/share/build_int">build_int</a>
+    </footer>
 </body>
 </html>

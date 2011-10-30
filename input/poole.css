@@ -1,41 +1,49 @@
-
 body {
     font-family: sans;
     width: 800px;
     margin: 1em auto;
     color: #2e3436;
 }
+
 div#box {
     border: solid #2e3436 1px;
 }
-div#header, div#menu, div#content, div#footer {
+
+header, nav, section#content, footer {
     padding: 1em;
 }
-div#menu {
+
+nav {
     background-color: #2e3436;
     padding: 0.6em 0 0.6em 0;
 }
-#menu span {
+
+nav span {
     background-color: #2e3436;
     font-weight: bold;
     padding: 0.6em;
 }
-#menu span.current {
+
+nav .current {
     background-color: #555753;
 }
-#menu a {
+
+nav a {
     color: #fefefc;
     text-decoration: none;
 }
-div#footer {
+
+footer {
     color: gray;
     text-align: center;
     font-size: small;
 }
-div#footer a {
+
+footer a {
     color: gray;
     text-decoration: none;
 }
+
 pre {
     border: dotted black 1px;
     background: #eeeeec;
