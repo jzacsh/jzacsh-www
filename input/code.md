@@ -8,8 +8,8 @@ menu-position: 3
 If you find nothing on my github page, below are utilities I wrote because I
 needed the tool myself or I wanted to play with the technology. Bottom line,
 these are the ones I tried to write with _some_ sort of re–usability in mind,
-so others can enjoy. If anything comes in handy (or breaks) please feel free
-to let me know.
+so others can enjoy. If anything comes in handy (_or breaks_) feel free to let
+me know.
 
 <section class="projects" markdown="1">
 
@@ -62,7 +62,7 @@ The most useful stuff is generally in `~/bin/share` and `~/bin/lib`.
 ###Off the Github Track, code.jzacsh.com
 
 A lot of code I write for fun isn't necessarily worthy of github-exposure, but
-still open sourced. All code not found on github is [served directly from
+I still open source it. All code not found on github is [served directly from
 gitweb][gitweb] (_hat tip to [gitolite][]_).
 
 ###Sneakily Forking my Stuff
