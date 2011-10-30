@@ -8,10 +8,12 @@ menu-position: 9
 I'm a computer science student, currently working full time as a web developer.
 Most of my experience is in [drupal][drupal] module and theme development, but
 I also spend a decent amount of time studying/playing with:
+
 * node.js
+* python
 * client-side javascript
-* Python
-I am also a lover of the awesome music last.fm brings my way.
+
+I am also a lover of the [awesome music][amazonmusic] last.fm brings my way.
 
 ###Code
 
@@ -70,9 +72,9 @@ The most useful stuff is generally in ~/bin/share and ~/bin/lib.
 
 ####Off the Github Track, code.jzacsh.com
 
-A lot of code I write for fun or to simply study isn't github-exposure
-necessary. but is still open sourced. All code not found on github is served
-directly from my own server, using gitolite and gitweb.
+A lot of code I write for fun isn't necessarily github-exposure-worthy,
+but still open sourced. All code not found on github is [served directly from
+gitweb][gitweb] as hosted by [gitolite][gitolite].
 
 ####Sneakily Forking my Stuff
 
@@ -95,3 +97,6 @@ just ```git clone``` the URL:
 [studyjs]: http://code.jzacsh.com/?p=foss/studyjs.git
 [drupalsh]: https://github.com/jzacsh/drupalsh
 [etherback]: https://github.com/jzacsh/bin/blob/master/share/etherback
+[gitweb]: http://code.jzacsh.com/
+[gitolite]: https://github.com/sitaramc/gitolite/wiki/
+[amazonmusic]: http://amzn.com/w/3BQ5MBGPPCPZS
