@@ -1,4 +1,3 @@
-
 menu-position: 10
 ---
 Poole has basic blog support. If an input page's file name has a structure like

@@ -11,7 +11,6 @@
     <div id="box">
     <header>
          <h1>a poole site</h1>
-         <h2>{{ page["title"] }}</h2>
     </header>
     <nav id="menu">
     <!--%
@@ -23,10 +22,8 @@
             print(entry % (style, p["url"], p["title"]))
     %-->
     </nav>
-    <section id="content">{{
-      __content__
-      }}</div><!--//#content-->
-    </section>
+    <section id="content">{{ __content__ }}</section><!--//#content-->
+  </div><!--//#box-->
 
     <footer>
         <span class="built">Built with:</span> <a href="http://bitbucket.org/obensonne/poole">Poole</a>
