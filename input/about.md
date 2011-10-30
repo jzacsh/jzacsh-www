@@ -30,7 +30,8 @@ free to let me know.
   in bash for a "punch–card" model of use, I am now actively porting/rewriting it
   in node.js to provide a real–time web interface.
   <div class="fork">
-  To fork this, run: `git clone git://github.com/jzacsh/punch.git`
+  To fork this, run: <input
+    value="git clone git://github.com/jzacsh/punch.git" />
   </div>
 
 * [build_int][]<br />
@@ -39,21 +40,24 @@ free to let me know.
   target repository if necessary, always leaving out repo files, (eg.: .git/
   directory).
   <div class="fork">
-  To fork this, run: `git clone git://github.com/jzacsh/bin.git`
+  To fork this, run: <input
+    value="git clone git://github.com/jzacsh/bin.git" />
   </div>
 
 * [study.js][studyjs]<br />
   Study.js is a flash card application to help you study. Under active
   development, study.js is being written in node.js with a mongodb data store.
   <div class="fork">
-  To fork this, run: `git clone git://jzacsh.com/foss/studyjs.git`
+  To fork this, run: <input
+    value="git clone git://jzacsh.com/foss/studyjs.git" />
   </div>
 
 * [drupalsh][]<br />
   Drupalsh is a set of bash scripts and functions for Drupal developers who spend
   a lot of time on the command line running through typical drupal–related tasks.
   <div class="fork">
-  To fork this, run: `git clone git://github.com/jzacsh/drupalsh.git`
+  To fork this, run: <input
+    value="git clone git://github.com/jzacsh/drupalsh.git" />
   </div>
 
 * [etherback][]<br />
@@ -62,7 +66,8 @@ free to let me know.
   scirpt doesn't bother creating new backup files if it sees an old backup with
   the same contents already exists in its destination directory.
   <div class="fork">
-  To fork this, run: `curl -s https://raw.github.com/jzacsh/bin/master/share/etherback`
+  To fork this, run: <input
+    value="curl -s https://raw.github.com/jzacsh/bin/master/share/etherback" />
   </div>
 
 </section><!--//.projects-->

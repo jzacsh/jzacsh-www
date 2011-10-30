@@ -1,5 +1,5 @@
 body {
-  font-family: sans;
+  font-family: sans-serif;
   width: 700px;
   margin: 1em auto;
   font-size: 12px;
@@ -74,12 +74,33 @@ nav a {
   border-top: 1px dotted #cccccc;
 }
 
+.projects .fork input {
+  color: #000000;
+  background-color: transparent;
+
+  font-weight: normal;
+  font-size: normal;
+  padding: 1px 2px 1px 2px;
+  margin-left: 1ex;
+  border: 0;
+  outline: 1px solid #dddddd;
+  line-height: inherit;
+  font-family: monospace;
+
+  width: 30em;
+  text-align: right;
+}
+
+.projects .fork input:focus {
+  outline: 0;
+}
+
 footer {
   border-top: 1px solid #333333;
   padding: 0.5ex 1ex 0.5ex 1ex;
   margin-top: 2ex;
   color: #ffffff;
-  background-color: rgba(92, 85, 78, .90);
+  background-color: rgba(92, 85, 78, .45);
   background-color: rgba(125, 125, 125, .85);
   position: fixed;
   width: inherit;
@@ -94,7 +115,7 @@ body {
 
 footer:hover {
   background-color: rgba(92, 85, 78, 1);
-  background-color: rgba(125, 125, 125, 1);
+  background-color: rgba(125, 125, 125, .9);
   box-shadow: 1px -1px 6ex #888888;
 }
 
