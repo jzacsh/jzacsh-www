@@ -75,29 +75,8 @@ nav a {
 }
 
 footer {
-  color: gray;
-  text-align: center;
-  font-size: small;
-}
-
-footer .elsewhere > * {
-  float: left;
-}
-
-footer * {
-  background-color: none;
-}
-
-footer ul {
-  list-style-type: none;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-left: 0;
-}
-
-footer {
   border-top: 1px solid #333333;
-  padding: 1ex;
+  padding: 0.5ex 1ex 0.5ex 1ex;
   margin-top: 2ex;
   color: #ffffff;
   background-color: rgba(92, 85, 78, .90);
@@ -108,10 +87,19 @@ footer {
   box-shadow: 1px -1px 8ex #666666;
 }
 
+/* because of our footer */
+body {
+  padding-bottom: 2em;
+}
+
 footer:hover {
   background-color: rgba(92, 85, 78, 1);
   background-color: rgba(125, 125, 125, 1);
   box-shadow: 1px -1px 6ex #888888;
+}
+
+footer * {
+  background-color: none;
 }
 
 footer a {
@@ -125,7 +113,19 @@ footer a:hover {
   color: #ffffff;
 }
 
-footer li {
+
+footer .elsewhere > * {
+  float: left;
+}
+
+footer .elsewhere ul {
+  list-style-type: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+footer .elsewhere li {
   float: left;
   display: inline;
   margin-left: .5em;
@@ -134,15 +134,11 @@ footer li {
   border-left: 1px solid #383838;
 }
 
-footer li.first {
+footer .elsewhere li.first {
   border-left: 0;
 }
 
-footer .elsewhere > * {
-  float: left;
-}
-
-footer #built-ci {
+footer .built-with {
   float: right;
   margin-top: 0;
   margin-bottom: 0;
