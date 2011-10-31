@@ -2,6 +2,11 @@
  * Styles that apply mainly to static pages.
  */
 
+header, footer, nav, article {
+  /* for older browsers */
+  display: block;
+}
+
 body {
   font-family: sans-serif;
   width: 700px;
