@@ -1,2 +1,4 @@
-.swp
-.swo
+*.swp
+*.swo
+*.pyc
+output

@@ -1,0 +1,214 @@
+/**
+ * Styles that apply mainly to static pages.
+ */
+
+header, footer, nav, article {
+  /* for older browsers */
+  display: block;
+}
+
+body {
+  font-family: sans-serif;
+  width: 700px;
+  margin: 1em auto;
+  font-size: 12px;
+  color: #2e3436;
+}
+
+a {
+  color: #7A63FF;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+nav, section#content, footer {
+  padding: 1em;
+}
+
+article {
+  padding-left: 1ex;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-left: -1ex;
+  margin-top: 3ex;
+  margin-bottom: 0.5ex;
+}
+
+header h1 {
+  text-align: right;
+/*color: #555753; */
+  color: rgba(125, 125, 125, 1);
+  line-height: 0.4em;
+  font-size: 3.15em;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  right: -1px;
+  text-shadow: 0 0 1px #000000;
+}
+
+#banner:hover header h1,
+header h1:hover {
+  color: #ffffff;
+  text-shadow: 0 0 10px #000000;
+}
+
+nav {
+  background-color: #2e3436;
+  padding: 0.6em 0 0.6em 0;
+  height: 1.5em;
+  line-height: 1.5em;
+  margin: 0;
+  padding: 0;
+}
+
+nav a:hover,
+nav .current {
+  background-color: #555753;
+  text-decoration: none;
+}
+
+nav a {
+  color: #fefefc;
+  height: 100%;
+  float: left;
+  padding: 0 3em;
+  display: block;
+}
+
+.code-tldr p:first-line {
+  font-size: 1.5em;
+  font-style: italic;
+  margin-bottom: 4ex;
+  color: #555753;
+}
+
+.projects ul {
+  list-style: none;
+}
+
+.projects li > p {
+  margin-left: 5em;
+  margin-bottom: 1em;
+}
+
+.projects li > p a {
+  position: relative;
+  left: -5em;
+}
+
+.projects .fork {
+  text-align: right;
+  display: block;
+  font-style: italic;
+  padding-top: .5ex;
+  margin-top: .5ex;
+  border-top: 1px dotted #cccccc;
+}
+
+.projects .fork input {
+  /**
+   * @TODO: I can haz rounded corners?
+   */
+  color: #000000;
+  background-color: transparent;
+
+  font-weight: normal;
+  font-size: normal;
+  padding: 1px 2px 1px 2px;
+  margin-left: 1ex;
+  border: 0;
+  outline: 1px solid #dddddd;
+  line-height: inherit;
+  font-family: monospace;
+
+  width: 30em;
+  text-align: right;
+}
+
+.projects .fork input:focus {
+  outline: 0;
+}
+
+footer {
+  border-top: 1px solid #333333;
+  padding: 0.5ex 1ex 0.5ex 1ex;
+  margin-top: 2ex;
+  color: #ffffff;
+  background-color: rgba(92, 85, 78, .45);
+  background-color: rgba(125, 125, 125, .85);
+  position: fixed;
+  width: inherit;
+  bottom: 0;
+  box-shadow: 1px -1px 8ex #666666;
+}
+
+/* because of our footer */
+body {
+  padding-bottom: 2em;
+}
+
+footer:hover {
+  background-color: rgba(92, 85, 78, 1);
+  background-color: rgba(125, 125, 125, .9);
+  box-shadow: 1px -1px 6ex #888888;
+}
+
+footer * {
+  background-color: none;
+}
+
+footer a {
+  text-decoration: none;
+  color: #eeeeee;
+  color: #000000;
+}
+
+footer a:hover {
+  color: #7A63FF;
+  color: #ffffff;
+}
+
+
+footer .elsewhere > * {
+  float: left;
+}
+
+footer .elsewhere ul {
+  list-style-type: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+footer .elsewhere li {
+  float: left;
+  display: inline;
+  margin-left: .5em;
+  padding-left: .5em;
+  border-left: 1px solid #888888;
+  border-left: 1px solid #383838;
+}
+
+footer .elsewhere li.first {
+  border-left: 0;
+}
+
+footer .built-with {
+  float: right;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-style: italic;
+}
+
+pre {
+  border: dotted black 1px;
+  background: #eeeeec;
+  font-size: small;
+  padding: 1em;
+}
+

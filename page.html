@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset={{ __encoding__ }}" />
+  <title>jzacsh - {{ page["title"] }}</title>
+  <meta name="description" content="{{ page.get("description", "Jonathan Zacsh Homepage") }}" />
+  <meta name="keywords" content="{{ page.get("keywords", "jzacsh") }}" />
+  <link rel="stylesheet" type="text/css" href="global.css" />
+</head>
+<body>
+  <section>
+    <div id="banner">
+      <header>
+         <h1>jzacsh</h1>
+      </header>
+
+      <nav id="menu">
+      <!--%
+        mpages = [p for p in pages if "menu-position" in p]
+        mpages.sort(key=lambda p: int(p["menu-position"]))
+        entry = '<a class="%s" href="%s">%s</a>'
+        for p in mpages:
+            style = p["title"] == page["title"] and "current" or ""
+            print(entry % (style, p["url"], p["title"]))
+      %-->
+      </nav>
+    </div><!--//#banner-->
+
+    <article id="content">{{ __content__ }}</article><!--//#content-->
+  </section>
+
+  <footer>
+    <div class="elsewhere">
+      <span class="title">elsewhere:</span>
+      <ul>
+        <li class="first" id="social-google"><a href="http://profiles.google.com/jzacsh/">google+</a></li>
+        <li id="social-twitter<"><a href="http://www.twitter.com/jzacsh/">twitter</a></li>
+        <li id="social-github<"><a href="http://www.github.com/jzacsh/">github</a></li>
+        <li class="last" id="social-code<"><a href="http://code.jzacsh.com/">+code</a></li>
+      </ul>
+    </div>
+
+    <p class="built-with">
+    Continuously built using <a title="A damn simple static website generator."
+      href="http://bitbucket.org/obensonne/poole">poole</a> &amp; <a
+      title="self-hosted, self-managed git repositories."
+      href="https://github.com/sitaramc/gitolite/wiki/">gitolite</a>
+    </p>
+  </footer>
+</body>
+</html>
