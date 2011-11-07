@@ -73,6 +73,12 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 * Walden<br />
   by Henry David Thoreau
 
+* Common Sense<br />
+  by Thomas Paine
+
+* The Age of Reason<br />
+  by Thomas Paine
+
 * Origin of Species<br />
   by Charles Darwin
 
