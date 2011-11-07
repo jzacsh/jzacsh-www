@@ -12,7 +12,7 @@ studying/playing with:
   * python, like: [imagedex][]
   * client-side javascript
 
-I am also a lover of the [awesome music][amazonmusic] [last.fm][lastfm] brings my way.
+I am also a lover of the [music][amazonmusic] [last.fm][lastfm] brings my way.
 
 [software]: code.html
 [studyjs]: http://code.jzacsh.com/?p=foss/studyjs.git
