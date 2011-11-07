@@ -18,8 +18,9 @@ menu-position: 4
     + 2010-10-31: harvest brown ale; absolutely awesome
 
 ### Movies I haven't seen
-Famous good or bad movies that seem to be a big deal, I feel obligated to see.
-Also movies that might not be famous but I've heard great things about.
+These are famous (_good or bad_) movies that seem to be a big deal and I feel
+obligated to see. Also movies that might not be famous but I've heard good
+things about.
 
 + Blazing Saddles
 + Silver Streak
