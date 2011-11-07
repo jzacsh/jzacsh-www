@@ -47,6 +47,7 @@ things about.
 Either because I haven't read them before or because I did and just don't
 remember them. The live source of this data is my [amazon "to-read"
 wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
+... I think this is in order of how I'm tackling them.
 
 * The God Delusion (*currently listening on audio*)<br />
   by Richard Dawkins
@@ -59,6 +60,21 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 
 * Mountaineering: The Freedom of the Hills (*currently reading*)<br />
   by The Mountaineers
+
+* Relativity<br />
+  by Albert Einstein
+
+* Infinite Jest<br />
+  by David Foster Wallace
+
+* The Shallows: What the Internet Is Doing to Our Brains<br />
+  by Nicholas Carr
+
+* Walden<br />
+  by Henry David Thoreau
+
+* Origin of Species<br />
+  by Charles Darwin
 
 * The Design of Everyday Things<br />
   by Donald A. Norman
@@ -83,12 +99,6 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 
 * Nmap Network Scanning: The Official Nmap Project Guide to Network Discovery and Security Scanning<br />
   by Gordon Fyodor Lyon
-
-* The Shallows: What the Internet Is Doing to Our Brains<br />
-  by Nicholas Carr
-
-* Infinite Jest<br />
-  by David Foster Wallace
 
 * The Modern Mind: An Intellectual History of the 20th Century<br />
   by Peter Watson
