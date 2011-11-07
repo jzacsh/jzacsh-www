@@ -48,11 +48,17 @@ Either because I haven't read them before or because I did and just don't
 remember them. The live source of this data is my [amazon "to-read"
 wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 
-* The God Delusion (*currently reading*)<br />
+* The God Delusion (*currently listening on audio*)<br />
   by Richard Dawkins
 
-* A Confederacy of Dunces
+* A Confederacy of Dunces (*currently listening on audio*)<br />
   by John Kennedy Toole
+
+* A Brief History of Time (*currently reading*)<br />
+  by Stephen Hawking
+
+* Mountaineering: The Freedom of the Hills (*currently reading*)<br />
+  by The Mountaineers
 
 * The Design of Everyday Things<br />
   by Donald A. Norman
