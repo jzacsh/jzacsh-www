@@ -178,6 +178,10 @@ footer .elsewhere > * {
   float: left;
 }
 
+footer .elsewhere .implied {
+  display: none;
+}
+
 footer .elsewhere ul {
   list-style-type: none;
   margin-top: 0;
