@@ -5,13 +5,13 @@ menu-position: 4
 ##Beer Log and Other Checklists
 
 ###Beers I want to remember are delicious.
-* [River Horse](http://www.riverhorse.com/" rel="nofollow)
+* [River Horse](http://www.riverhorse.com/)
 
     + origin: Lambertville, New Jersey
     + 2011-?-?: special ale
     + ?-?-?: american amber
 
-* [Long Trail](http://www.longtrail.com/" rel="nofollow)
+* [Long Trail](http://www.longtrail.com/)
 
     + origin: Vermont
     + 2010-?-?: double bag ale
