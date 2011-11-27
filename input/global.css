@@ -7,6 +7,10 @@ header, footer, nav, article {
   display: block;
 }
 
+del {
+  text-decoration: line-through;
+}
+
 body {
   font-family: sans-serif;
   width: 700px;

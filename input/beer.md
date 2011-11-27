@@ -49,7 +49,7 @@ remember them. The live source of this data is my [amazon "to-read"
 wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 ... I think this is in order of how I'm tackling them.
 
-* The God Delusion (*currently listening on audio*)<br />
+* <del>The God Delusion</del> (*on audio*)<br />
   by Richard Dawkins
 
 * A Confederacy of Dunces (*currently listening on audio*)<br />
