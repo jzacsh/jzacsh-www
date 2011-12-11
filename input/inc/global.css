@@ -220,3 +220,7 @@ pre {
   padding: 1em;
 }
 
+body.beerand .beerandlist > * {
+  display: none;
+}
+
