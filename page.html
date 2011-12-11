@@ -2,13 +2,23 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset={{ __encoding__ }}" />
-  <meta name="description" content="{{ page.get("description", "Jonathan Zacsh Homepage") }}" />
+  <meta name="description"
+    content="{{ page.get("description", "Jonathan Zacsh Homepage") }}" />
   <meta name="author" content="Jonathan Zacsh" />
-  <meta name="keywords" content="{{ page.get("keywords", "jzacsh") }}" />
+  <meta name="keywords" content="{{ page.get("keywords", "jzacsh Jonathan Zacsh") }}" />
+
   <link rel="stylesheet" type="text/css" href="inc/global.css" />
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+    type="text/javascript"></script>
+
+  <!--
+    all scripts should go here
+  -->
 
   <title>jzacsh - {{ page["title"] }}</title>
 
+  <script src="/inc/global.js" type="text/javascript"></script>
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-7526798-5']);
