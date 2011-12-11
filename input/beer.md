@@ -5,6 +5,8 @@ classes: beerand
 
 ##Beer Log and Other Checklists
 
+<div id="listing"></div>
+
 <div class="beerandlist" data-list="beer" markdown="1">
 
 ###Beers I want to remember are delicious.

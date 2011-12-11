@@ -14,12 +14,25 @@ jzacsh.jsEnabled = document.getElementsByTagName &&
  * All behaviors should be defined here, or in other javascript files.
  */
 jzacsh.behaviors.beerAndTabbed = function (context) {
-//console.log(jQuery('body.beerand .beerandlist', context)); //@TODO: remove me!!    
-//$('body.beerand .beerandlist', context).each(function () {
-//  console.log('boop'); //@TODO: remove me!!    
-//  $('<span class="tab">'+ $(this).attr('data-list') +'</span>')
-//    .insertBefore('h3', this);
-//});
+  if (! $('body').hasClass('beerand')) {
+    return;
+  }
+
+  //create tabs
+  var $listing = $('#listing', context);
+  $('body.beerand .beerandlist', context).each(function () {
+    var list = $(this).attr('data-list');
+    var tab = '<span class="tab" data-tab="'+ list +'">'+ list +'</span>';
+    $listing.append(tab);
+  });
+
+  //bind to new tabs
+  $('.tab', $listing).click(function () {
+    var requested = '[data-list="' + $(this).attr('data-tab') + '"]';
+    $('body.beerand beerandlist', context).not(requested).hide();
+
+    $(requested, context).show();
+  });
 }
 
 /**
@@ -33,7 +46,6 @@ $(document).ready(function () {
   if (jzacsh.jsEnabled) {
     // Execute all of them.
     jQuery.each(jzacsh.behaviors, function() {
-      console.log(this); //@TODO: remove me!!    
       this(context);
     });
   }
