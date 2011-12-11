@@ -27,7 +27,7 @@ jzacsh.behaviors.beerAndTabbed = function (context) {
  *
  * @note: I <3 Drupal
  */
-$(document).ready(function (context) {
+$(document).ready(function () {
   var context = context || document;
 
   if (jzacsh.jsEnabled) {
