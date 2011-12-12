@@ -24,7 +24,9 @@ jzacsh.behaviors.beerAndTabbed = function (context) {
   var $listing = $('#listing', context);
   $lists.each(function () {
     var list = $(this).attr('data-list');
-    var tab = '<span class="tab" data-tab="'+ list +'">'+ list +'</span>';
+    var tab = '<span class="tab clickable" data-tab="'+ list +'">';
+    tab += list + '</span>';
+
     $listing.append(tab);
   });
 

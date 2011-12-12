@@ -19,12 +19,13 @@ body {
   color: #2e3436;
 }
 
-a {
+a, .clickable, .button {
   color: #7A63FF;
   text-decoration: none;
+  cursor: pointer;
 }
 
-a:hover {
+a:hover, .clickable:hover {
   text-decoration: underline;
 }
 
