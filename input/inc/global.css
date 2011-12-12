@@ -230,7 +230,7 @@ footer .built-with {
 }
 
 pre {
-  border: dotted black 1px;
+  border: dotted #000000 1px;
   background: #eeeeec;
   font-size: small;
   padding: 1em;
@@ -252,6 +252,10 @@ body.beerand #listing .tab {
   float: left;
   padding-left: 1ex;
   padding-right: 1ex;
+}
+
+body.beerand #listing .tab.active {
+  font-weight: bold;
 }
 
 body.beerand .list {
