@@ -30,10 +30,21 @@ jzacsh.behaviors.beerAndTabbed = function (context) {
 
   //bind to new tabs
   $('.tab', $listing).click(function () {
-    var requested = '[data-list="' + $(this).attr('data-tab') + '"]';
+    var $this = $(this);
+    var requested = '[data-list="' + $this.attr('data-tab') + '"]';
+
+    //the tab
+    $this.addClass('active');
+    $('#listing .tab').not('[data-tab="'+ $this.attr('data-tab') +'"]')
+      .removeClass('active');
+
+    //the content
     $lists.not(requested).removeClass('active');
     $(requested).addClass('active');
   });
+
+  $('body.beerand .list[data-list="beer"]').addClass('active');
+  $('body.beerand #listing [data-tab="beer"]').addClass('active');
 }
 
 /**

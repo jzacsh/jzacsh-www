@@ -220,17 +220,22 @@ pre {
   padding: 1em;
 }
 
+/**
+ * start: beer.md-specific styling
+ */
+
 body.beerand #listing {
   border-bottom: 1px dotted #666666;
   height: 2em;
 }
 
 body.beerand #listing .tab {
+  line-height: 2em;
   height: 100%;
-  line-height: 100%;
   display: block;
   float: left;
-  padding: 1ex;
+  padding-left: 1ex;
+  padding-right: 1ex;
 }
 
 body.beerand .list {
@@ -240,4 +245,12 @@ body.beerand .list {
 body.beerand .list.active {
   display: block;
 }
+
+.beerand h1, .beerand h2, .beerand h3, .beerand h4, .beerand h5, .beerand h6 {
+  margin-left: inherit;
+}
+
+/**
+ * end: beer.md-specific styling
+ */
 
