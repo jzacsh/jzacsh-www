@@ -18,9 +18,11 @@ jzacsh.behaviors.beerAndTabbed = function (context) {
     return;
   }
 
+  var $lists = $('body.beerand .list', context);
+
   //create tabs
   var $listing = $('#listing', context);
-  $('body.beerand .beerandlist', context).each(function () {
+  $lists.each(function () {
     var list = $(this).attr('data-list');
     var tab = '<span class="tab" data-tab="'+ list +'">'+ list +'</span>';
     $listing.append(tab);
@@ -29,9 +31,8 @@ jzacsh.behaviors.beerAndTabbed = function (context) {
   //bind to new tabs
   $('.tab', $listing).click(function () {
     var requested = '[data-list="' + $(this).attr('data-tab') + '"]';
-    $('body.beerand beerandlist', context).not(requested).hide();
-
-    $(requested, context).show();
+    $lists.not(requested).removeClass('active');
+    $(requested).addClass('active');
   });
 }
 

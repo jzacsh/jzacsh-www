@@ -220,7 +220,24 @@ pre {
   padding: 1em;
 }
 
-body.beerand .beerandlist > * {
+body.beerand #listing {
+  border-bottom: 1px dotted #666666;
+  height: 2em;
+}
+
+body.beerand #listing .tab {
+  height: 100%;
+  line-height: 100%;
+  display: block;
+  float: left;
+  padding: 1ex;
+}
+
+body.beerand .list {
   display: none;
+}
+
+body.beerand .list.active {
+  display: block;
 }
 
