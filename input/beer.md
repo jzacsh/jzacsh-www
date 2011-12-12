@@ -7,7 +7,7 @@ classes: beerand
 
 <div id="listing"></div>
 
-<div class="beerandlist" data-list="beer" markdown="1">
+<div class="list" data-list="beer" markdown="1">
 
 ###Beers I want to remember are delicious.
 * [River Horse](http://www.riverhorse.com/)
@@ -23,7 +23,7 @@ classes: beerand
     + 2010-10-31: harvest brown ale; absolutely awesome
 </div><!--//[beer]-->
 
-<div class="beerandlist" data-list="movies" markdown="1">
+<div class="list" data-list="movies" markdown="1">
 
 ### Movies I haven't seen
 These are famous (_good or bad_) movies that seem to be a big deal and I feel
@@ -53,7 +53,7 @@ things about.
 
 </div><!--//[movies]-->
 
-<div class="beerandlist" data-list="books" markdown="1">
+<div class="list" data-list="books" markdown="1">
 
 ### Books I feel the need to read
 Either because I haven't read them before or because I did and just don't
