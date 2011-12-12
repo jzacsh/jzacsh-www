@@ -44,6 +44,14 @@ a:hover, .clickable:hover {
   background-color: #dddddd;
 }
 
+a:active, .clickable:active, .button:active {
+  outline: none;
+}
+
+abbr, acronym {
+  border-bottom: none;
+}
+
 nav, section#content, footer {
   padding: 1em;
 }
