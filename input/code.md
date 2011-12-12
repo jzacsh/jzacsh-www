@@ -51,7 +51,7 @@ breaks_) let me know.
   somewhere.
   <div class="fork">
   To fork this, run: <input
-    value="curl -s https://raw.github.com/jzacsh/bin/master/share/etherback" />
+    value="curl -O https://raw.github.com/jzacsh/bin/master/share/etherback" />
   </div>
 
 </section><!--//.projects-->
