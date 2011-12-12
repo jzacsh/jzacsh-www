@@ -61,8 +61,11 @@ remember them. The live source of this data is my [amazon "to-read"
 wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 ... I think this is in order of how I'm tackling them.
 
-* <del>The God Delusion</del> (*on audio*)<br />
+* <del>The God Delusion</del> (*audio*)<br />
   by Richard Dawkins
+
+* <del>How Proust Can Change Your Life</del> (*audio*)<br />
+  by Alain de Botton
 
 * A Confederacy of Dunces (*currently listening on audio*)<br />
   by John Kennedy Toole
