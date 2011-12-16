@@ -30,26 +30,26 @@ These are famous (_good or bad_) movies that seem to be a big deal and I feel
 obligated to see. Also movies that might not be famous but I've heard good
 things about.
 
-+ Blazing Saddles
-+ Silver Streak
-+ The Hustler (1961)
-+ Stalag 17
-+ Casablanca
-+ The Dirty Dozen
-+ History of the World
-+ The Outlaw Josey Wales
-+ Animal House
-+ Breakfast at Tiffanies
-+ Shaun of the Dead
-+ Reservoir Dogs
-+ Boondock Saints
-+ Moon
-+ Seven Samurai
-+ Casa Blanca
-+ Mall Rats
-+ Imitation of Life (1930s version, specifically)
-+ Burn After Reading
-+ There Will Be Blood
++ <cite>Blazing Saddles</cite>
++ <cite>Silver Streak</cite>
++ <cite>The Hustler</cite> (1961)
++ <cite>Stalag 17</cite>
++ <cite>Casablanca</cite>
++ <cite>The Dirty Dozen</cite>
++ <cite>History of the World</cite>
++ <cite>The Outlaw Josey Wales</cite>
++ <cite>Animal House</cite>
++ <cite>Breakfast at Tiffanies</cite>
++ <cite>Shaun of the Dead</cite>
++ <cite>Reservoir Dogs</cite>
++ <cite>Boondock Saints</cite>
++ <cite>Moon</cite>
++ <cite>Seven Samurai</cite>
++ <cite>Casa Blanca</cite>
++ <cite>Mall Rats</cite>
++ <cite>Imitation of Life</cite> (1930s version, specifically)
++ <cite>Burn After Reading</cite>
++ <cite>There Will Be Blood</cite>
 
 </div><!--//[movies]-->
 
@@ -61,70 +61,70 @@ remember them. The live source of this data is my [amazon "to-read"
 wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 ... I think this is in order of how I'm tackling them.
 
-* <del>The God Delusion</del> (*audio*)<br />
+* <del><cite>The God Delusion</cite></del> (*audio*)<br />
   by Richard Dawkins
 
-* <del>How Proust Can Change Your Life</del> (*audio*)<br />
+* <del><cite>How Proust Can Change Your Life</cite></del> (*audio*)<br />
   by Alain de Botton
 
-* A Confederacy of Dunces (*currently listening on audio*)<br />
+* <cite>A Confederacy of Dunces</cite> (*currently listening on audio*)<br />
   by John Kennedy Toole
 
-* A Brief History of Time (*currently reading*)<br />
+* <cite>A Brief History of Time</cite> (*currently reading*)<br />
   by Stephen Hawking
 
-* Mountaineering: The Freedom of the Hills (*currently reading*)<br />
+* <cite>Mountaineering: The Freedom of the Hills</cite> (*currently reading*)<br />
   by The Mountaineers
 
-* Relativity<br />
+* <cite>Relativity</cite><br />
   by Albert Einstein
 
-* Infinite Jest<br />
+* <cite>Infinite Jest</cite><br />
   by David Foster Wallace
 
-* The Shallows: What the Internet Is Doing to Our Brains<br />
+* <cite>The Shallows: What the Internet Is Doing to Our Brains</cite><br />
   by Nicholas Carr
 
-* Walden<br />
+* <cite>Walden</cite><br />
   by Henry David Thoreau
 
-* Common Sense<br />
+* <cite>Common Sense</cite><br />
   by Thomas Paine
 
-* The Age of Reason<br />
+* <cite>The Age of Reason</cite><br />
   by Thomas Paine
 
-* Origin of Species<br />
+* <cite>Origin of Species</cite><br />
   by Charles Darwin
 
-* The Design of Everyday Things<br />
+* <cite>The Design of Everyday Things</cite><br />
   by Donald A. Norman
 
-* Knots & Ropes For Climbers (Outdoor and Nature)<br />
+* <cite>Knots & Ropes For Climbers (Outdoor and Nature)</cite><br />
   by Duane Raleigh
 
-* Garbage Land: On the Secret Trail of Trash<br />
+* <cite>Garbage Land: On the Secret Trail of Trash</cite><br />
   by Elizabeth Royte
 
-* The Great Gatsby<br />
+* <cite>The Great Gatsby</cite><br />
   by F. Scott Fitzgerald
 
-* The Pragmatic Programmer: From Journeyman to Master<br />
+* <cite>The Pragmatic Programmer: From Journeyman to Master</cite><br />
   by Andrew Hunt
 
-* Modern Art: 19th and 20th Centuries: Selected Papers<br />
+* <cite>Modern Art: 19th and 20th Centuries: Selected Papers</cite><br />
   by Meyer Schapiro
 
-* Hacking: The Art of Exploitation, 2nd Edition<br />
+* <cite>Hacking: The Art of Exploitation, 2nd Edition</cite><br />
   by Jon Erickson
 
-* Nmap Network Scanning: The Official Nmap Project Guide to Network Discovery and Security Scanning<br />
+* <cite>Nmap Network Scanning: The Official Nmap Project Guide to Network Discovery and Security Scanning</cite><br />
   by Gordon Fyodor Lyon
 
-* The Modern Mind: An Intellectual History of the 20th Century<br />
+* <cite>The Modern Mind: An Intellectual History of the 20th Century</cite><br />
   by Peter Watson
 
-* The Design of Future Things<br />
+* <cite>The Design of Future Things</cite><br />
   by Donald A. Norman
 
 [amazon_toread]: http://amzn.com/w/21LWOXBICKV4W
