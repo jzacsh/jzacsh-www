@@ -68,12 +68,15 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
   <span class="attribution">by <b>Alain de
   Botton</b></span>
 
-* <cite>A Confederacy of Dunces</cite> (*currently listening on audio*)
-  <span class="attribution">by <b>John Kennedy
-  Toole</b></span>
+* <cite>The Shallows: What the Internet Is Doing to Our Brains</cite> (*currently reading*)
+  <span class="attribution">by <b>Nicholas Carr</b></span>
 
 * <cite>A Brief History of Time</cite> (*currently reading*)
   <span class="attribution">by <b>Stephen Hawking</b></span>
+
+* <cite>A Confederacy of Dunces</cite> (*currently listening on audio*)
+  <span class="attribution">by <b>John Kennedy
+  Toole</b></span>
 
 * <cite>Mountaineering: The Freedom of the Hills</cite> (*currently reading*)
   <span class="attribution">by <b>The Mountaineers</b></span>
@@ -83,9 +86,6 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 
 * <cite>Infinite Jest</cite>
   <span class="attribution">by <b>David Foster Wallace</b></span>
-
-* <cite>The Shallows: What the Internet Is Doing to Our Brains</cite>
-  <span class="attribution">by <b>Nicholas Carr</b></span>
 
 * <cite>Walden</cite>
   <span class="attribution">by <b>Henry David Thoreau</b></span>
