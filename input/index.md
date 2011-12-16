@@ -4,13 +4,12 @@ menu-position: 9
 
 ## Jonathan Zacsh
 
-I'm a [software][] developer, currently working full time in web developement.
-Most of my experience is with [drupal][], but I spend a decent amount of time
-studying/playing with:
+I'm a [software][] developer, experience mostly with [drupal][], but I spend a
+decent amount of time studying/playing with:
 
-  * node.js, like: [study.js][studyjs]
-  * python, like: [imagedex][]
   * client-side javascript
+  * python, like: [imagedex][]
+  * node.js, like: [study.js][studyjs]
 
 I am also a lover of the [music][amazonmusic] [last.fm][lastfm] brings my way.
 
