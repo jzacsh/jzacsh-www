@@ -61,71 +61,73 @@ remember them. The live source of this data is my [amazon "to-read"
 wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 ... I think this is in order of how I'm tackling them.
 
-* <del><cite>The God Delusion</cite></del> (*audio*)<br />
-  by Richard Dawkins
+* <del><cite>The God Delusion</cite></del> (*audio*)
+  <span class="attribution">by <b>Richard Dawkins</b></span>
 
-* <del><cite>How Proust Can Change Your Life</cite></del> (*audio*)<br />
-  by Alain de Botton
+* <del><cite>How Proust Can Change Your Life</cite></del> (*audio*)
+  <span class="attribution">by <b>Alain de
+  Botton</b></span>
 
-* <cite>A Confederacy of Dunces</cite> (*currently listening on audio*)<br />
-  by John Kennedy Toole
+* <cite>A Confederacy of Dunces</cite> (*currently listening on audio*)
+  <span class="attribution">by <b>John Kennedy
+  Toole</b></span>
 
-* <cite>A Brief History of Time</cite> (*currently reading*)<br />
-  by Stephen Hawking
+* <cite>A Brief History of Time</cite> (*currently reading*)
+  <span class="attribution">by <b>Stephen Hawking</b></span>
 
-* <cite>Mountaineering: The Freedom of the Hills</cite> (*currently reading*)<br />
-  by The Mountaineers
+* <cite>Mountaineering: The Freedom of the Hills</cite> (*currently reading*)
+  <span class="attribution">by <b>The Mountaineers</b></span>
 
-* <cite>Relativity</cite><br />
-  by Albert Einstein
+* <cite>Relativity</cite>
+  <span class="attribution">by <b>Albert Einstein</b></span>
 
-* <cite>Infinite Jest</cite><br />
-  by David Foster Wallace
+* <cite>Infinite Jest</cite>
+  <span class="attribution">by <b>David Foster Wallace</b></span>
 
-* <cite>The Shallows: What the Internet Is Doing to Our Brains</cite><br />
-  by Nicholas Carr
+* <cite>The Shallows: What the Internet Is Doing to Our Brains</cite>
+  <span class="attribution">by <b>Nicholas Carr</b></span>
 
-* <cite>Walden</cite><br />
-  by Henry David Thoreau
+* <cite>Walden</cite>
+  <span class="attribution">by <b>Henry David Thoreau</b></span>
 
-* <cite>Common Sense</cite><br />
-  by Thomas Paine
+* <cite>Common Sense</cite>
+  <span class="attribution">by <b>Thomas Paine</b></span>
 
-* <cite>The Age of Reason</cite><br />
-  by Thomas Paine
+* <cite>The Age of Reason</cite>
+  <span class="attribution">by <b>Thomas Paine</b></span>
 
-* <cite>Origin of Species</cite><br />
-  by Charles Darwin
+* <cite>Origin of Species</cite>
+  <span class="attribution">by <b>Charles Darwin</b></span>
 
-* <cite>The Design of Everyday Things</cite><br />
-  by Donald A. Norman
+* <cite>The Design of Everyday Things</cite>
+  <span class="attribution">by <b>Donald A. Norman</b></span>
 
-* <cite>Knots & Ropes For Climbers (Outdoor and Nature)</cite><br />
-  by Duane Raleigh
+* <cite>Knots & Ropes For Climbers (Outdoor and Nature)</cite>
+  <span class="attribution">by <b>Duane Raleigh</b></span>
 
-* <cite>Garbage Land: On the Secret Trail of Trash</cite><br />
-  by Elizabeth Royte
+* <cite>Garbage Land: On the Secret Trail of Trash</cite>
+  <span class="attribution">by <b>Elizabeth Royte</b></span>
 
-* <cite>The Great Gatsby</cite><br />
-  by F. Scott Fitzgerald
+* <cite>The Great Gatsby</cite>
+  <span class="attribution">by <b>F. Scott Fitzgerald</b></span>
 
-* <cite>The Pragmatic Programmer: From Journeyman to Master</cite><br />
-  by Andrew Hunt
+* <cite>The Pragmatic Programmer: From Journeyman to Master</cite>
+  <span class="attribution">by <b>Andrew Hunt</b></span>
 
-* <cite>Modern Art: 19th and 20th Centuries: Selected Papers</cite><br />
-  by Meyer Schapiro
+* <cite>Modern Art: 19th and 20th Centuries: Selected Papers</cite>
+  <span class="attribution">by <b>Meyer Schapiro</b></span>
 
-* <cite>Hacking: The Art of Exploitation, 2nd Edition</cite><br />
-  by Jon Erickson
+* <cite>Hacking: The Art of Exploitation, 2nd Edition</cite>
+  <span class="attribution">by <b>Jon Erickson</b></span>
 
-* <cite>Nmap Network Scanning: The Official Nmap Project Guide to Network Discovery and Security Scanning</cite><br />
-  by Gordon Fyodor Lyon
+* <cite>Nmap Network Scanning: The Official Nmap Project Guide to Network Discovery and Security Scanning</cite>
+  <span class="attribution">by <b>Gordon Fyodor Lyon</b></span>
 
-* <cite>The Modern Mind: An Intellectual History of the 20th Century</cite><br />
-  by Peter Watson
+* <cite>The Modern Mind: An Intellectual History of the 20th Century</cite>
+  <span class="attribution">by <b>Peter Watson</b></span>
 
-* <cite>The Design of Future Things</cite><br />
-  by Donald A. Norman
+* <cite>The Design of Future Things</cite>
+  <span class="attribution">by <b>Donald A. Norman</b></span>
 
 [amazon_toread]: http://amzn.com/w/21LWOXBICKV4W
 

@@ -248,6 +248,14 @@ pre {
  * start: beer.md-specific styling
  */
 
+body.beerand .attribution {
+  display: block;
+}
+
+body.beerand b {
+  color: #444444;
+}
+
 body.beerand #listing {
   border-bottom: 1px dotted #666666;
   height: 2em;
