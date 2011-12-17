@@ -19,6 +19,10 @@ body {
   color: #2e3436;
 }
 
+canvas.dev {
+  outline: 1px dotted #000000;
+}
+
 a, .clickable, .button {
   color: #7A63FF;
   text-decoration: none;
