@@ -10,16 +10,16 @@ jzacsh.behaviors.drawSmiley = function (c) {
   //
   if (canv.getContext) {
     //initalize a 2D drawing context
-    var context = canv.getContext('2d');
+    var cc = canv.getContext('2d');
 
     //@TODO: code stuff!!
-    context.strokeStyle = '#000000';
-    context.fillStyle   = '#FFFF00';
-    context.beginPath();
-    context.arc(100, 100, 50, 0, Math.PI * 2, true);
-    context.closePath();
-    context.stroke();
-    context.fill();
+    cc.strokeStyle = '#000000';
+    cc.fillStyle   = '#FFFF00';
+    cc.beginPath();
+    cc.arc(100, 100, 50, 0, Math.PI * 2, true);
+    cc.closePath();
+    cc.stroke();
+    cc.fill();
   }
 }
 
