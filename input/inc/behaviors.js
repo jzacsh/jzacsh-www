@@ -48,49 +48,22 @@ jzacsh.behaviors.beerAndTabbed = function (context) {
 }
 
 /**
- * Playing with canvas api.
- */
-jzacsh.behaviors.drawSmiley = function (c) {
-  //var canv = document.getElementById('airspace');
-  var canv = $('#airspace', c)[0];
-
-  //
-  //check the element is in the DOM and browser supports canvas
-  //
-  if (canv.getContext) {
-    //initalize a 2D drawing context
-    var cc = canv.getContext('2d');
-
-    //@TODO: code stuff!!
-    cc.strokeStyle = '#000000';
-    cc.fillStyle = '#FFFF00';
-    cc.beginPath();
-    cc.arc(300, 10, 50, 0, Math.PI * 2, true);
-    cc.closePath();
-    cc.stroke();
-    cc.fill();
-  }
-}
-
-/**
  * Read SVG data and re-render via canvas APIs.
  */
 jzacsh.behaviors.svgToCanvas = function (c) {
-  var $paths = [];
-  $('#svg2 g path', c).each(function () {
-    $paths.push(this);
-    $(this).hide();
-  });
+  var $svg = $('#svg2', c).first(),
+      $canvas = $('#airspace', c).first(),
+      config = {
+        reverse: false,
+        speed: 400,
+        sketchy: true,
+      };
 
-  //actual juice
-  if ('length' in $paths && $paths.length > 0) {
-    //@TODO: draw onto canvas
-    //
-    //parse 'd' attribute for "M", "L", "z" and act according to SVG spec.:
-    //http://www.w3.org/TR/SVG/paths.html
-    //
-    //
-    //
+  //render our SVG image as canvas, using svgToCanvas lib.
+  if ('length' in $svg && $svg.length > 0 &&
+      'length' in $canvas && $canvas.length > 0) {
+    var sToC = svgToCanvas.mapToCanvas($svg[0], $canvas[0], config);
+    sToC.render();
   }
 }
 
