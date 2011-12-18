@@ -14,14 +14,37 @@ jzacsh.behaviors.drawSmiley = function (c) {
 
     //@TODO: code stuff!!
     cc.strokeStyle = '#000000';
-    cc.fillStyle   = '#FFFF00';
+    cc.fillStyle = '#FFFF00';
     cc.beginPath();
-    cc.arc(100, 100, 50, 0, Math.PI * 2, true);
+    cc.arc(300, 10, 50, 0, Math.PI * 2, true);
     cc.closePath();
     cc.stroke();
     cc.fill();
   }
 }
+
+/**
+ * Read SVG data and re-render via canvas APIs.
+ */
+jzacsh.behaviors.svgToCanvas = function (c) {
+  var $paths = [];
+  $('#svg2 g path', c).each(function () {
+    $paths.push(this);
+    $(this).hide();
+  });
+
+  //actual juice
+  if ('length' in $paths && $paths.length > 0) {
+    //@TODO: draw onto canvas
+    //
+    //parse 'd' attribute for "M", "L", "z" and act according to SVG spec.:
+    //http://www.w3.org/TR/SVG/paths.html
+    //
+    //
+    //
+  }
+}
+
 
 /**
  * Try to manipulate and slowly "render" a set of SVG vectors, via css
@@ -37,9 +60,6 @@ jzacsh.behaviors.svgRender = function (c) {
   //actual juice
   if ('length' in $paths && $paths.length > 0) {
     var tids = [];
-
-    //@TODO: code this to instead of _fading_ in, rendering each point along
-    //the vector slowly
 
     //
     //the callback chain
