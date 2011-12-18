@@ -1,9 +1,16 @@
-title: flight
+title: SVG=>Canvas
 ---
 
-# Flight Control
+# SVG to Canvas Library
 
-<p>Playing with flight control map</p>
+<p>Playing with possibilities of re-rendering SVG via canvas API. See
+[inline comments][code] for reasoning and thoughts behind the study. Primarily,
+this is out of a personal wish to control the speed with which SVG files are
+rendered. Secondarily, I want to become familiar with both Canvas and SVG, so I
+haven't bothered looking for any libraries that to this for me. I want to have
+all the fun to myself :)</p>
+
+[code]: /inc/svgToCanvas.js
 
 <div class="avoid-markdown">
   <canvas id="airspace" class="dev" width="500px" height="300px">
@@ -85,3 +92,4 @@ title: flight
     </g>
   </svg>
 </div><!--//.avoid-markdown-->
+
