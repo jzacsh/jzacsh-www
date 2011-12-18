@@ -1,4 +1,53 @@
 /**
+ * @file my lazy attempt to *eventually* move things into their own files to
+ * avoid clutter (not *necessarily* to reduce performance... but who cares
+ * about performance?.. pfft... smerrill, I hope you're not reading this).
+ *
+ * This is just until I figure out enough python to dynamically include css/js
+ * files when they're reference in the top of a poole md file's head (the way
+ * I'm already doing with "bodyClass".
+ */
+
+/**
+ * All behaviors should be defined here, or in other javascript files.
+ */
+jzacsh.behaviors.beerAndTabbed = function (context) {
+  if (! $('body').hasClass('beerand')) {
+    return;
+  }
+
+  var $lists = $('body.beerand .list', context);
+
+  //create tabs
+  var $listing = $('#listing', context);
+  $lists.each(function () {
+    var list = $(this).attr('data-list');
+    var tab = '<span class="tab clickable" data-tab="'+ list +'">';
+    tab += list + '</span>';
+
+    $listing.append(tab);
+  });
+
+  //bind to new tabs
+  $('.tab', $listing).click(function () {
+    var $this = $(this);
+    var requested = '[data-list="' + $this.attr('data-tab') + '"]';
+
+    //the tab
+    $this.addClass('active');
+    $('#listing .tab').not('[data-tab="'+ $this.attr('data-tab') +'"]')
+      .removeClass('active');
+
+    //the content
+    $lists.not(requested).removeClass('active');
+    $(requested).addClass('active');
+  });
+
+  $('body.beerand .list[data-list="beer"]').addClass('active');
+  $('body.beerand #listing [data-tab="beer"]').addClass('active');
+}
+
+/**
  * Playing with canvas api.
  */
 jzacsh.behaviors.drawSmiley = function (c) {

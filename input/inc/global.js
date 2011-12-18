@@ -11,45 +11,6 @@ jzacsh.jsEnabled = document.getElementsByTagName &&
   document.getElementById;
 
 /**
- * All behaviors should be defined here, or in other javascript files.
- */
-jzacsh.behaviors.beerAndTabbed = function (context) {
-  if (! $('body').hasClass('beerand')) {
-    return;
-  }
-
-  var $lists = $('body.beerand .list', context);
-
-  //create tabs
-  var $listing = $('#listing', context);
-  $lists.each(function () {
-    var list = $(this).attr('data-list');
-    var tab = '<span class="tab clickable" data-tab="'+ list +'">';
-    tab += list + '</span>';
-
-    $listing.append(tab);
-  });
-
-  //bind to new tabs
-  $('.tab', $listing).click(function () {
-    var $this = $(this);
-    var requested = '[data-list="' + $this.attr('data-tab') + '"]';
-
-    //the tab
-    $this.addClass('active');
-    $('#listing .tab').not('[data-tab="'+ $this.attr('data-tab') +'"]')
-      .removeClass('active');
-
-    //the content
-    $lists.not(requested).removeClass('active');
-    $(requested).addClass('active');
-  });
-
-  $('body.beerand .list[data-list="beer"]').addClass('active');
-  $('body.beerand #listing [data-tab="beer"]').addClass('active');
-}
-
-/**
  * Pseudo-Drupal js behaviors API.
  *
  * @note: I <3 Drupal
