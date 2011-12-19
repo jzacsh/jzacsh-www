@@ -27,8 +27,6 @@ var svgToCanvas = {
   /**
    * Initialize storage build methods needed to use this library.
    *
-   * @TODO: Store canvasNode/context somewhere inside svgToCanvas.
-   *
    * @param object svgNode
    *   The <svg> node, as found somewhere in the DOM tree of our page.
    * @param object canvasNode
