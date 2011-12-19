@@ -1,11 +1,14 @@
 /**
- * Re-invent the SVG rendering wheel that the browser already does for us, but
- * this time allow more options and flexibility. For example, we may want to
- * slow down, chop up, reverse, or apply who-knows-what effect to the process
- * of rendering our image.
+ * svgToCanvas - an SVG rendering library, using HTML's Canvas API.
  *
- * Canvas API. To re-render the XML data presented as SVG, we'll utilize the
- * Canvas API.
+ * Purpose:
+ *   Re-invent the SVG rendering wheel that the browser already does for us,
+ *   but this time allow more options and flexibility. For example, we may want
+ *   to slow down, chop up, reverse, or apply who-knows-what effect to the
+ *   process of rendering our image.
+ *
+ * Approach:
+ *   Utilize HTML Canvas API to re-render the SVG data we've been dealt.
  *
  * High-level plans:
  * @TODO: get the very basics of re-rendering SVG protocol, via canvas.
