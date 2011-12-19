@@ -43,20 +43,30 @@ var svgToCanvas = {
    *       this, live.
    */
   mapToCanvas: function (svgNode, canvasNode, config) {
+    //sanity check
+    if (svgNode.nodeName.toLowerCase() != 'svg' ||
+        canvasNode.nodeName.toLowerCase() != 'canvas') {
+      console.error('SVG or Canvas nodes passed incorrectly.');
+      return null;
+    }
+
     //store our critical data
     this.svg = svgNode;
     this.canvas = canvasNode;
     this.config = config;
 
+    //
     //return a well catered, useful structure.
+    //
     var mapper = this;
     return {
-      renderToCanvas: mapper.renderToCanvas,
+      renderToCanvas: mapper.renderToCanvas, //the only committed, public api
       /**
        * Utilities not necessarly meant for public use, but potentially useful.
        */
       utils: {
         renderPath: mapper.renderToCanvas,
+        mapper: mapper, //expose everything
       }
     };
   },
