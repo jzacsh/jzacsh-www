@@ -3,12 +3,12 @@ title: SVG=>Canvas
 
 # SVG to Canvas Library
 
-<p>Playing with possibilities of re-rendering SVG via canvas API. See
-[inline comments][code] for reasoning and thoughts behind the study. Primarily,
-this is out of a personal wish to control the speed with which SVG files are
-rendered. Secondarily, I want to become familiar with both Canvas and SVG, so I
-haven't bothered looking for any libraries that to this for me. I want to have
-all the fun to myself :)</p>
+Playing with possibilities of re-rendering SVG via canvas API. See [inline
+comments][code] for reasoning and thoughts behind the study. Primarily, this is
+out of a personal wish to control the speed with which SVG files are rendered.
+Secondarily, I want to become familiar with both Canvas and SVG, so I haven't
+bothered looking for any libraries that to this for me. I want to have all the
+fun to myself :)
 
 [code]: /inc/svgToCanvas.js
 
