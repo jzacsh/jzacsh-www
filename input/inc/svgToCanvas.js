@@ -101,7 +101,7 @@ var svgToCanvas = {
     this.applyPathCommand(data.commands);
 
     //@TODO: do something with this data
-    console.error('vaporware: Nothing Coded for "style" attributes!! %s\n',
+    console.error('vaporware: Nothing Coded for "style" attributes!! (styles: %s)\n',
         data.styles);
   },
 
