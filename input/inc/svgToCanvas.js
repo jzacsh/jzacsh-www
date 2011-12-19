@@ -19,6 +19,10 @@
  * @note Almost all understanding of SVG specification comes from w3.org
  * documentation.
  * @see http://www.w3.org/TR/SVG
+ *
+ * @note Almost all understanding of HTML's Canvas API comes from whatwg.org's
+ * documentation.
+ * @see http://developers.whatwg.org/the-canvas-element.html
  */
 var svgToCanvas = {
   /**
