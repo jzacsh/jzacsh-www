@@ -9,7 +9,7 @@ fair amount of time studying/playing with:
 
   * client-side javascript
   * python, like: [imagedex][]
-  * node.js, like: [study.js][studyjs]
+  * server-side javascript (*in node.js*), like: [study.js][studyjs]
 
 I am also a lover of the [music][amazonmusic] [last.fm][lastfm] brings my way.
 
