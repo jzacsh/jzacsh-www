@@ -11,14 +11,6 @@
  * @TODO: get the very basics of re-rendering SVG protocol, via canvas.
  * @TODO: code for the 'options' object.
  *
- * Code issues:
- * @TODO: figure out if our answer to this, this.mapToCanvas(), works:
- * - how to store meta data, the way we would in java, using private
- *   properties, eg.:
- *   - when our initial renderToCanvas() method is called, we need to store the
- *     data passed so its globally accessable by all our internal methods and
- *     doesn't need to be passed around.
- *
  * @note Almost all understanding of SVG specification comes from w3.org
  * documentation.
  * @see http://www.w3.org/TR/SVG
