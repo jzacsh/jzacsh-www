@@ -70,7 +70,7 @@ jzacsh.behaviors.svgToCanvas = function (c) {
 
 /**
  * Try to manipulate and slowly "render" a set of SVG vectors, via css
- * show/hide.
+ * show/hide, before bothering with canvas.
  */
 jzacsh.behaviors.svgRender = function (c) {
   var $paths = [];

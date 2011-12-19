@@ -12,6 +12,8 @@ fun to myself :)
 
 [code]: /inc/svgToCanvas.js
 
+## Canvas where re-rendering will take place
+
 <div class="avoid-markdown">
   <canvas id="airspace" class="dev" width="500px" height="300px">
     <p>Your browser doesn't support <a
@@ -19,6 +21,14 @@ fun to myself :)
     href="http://www.google.com/chrome/">upgrade :)</a></p>
   </canvas>
 </div><!--//.avoid-markdown-->
+
+## Original SVG Image
+
+Below the [zacsh.behaviors.svgRender][svgRender]() script is actually
+attempting to slowly show/hide our embedded SVG data, to see what is possible
+without turning to the Canvas APIs.
+
+[svgRender]: /inc/behaviors.js
 
 <div class="avoid-markdown">
   <svg
