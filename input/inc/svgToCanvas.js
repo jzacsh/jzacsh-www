@@ -73,7 +73,11 @@ var svgToCanvas = {
     //
     var paths = this.svg.getElementsByTagName('path');
     for (var i in paths) {
-      this.renderPath(paths[i]); //@TODO: un-comment me!!    
+      //for some reason we atually hit the 'length' property.
+      if (typeof paths[i] === 'object' &&
+          'nodeName' in paths[i] && paths[i].nodeName == 'path') {
+        this.renderPath(paths[i]);
+      }
     }
 
     //@TODO: code, then call methods to take the rest of our <svg> object into
