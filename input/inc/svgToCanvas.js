@@ -92,6 +92,8 @@ var svgToCanvas = {
   /**
    * Render a particular <path>, on our DOM's canvas.
    *
+   * @TODO: Private; perhaps encapsulate within the public this.renderToCanvas()?
+   *
    * @TODO: either rename compileSVGPath to do more, or code calls to take care
    * of all other attributes Canvas API also covers, eg.: fillStyle().
    *
@@ -111,10 +113,10 @@ var svgToCanvas = {
   },
 
   /**
-   * @TODO: this should be a private method of svgToCanvas.renderPath()
-   *
    * Actually break down a given svg path, based on possible SVG "commands" and
    * styles.
+   *
+   * @TODO: Private; perhaps encapsulate within the public this.renderToCanvas()?
    *
    * @param string dAttr
    *   The raw string for a given <path>.
@@ -182,10 +184,10 @@ var svgToCanvas = {
   },
 
   /**
-   * @TODO: these should be a private property of our object of svgToCanvas
-   *
    * SVG "commands", as found in [d] attribute of a <path> element, according
    * to W3G specification.
+   *
+   * @TODO: Private; perhaps encapsulate within the public this.renderToCanvas()?
    *
    * @see this.applyPathCommand()
    */
@@ -200,10 +202,10 @@ var svgToCanvas = {
   },
 
   /**
-   * @TODO: this should be a private method of svgToCanvas.renderPath()
-   *
    * Actual "mapping" of our Mapper, calling valid Canvas API methods for each
    * SVG "command" that's called.
+   *
+   * @TODO: Private; perhaps encapsulate within the public this.renderToCanvas()?
    *
    * @see http://www.w3.org/TR/SVG/paths.html
    *
