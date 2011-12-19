@@ -1,7 +1,7 @@
 /**
  * svgToCanvas - an SVG rendering library, using HTML's Canvas API.
  *
- * Purpose:
+ * Overview:
  *   Re-invent the SVG rendering wheel that the browser already does for us,
  *   but this time allow more options and flexibility. For example, we may want
  *   to slow down, chop up, reverse, or apply who-knows-what effect to the
@@ -33,6 +33,9 @@ var svgToCanvas = {
    *   should be rendering our 2d representation of svgNode
    *   @note: don't pass the canvas "context" (ie.: don't call getContext()).
    * @param object config
+   *     @TODO: code this:
+   *   - mirrorSize <bool>: re-size our canvas according to the SVG node's
+   *     original size.
    *     @TODO: code this:
    *   - preCompiled <object>: The object this.compileSVGPath() (and other
    *     JSON/parsing functions would have generated), allowing our library to
