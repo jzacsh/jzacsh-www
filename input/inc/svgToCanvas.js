@@ -19,6 +19,8 @@ var svgToCanvas = {
   /**
    * Initialize storage build methods needed to use this library.
    *
+   * @note Public: accessing this API is encouraged.
+   *
    * @param object svgNode
    *   The <svg> node, as found somewhere in the DOM tree of our page.
    * @param object canvasNode
@@ -68,7 +70,7 @@ var svgToCanvas = {
    * data to Canvas APIs. This is the public method that should be called by
    * end users, after they've received a mapper object from this.mapToCanvas().
    *
-   * @note the only committed, Public API
+   * @note Public: accessing this API is encouraged.
    */
   renderToCanvas: function () {
     //
