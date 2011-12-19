@@ -34,10 +34,19 @@ var svgToCanvas = {
    *   should be rendering our 2d representation of svgNode
    *   @note: don't pass the canvas "context" (ie.: don't call getContext()).
    * @param object config
-   *   @TODO: none of these are coded for:
+   *     @TODO: code this:
+   *   - preCompiled <object>: The object this.compileSVGPath() (and other
+   *     JSON/parsing functions would have generated), allowing our library to
+   *     do the one thing it wants: play with the Canvas API (ie.: make calls
+   *     to this.applyPathCommand()).
+   *     @note This will allow us to run svgToCanvas compile/parse-methods on
+   *     server-side (with the help of DOM libraries, of course), simply
+   *     producing JSON files to consume, here.
+   *     @TODO: code this:
    *   - reverse <bool>: Render the image in reverse order
    *   - speed <int>: milliseconds specifying how slowly each path should
    *     render.
+   *     @TODO: code this:
    *   - effects <object>: Various special effects to change the normal
    *     rendering process.
    *     - sketchy <bool>: get the paths to vary speeds in their rendering,
