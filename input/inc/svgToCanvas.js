@@ -13,6 +13,8 @@
  * High-level plans:
  * @TODO: get the very basics of re-rendering SVG protocol, via canvas.
  * @TODO: code for the 'options' object.
+ * @TODO: take implementation notes into consideration:
+ *   http://www.w3.org/TR/SVG/implnote.html#PathElementImplementationNotes
  *
  * @note Almost all understanding of SVG specification comes from w3.org
  * documentation.
