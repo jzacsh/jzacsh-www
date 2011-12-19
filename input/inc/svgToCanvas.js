@@ -136,9 +136,9 @@ var svgToCanvas = {
    *     were called from a given "d" attribute of a parsed <path> element and
    *     the relevant data following that commmand.
    *     - command <String>: a valid SVG "command"
-   *     @see this.svgPathCommands
+   *       @see this.svgPathCommands
    *     - data <Array>: typically 0 or more floats, usually representing X/Y
-   *     axis coordinates.
+   *       axis coordinates.
    */
   compileSVGPath: function (dAttr, styles) {
     //
@@ -218,14 +218,16 @@ var svgToCanvas = {
    *   @see this.compileSVGPath().commands
    */
   applyPathCommand: function(pathData) {
+    var lib = this;
+
     /**
      * Call the correct Canvas API.
      */
-    var lib = this;
     var applyCommand = function (command, data) {
       if (!command.match(lib.spec.commandsRegex())) {
         console.warn('Unknown SVG command found in [d] attribute of svg node id="%s".\n',
             lib.svg.id);
+        return false;
       }
 
       switch (command) {
