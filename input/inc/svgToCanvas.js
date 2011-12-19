@@ -18,6 +18,10 @@
  *   - when our initial renderToCanvas() method is called, we need to store the
  *     data passed so its globally accessable by all our internal methods and
  *     doesn't need to be passed around.
+ *
+ * @note Almost all understanding of SVG specification comes from w3.org
+ * documentation.
+ * @see http://www.w3.org/TR/SVG
  */
 var svgToCanvas = {
   /**
@@ -182,7 +186,7 @@ var svgToCanvas = {
    * SVG "commands", as found in [d] attribute of a <path> element, according
    * to W3G specification.
    *
-   * @see http://www.w3.org/TR/SVG/paths.html
+   * @see this.applyPathCommand()
    */
   spec: {
     commands: 'mzlhvcsqta',
@@ -200,6 +204,8 @@ var svgToCanvas = {
    * Actual "mapping" of our Mapper, calling valid Canvas API methods for each
    * SVG "command" that's called.
    *
+   * @see http://www.w3.org/TR/SVG/paths.html
+   *
    * @param Array pathData
    *   @see this.compileSVGPath().commands
    */
@@ -207,7 +213,13 @@ var svgToCanvas = {
     /**
      * Call the correct Canvas API.
      */
+    var lib = this;
     var applyCommand = function (command, data) {
+      if (!command.match(lib.spec.commandsRegex())) {
+        console.warn('Unknown SVG command found in [d] attribute of svg node id="%s".\n',
+            lib.svg.id);
+      }
+
       switch (command) {
         /**
          * Start a new sub-path at the given (x,y) coordinate. M (uppercase)
@@ -222,9 +234,11 @@ var svgToCanvas = {
          * treated as relative even though the initial moveto is interpreted as
          * an absolute moveto.
          */
+        //absolute moveto
         case 'M':
           console.error('vaporware: Absolute "moveto"-command not yet implemented'); //@TODO: code this
           break;
+        //relative moveto
         case 'm':
           console.error('vaporware: Relative "moveto"-command not yet implemented'); //@TODO: code this
           break;
@@ -234,6 +248,7 @@ var svgToCanvas = {
          * current point to current subpath's initial point. Since the Z and z
          * commands take no parameters, they have an identical effect.
          */
+        //closepath
         case 'Z':
         case 'z':
           console.error('vaporware: "closepath"-command not yet implemented'); //@TODO: code this
@@ -247,9 +262,11 @@ var svgToCanvas = {
          * be specified to draw a polyline. At the end of the command, the new
          * current point is set to the final set of coordinates provided.
          */
+        //absolute lineto
         case 'L':
           console.error('vaporware: Absolute "lineto"-command not yet implemented'); //@TODO: code this
           break;
+        //relative lineto
         case 'l':
           console.error('vaporware: Relative "lineto"-command not yet implemented'); //@TODO: code this
           break;
@@ -262,9 +279,11 @@ var svgToCanvas = {
          * make sense). At the end of the command, the new current point
          * becomes (x, cpy) for the final value of x.
          */
+        //absolute horizontal lineto
         case 'H':
           console.error('vaporware: Absolute "lineto"-command not yet implemented'); //@TODO: code this
           break;
+        //relative horizontal lineto
         case 'h':
           console.error('vaporware: Relative "lineto"-command not yet implemented'); //@TODO: code this
           break;
@@ -277,8 +296,13 @@ var svgToCanvas = {
          * make sense). At the end of the command, the new current point
          * becomes (cpx, y) for the final value of y.
          */
+        //absolute vertical lineto
         case 'V':
+          console.error('vaporware: Absolute "vertical lineto"-command not yet implemented'); //@TODO: code this
+          break;
+        //relative vertical lineto
         case 'v':
+          console.error('vaporware: Relative "vertical lineto"-command not yet implemented'); //@TODO: code this
           break;
 
         /**
@@ -291,8 +315,13 @@ var svgToCanvas = {
          * command, the new current point becomes the final (x,y) coordinate
          * pair used in the polybézier.
          */
+        //absolute curveto
         case 'C':
+          console.error('vaporware: Absolute "curveto"-command not yet implemented'); //@TODO: code this
+          break;
+        //relative curveto
         case 'c':
+          console.error('vaporware: Relative "curveto"-command not yet implemented'); //@TODO: code this
           break;
 
         /**
@@ -309,8 +338,13 @@ var svgToCanvas = {
          * new current point becomes the final (x,y) coordinate pair used in
          * the polybézier.
          */
+        //absolute shorthand/smooth curveto
         case 'S':
+          console.error('vaporware: Absolute "shorthand/smooth curveto"-command not yet implemented'); //@TODO: code this
+          break;
+        //relative shorthand/smooth curveto
         case 's':
+          console.error('vaporware: Relative "shorthand/smooth curveto"-command not yet implemented'); //@TODO: code this
           break;
 
         /**
@@ -322,8 +356,13 @@ var svgToCanvas = {
          * current point becomes the final (x,y) coordinate pair used in the
          * polybézier.
          */
+        //absolute quadratic Bézier curveto
         case 'Q':
+          console.error('vaporware: Absolute "quadtratic Bézier curveto"-command not yet implemented'); //@TODO: code this
+          break;
+        //relative quadratic Bézier curveto
         case 'q':
+          console.error('vaporware: Relative "quadtratic Bézier curveto"-command not yet implemented'); //@TODO: code this
           break;
 
         /**
@@ -337,8 +376,13 @@ var svgToCanvas = {
          * end of the command, the new current point becomes the final (x,y)
          * coordinate pair used in the polybézier.
          */
+        //absolute Shorthand/smooth quadratic Bézier curveto
         case 'T':
+          console.error('vaporware: Absolute "Shorthand/smooth quadratic Bézier curveto"-command not yet implemented'); //@TODO: code this
+          break;
+        //relative Shorthand/smooth quadratic Bézier curveto
         case 't':
+          console.error('vaporware: Relative "Shorthand/smooth quadratic Bézier curveto"-command not yet implemented'); //@TODO: code this
           break;
 
         /**
@@ -351,8 +395,13 @@ var svgToCanvas = {
          * sweep-flag contribute to the automatic calculations and help
          * determine how the arc is drawn.
          */
+        //absolute elliptical arc
         case 'A':
+          console.error('vaporware: Absolute "elliptical arc"-command not yet implemented'); //@TODO: code this
+          break;
+        //relative elliptical arc
         case 'a':
+          console.error('vaporware: Relative "elliptical arc"-command not yet implemented'); //@TODO: code this
           break;
       }
     }
