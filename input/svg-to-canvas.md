@@ -12,7 +12,7 @@ fun to myself :)
 
 [code]: /inc/svgToCanvas.js
 
-## Canvas where re-rendering will take place
+## <code>&lt;Canvas&gt;</code> where re-rendering will take place
 
 <div class="avoid-markdown">
   <canvas id="airspace" class="dev" width="500px" height="300px">
@@ -22,7 +22,7 @@ fun to myself :)
   </canvas>
 </div><!--//.avoid-markdown-->
 
-## Original SVG Image
+## Original <code>&lt;SVG&gt;</code> Image
 
 Below the <code>[jzacsh.behaviors.svgRender][svgRender]()</code> script is actually
 attempting to slowly show/hide our embedded SVG data, to see what is possible
