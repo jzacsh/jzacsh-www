@@ -72,7 +72,9 @@ var svgToCanvas = {
   },
 
   /**
-   * Render, with canvas
+   * Render, in canvas calling all necessary internal methods to map our SVG
+   * data to Canvas APIs. This is the public method that should be called by
+   * end users, after they've received a mapper object from this.mapToCanvas().
    */
   renderToCanvas: function () {
     //basic rendering for each path
@@ -86,7 +88,7 @@ var svgToCanvas = {
   },
 
   /**
-   * Render, in canvas.
+   * Render a particular <path>, on our DOM's canvas.
    *
    * @TODO: either rename compileSVGPath to do more, or code calls to take care
    * of all other attributes Canvas API also covers, eg.: fillStyle().
