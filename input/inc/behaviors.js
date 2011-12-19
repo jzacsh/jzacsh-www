@@ -63,7 +63,7 @@ jzacsh.behaviors.svgToCanvas = function (c) {
   if ('length' in $svg && $svg.length > 0 &&
       'length' in $canvas && $canvas.length > 0) {
     var mapper = svgToCanvas.mapToCanvas($svg[0], $canvas[0], config);
-    mapper.renderToCanvas();
+    mapper.lib.renderToCanvas();
   }
 }
 

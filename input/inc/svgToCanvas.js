@@ -21,7 +21,7 @@
  */
 var svgToCanvas = {
   /**
-   * Initialize storage and return the methods needed to use this library.
+   * Initialize storage build methods needed to use this library.
    *
    * @TODO: Store canvasNode/context somewhere inside svgToCanvas.
    *
@@ -50,7 +50,6 @@ var svgToCanvas = {
       return null;
     }
 
-    //store our critical data
     this.svg = svgNode;
     this.canvas = canvasNode;
     this.config = config;
@@ -58,16 +57,8 @@ var svgToCanvas = {
     //
     //return a well catered, useful structure.
     //
-    var mapper = this;
     return {
-      renderToCanvas: mapper.renderToCanvas, //the only committed, public api
-      /**
-       * Utilities not necessarly meant for public use, but potentially useful.
-       */
-      utils: {
-        renderPath: mapper.renderToCanvas,
-        mapper: mapper, //expose everything
-      }
+      lib: this, //expose everything
     };
   },
 
@@ -75,12 +66,15 @@ var svgToCanvas = {
    * Render, in canvas calling all necessary internal methods to map our SVG
    * data to Canvas APIs. This is the public method that should be called by
    * end users, after they've received a mapper object from this.mapToCanvas().
+   *
+   * @note the only committed, Public API
    */
   renderToCanvas: function () {
+    //
     //basic rendering for each path
+    //
     for (var i in paths) {
-      this.renderPath(paths[i]);
-      //@TODO: call this.renderPath() on each <path>.
+      this.renderPath(paths[i]); //@TODO: un-comment me!!    
     }
 
     //@TODO: code, then call methods to take the rest of our <svg> object into
@@ -98,13 +92,14 @@ var svgToCanvas = {
    */
   renderPath: function (pathNode) {
     var dAttr, styles, data;
-    for (var i in paths) {
-      dAttr = paths[i].getAttribute('d');
-      styles = { /* @TODO */ };
-      data = compileSVGPath(dAttr, styles);
-      console.warning('not yet coded!!'); //@TODO: do something with this data
-      this.applyPathCommand(data.commands);
-    }
+    dAttr = pathNode.getAttribute('d');
+    styles = { /* @TODO: style-[x] attributes on this <path> node */ };
+    data = this.compileSVGPath(dAttr, styles);
+    this.applyPathCommand(data.commands);
+
+    //@TODO: do something with this data
+    console.error('vaporware: Nothing Coded for "style" attributes!! %s\n',
+        data.styles);
   },
 
   /**
@@ -143,7 +138,7 @@ var svgToCanvas = {
 
     //sanity check
     if (data.length != flags.length) {
-      console.warning('Length of flags in attribute not equal to length of data!');
+      console.error('Length of flags in attribute not equal to length of data!');
     }
 
     /**
@@ -173,7 +168,7 @@ var svgToCanvas = {
      * 'keys' Array.
      */
     return {
-      commands: compileDattr(flags, data),
+      commands: compileDAttr(flags, data),
       styles: compileStyles(styles),
     };
   },
@@ -210,7 +205,7 @@ var svgToCanvas = {
      * Call the correct Canvas API.
      */
     var applyCommand = function (command, data) {
-      switch (svgCall) {
+      switch (command) {
         /**
          * Start a new sub-path at the given (x,y) coordinate. M (uppercase)
          * indicates that absolute coordinates will follow; m (lowercase)
@@ -225,10 +220,10 @@ var svgToCanvas = {
          * an absolute moveto.
          */
         case 'M':
-          console.error('Absolute "moveto"-command not yet implemented'); //@TODO: code this
+          console.error('vaporware: Absolute "moveto"-command not yet implemented'); //@TODO: code this
           break;
         case 'm':
-          console.error('Relative "moveto"-command not yet implemented'); //@TODO: code this
+          console.error('vaporware: Relative "moveto"-command not yet implemented'); //@TODO: code this
           break;
 
         /**
@@ -238,7 +233,7 @@ var svgToCanvas = {
          */
         case 'Z':
         case 'z':
-          console.error('"closepath"-command not yet implemented'); //@TODO: code this
+          console.error('vaporware: "closepath"-command not yet implemented'); //@TODO: code this
           break;
 
         /**
@@ -250,10 +245,10 @@ var svgToCanvas = {
          * current point is set to the final set of coordinates provided.
          */
         case 'L':
-          console.error('Absolute "lineto"-command not yet implemented'); //@TODO: code this
+          console.error('vaporware: Absolute "lineto"-command not yet implemented'); //@TODO: code this
           break;
         case 'l':
-          console.error('Relative "lineto"-command not yet implemented'); //@TODO: code this
+          console.error('vaporware: Relative "lineto"-command not yet implemented'); //@TODO: code this
           break;
 
         /**
@@ -265,10 +260,10 @@ var svgToCanvas = {
          * becomes (x, cpy) for the final value of x.
          */
         case 'H':
-          console.error('Absolute "lineto"-command not yet implemented'); //@TODO: code this
+          console.error('vaporware: Absolute "lineto"-command not yet implemented'); //@TODO: code this
           break;
         case 'h':
-          console.error('Relative "lineto"-command not yet implemented'); //@TODO: code this
+          console.error('vaporware: Relative "lineto"-command not yet implemented'); //@TODO: code this
           break;
 
         /**
