@@ -200,7 +200,7 @@ var svgToCanvas = {
     commands: 'mzlhvcsqta',
     commandsRegex: function () {
       var regex = '[';
-      regex += this.commands; //@TODO: make sure this works!
+      regex += this.commands;
       regex += ']';
       return (new RegExp(regex, 'ig'));
     }
