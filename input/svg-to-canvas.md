@@ -4,7 +4,7 @@ title: SVG=>Canvas
 # SVG to Canvas Library
 
 Playing with possibilities of re-rendering SVG via canvas API. See [inline
-comments][code] for reasoning and thoughts behind the study. Primarily, this is
+documentation][code] for reasoning and thoughts behind the study. Primarily, this is
 out of a personal wish to control the speed with which SVG files are rendered.
 Secondarily, I want to become familiar with both Canvas and SVG, so I haven't
 bothered looking for any libraries that to this for me. I want to have all the
@@ -24,7 +24,7 @@ fun to myself :)
 
 ## Original SVG Image
 
-Below the [zacsh.behaviors.svgRender][svgRender]() script is actually
+Below the <code>[jzacsh.behaviors.svgRender][svgRender]()</code> script is actually
 attempting to slowly show/hide our embedded SVG data, to see what is possible
 without turning to the Canvas APIs.
 
