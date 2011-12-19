@@ -87,27 +87,22 @@ jzacsh.behaviors.svgRender = function (c) {
     //the callback chain
     //
     var fadeNextPath = function (idx, fadeSpeed, linkLength) {
-      console.log('entered chain-link: %d\n', idx);
       if ($paths.length >= idx) {
-        console.log('fading in path #%d\n', idx); //@TODO: remove me!!    
         $($paths[idx++]).fadeIn(fadeSpeed);
       }
 
       //now that idx is incremented...
       if ($paths.length >= idx) {
-        console.log('setting up next link, #%d\n', idx); //@TODO: remove me!!    
         tids.push(setTimeout(fadeNextPath, linkLength,
               //parameters:
               idx, fadeSpeed, linkLength));
       }
     }
 
-    console.log('triggering chain of %d paths...', $paths.length); //@TODO: remove me!!    
     //start the chain at 0
     tids.push(setTimeout(fadeNextPath, 100,
           //parameters:
           0, 3000, 3001));
-    console.log('tids:', tids); //@TODO: remove me!!    
   }
 }
 
