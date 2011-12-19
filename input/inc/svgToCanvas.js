@@ -55,11 +55,9 @@ var svgToCanvas = {
     this.config = config;
 
     //
-    //return a well catered, useful structure.
+    //expose everything
     //
-    return {
-      lib: this, //expose everything
-    };
+    return this;
   },
 
   /**
@@ -73,6 +71,7 @@ var svgToCanvas = {
     //
     //basic rendering for each path
     //
+    var paths = this.svg.getElementsByTagName('path');
     for (var i in paths) {
       this.renderPath(paths[i]); //@TODO: un-comment me!!    
     }
