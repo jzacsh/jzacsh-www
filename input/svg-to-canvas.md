@@ -32,6 +32,7 @@ without turning to the Canvas APIs.
 
 <div class="avoid-markdown">
   <svg
+     class="dev"
      xmlns:dc="http://purl.org/dc/elements/1.1/"
      xmlns:cc="http://creativecommons.org/ns#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"

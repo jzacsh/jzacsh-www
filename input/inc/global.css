@@ -19,7 +19,7 @@ body {
   color: #2e3436;
 }
 
-canvas.dev {
+.dev {
   outline: 1px dotted #000000;
 }
 
