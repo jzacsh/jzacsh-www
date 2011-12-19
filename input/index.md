@@ -4,8 +4,8 @@ menu-position: 9
 
 ## Jonathan Zacsh
 
-I'm a [software][] developer, experience mostly with [drupal][], but I spend a
-decent amount of time studying/playing with:
+I'm a [software][] developer, experienced mostly with [drupal][]. I also spend a
+fair amount of time studying/playing with:
 
   * client-side javascript
   * python, like: [imagedex][]
