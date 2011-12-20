@@ -118,7 +118,7 @@ var svgToCanvas = {
     var data = this.compileSVGPath(pathNode.getAttribute('d'),
         pathNode.getAttribute('style'));
 
-    var lib = this;
+    var map = this;
     /**
      * Actual "mapping" of our Mapper, calling utilizing corresponding Canvas
      * APIs where SVG APIs are encountered in a given SVG <path>.
@@ -140,9 +140,9 @@ var svgToCanvas = {
          * Call the correct Canvas API.
          */
         var apply = function (command, data) {
-          if (!command.match(lib.spec.commandsRegex())) {
+          if (!command.match(map.spec.regex.hexStyle())) {
             console.warn('Unknown SVG command found in [d] attribute of svg node id="%s".\n',
-                lib.svg.id);
+                map.svg.id);
             return false;
           }
 
@@ -168,7 +168,7 @@ var svgToCanvas = {
             //relative moveto
             case 'm':
               if (data.length > 1) {
-                lib.context.moveTo(emc[0] + data[0], emc[1] + data[1]);
+                map.context.moveTo(emc[0] + data[0], emc[1] + data[1]);
 
                 //remove the two we've used and simultaneously store our new
                 //relative location
@@ -181,7 +181,7 @@ var svgToCanvas = {
                 }
               }
               else {
-                console.error('SVG Parse Error: in-sufficient number of coordinates to render path, data below');
+                console.error('SVG Parse Error: in-sufficient number of coordinates to render "%" SVG-command, data below:', command);
                 console.error(data);
                 return false;
               }
@@ -208,11 +208,29 @@ var svgToCanvas = {
              */
             //absolute lineto
             case 'L':
-              console.error('vaporware: Absolute "lineto"-command not yet implemented'); //@TODO: code this
-              break;
+              if (data.length > 1) {
+                emc = [0, 0];
+              }
             //relative lineto
             case 'l':
-              console.error('vaporware: Relative "lineto"-command not yet implemented'); //@TODO: code this
+              if (data.length > 1) {
+                map.context.lineTo(emc[0] + data[0], emc[1] + data[1]);
+
+                //remove the two we've used and simultaneously store our new
+                //relative location
+                emc[0] = data.shift();
+                emc[1] = data.shift();
+
+                if (data.length) {
+                  //continue processing the cooridnate pairs provided.
+                  apply(command, data);
+                }
+              }
+              else {
+                console.error('SVG Parse Error: in-sufficient number of coordinates to render "%" SVG-command, data below:', command);
+                console.error(data);
+                return false;
+              }
               break;
 
             /**
@@ -371,15 +389,37 @@ var svgToCanvas = {
        */
       styles: function (styles) {
         console.error('vaporware: styles not mapped yet!'); //@TODO: remove me!!    
+
+        switch (styles) {
+          case 'fill':
+            break;
+
+          case 'fill-opacity':
+            break;
+
+          case 'fill-rule':
+            break;
+
+          case 'stroke':
+            map.context.strokeStyle();
+              .test(document.getElementById('colors-and-styles').getAttribute('style').toLowerCase());
+            break;
+        }
       }
     };
 
+    //
+    //initialize style properties in canvas, as defined by svg
+    //
+    var parseError = applyPath.styles(data.styles);
+
+    //
+    //run canvas APIs, as intneded by svg commands
+    //
     var parseError = applyPath.commands(data.commands);
     if (parseError !== null) {
       console.error('SVG Parser: Pre-maturely ending render of path (at command #%d) due to malformed SVG data: %s.', parseError, dAttr);
     }
-
-    var parseError = applyPath.styles(data.styles);
   },
 
   /**
@@ -409,8 +449,8 @@ var svgToCanvas = {
     //
     //gather flags and data found in [d] attribute.
     //
-    var flags = dAttr.match(this.spec.commandsRegex());
-    var data = dAttr.split(this.spec.commandsRegex());
+    var flags = dAttr.match(this.spec.regex.hexStyle());
+    var data = dAttr.split(this.spec.regex.hexStyle());
     data.shift();
     data = data.map(function (str) {
       return str.trim();
@@ -468,12 +508,26 @@ var svgToCanvas = {
    */
   spec: {
     commands: 'mzlhvcsqta',
-    commandsRegex: function () {
-      var regex = '[';
-      regex += this.commands;
-      regex += ']';
-      return (new RegExp(regex, 'ig'));
-    }
+    /**
+     * Methods to return valid RegExp objects.
+     */
+    regex: {
+      commands: function () {
+        var regex = '[';
+        regex += this.commands;
+        regex += ']';
+        return (new RegExp(regex, 'ig'));
+      },
+      hexStyle: function () {
+        var regex = '^#';
+        //six digits hexidecimal characters.
+        for (var i = 0; i < 6; i++) {
+          regex += '[a-f|0-9]';
+        }
+        regex += '$';
+        return regex;
+      },
+    },
   },
 };
 
