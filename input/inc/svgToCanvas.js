@@ -108,11 +108,6 @@ var svgToCanvas = {
   /**
    * Render a particular <path>, on our DOM's canvas.
    *
-   * @TODO: Private; perhaps encapsulate within the public this.renderToCanvas()?
-   *
-   * @TODO: either rename compileSVGPath to do more, or code calls to take care
-   * of all other attributes Canvas API also covers, eg.: fillStyle().
-   *
    * @param object pathNode
    *   The <path> node, as found somewhere in the DOM tree of SVG data.
    */
