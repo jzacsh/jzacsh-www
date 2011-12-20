@@ -122,12 +122,12 @@ var svgToCanvas = {
     /**
      * Actual "mapping" of our Mapper, calling utilizing corresponding Canvas
      * APIs where SVG APIs are encountered in a given SVG <path>.
+     *
+     * @see http://www.w3.org/TR/SVG/paths.html
      */
     var applyPath = {
       /**
        * Map valid Canvas API methods for each SVG "command" that's called.
-       *
-       * @see http://www.w3.org/TR/SVG/paths.html
        *
        * @param Array commands
        *   @see this.compileSVGPath().commands
@@ -363,8 +363,6 @@ var svgToCanvas = {
 
       /**
        * Map valid Canvas API methods for each SVG "style" defined.
-       *
-       * @see http://www.w3.org/TR/SVG/paths.html
        *
        * @param Object styles
        *   @see this.compileSVGPath().styles
