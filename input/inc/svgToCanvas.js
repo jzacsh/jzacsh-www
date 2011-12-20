@@ -69,12 +69,15 @@ var svgToCanvas = {
 
     this.svg = svgNode;
     this.canvas = canvasNode;
+    this.context = this.canvas.getContext('2d');
     this.config = config;
 
-    //
-    //expose everything
-    //
-    return this;
+    if (this.context) {
+      return this;
+    }
+    else {
+      return false;
+    }
   },
 
   /**
@@ -85,6 +88,7 @@ var svgToCanvas = {
    * @note Public: accessing this API is encouraged.
    */
   renderToCanvas: function () {
+    this.context.beginPath();
     //
     //basic rendering for each path
     //
