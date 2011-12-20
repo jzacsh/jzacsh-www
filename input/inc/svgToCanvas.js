@@ -121,7 +121,11 @@ var svgToCanvas = {
     dAttr = pathNode.getAttribute('d');
     styles = { /* @TODO: style-[x] attributes on this <path> node */ };
     data = this.compileSVGPath(dAttr, styles);
-    this.applyPathCommand(data.commands);
+
+    var parseError = this.applyPathCommand(data.commands);
+    if (parseError !== null) {
+      console.error('SVG Parser: Pre-maturely ending render of path (at command #%d) due to malformed SVG data: %s.', parseError, dAttr);
+    }
 
     //@TODO: do something with this data
     console.error('vaporware: Nothing Coded for "style" attributes!! (styles: %s)\n',
@@ -231,6 +235,9 @@ var svgToCanvas = {
   applyPathCommand: function(pathData) {
     var lib = this;
 
+    //relativity, e = mc^2
+    var emc = [0, 0]; // x, y
+
     /**
      * Call the correct Canvas API.
      */
@@ -257,11 +264,26 @@ var svgToCanvas = {
          */
         //absolute moveto
         case 'M':
-          console.error('vaporware: Absolute "moveto"-command not yet implemented'); //@TODO: code this
-          break;
+          if (data.length > 1) {
+            emc = [0, 0];
+          }
         //relative moveto
         case 'm':
-          console.error('vaporware: Relative "moveto"-command not yet implemented'); //@TODO: code this
+          if (data.length > 1) {
+            lib.context.moveTo(emc[0] + data[0], emc[1] + data[1]);
+
+            //remove the two we've used
+            data.shift();
+            data.shift();
+            if (data.length) {
+              applyCommand(command, data);
+            }
+          }
+          else {
+            console.error('SVG Parse Error: in-sufficient number of coordinates to render path, data below');
+            console.error(data);
+            return false;
+          }
           break;
 
         /**
@@ -428,8 +450,11 @@ var svgToCanvas = {
     }
 
     for (var i in pathData) {
-      applyCommand(pathData[i].command, pathData[i].data);
+      if (applyCommand(pathData[i].command, pathData[i].data) === false) {
+        return i;
+      }
     }
+    return null;
   }
 };
 
