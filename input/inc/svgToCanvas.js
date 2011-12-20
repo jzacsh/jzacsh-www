@@ -174,7 +174,9 @@ var svgToCanvas = {
                 //relative location
                 emc[0] = data.shift();
                 emc[1] = data.shift();
+
                 if (data.length) {
+                  //continue processing the cooridnate pairs provided.
                   apply(command, data);
                 }
               }
