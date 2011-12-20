@@ -170,9 +170,10 @@ var svgToCanvas = {
               if (data.length > 1) {
                 lib.context.moveTo(emc[0] + data[0], emc[1] + data[1]);
 
-                //remove the two we've used
-                data.shift();
-                data.shift();
+                //remove the two we've used and simultaneously store our new
+                //relative location
+                emc[0] = data.shift();
+                emc[1] = data.shift();
                 if (data.length) {
                   apply(command, data);
                 }
