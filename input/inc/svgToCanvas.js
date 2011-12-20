@@ -374,12 +374,12 @@ var svgToCanvas = {
       }
     };
 
-    var parseError = this.applyPath.commands(data.commands);
+    var parseError = applyPath.commands(data.commands);
     if (parseError !== null) {
       console.error('SVG Parser: Pre-maturely ending render of path (at command #%d) due to malformed SVG data: %s.', parseError, dAttr);
     }
 
-    var parseError = this.applyPath.styles(data.styles);
+    var parseError = applyPath.styles(data.styles);
   },
 
   /**
