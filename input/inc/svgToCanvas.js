@@ -140,7 +140,7 @@ var svgToCanvas = {
         /**
          * Call the correct Canvas API.
          */
-        var applyCommand = function (command, data) {
+        var apply = function (command, data) {
           if (!command.match(lib.spec.commandsRegex())) {
             console.warn('Unknown SVG command found in [d] attribute of svg node id="%s".\n',
                 lib.svg.id);
@@ -175,7 +175,7 @@ var svgToCanvas = {
                 data.shift();
                 data.shift();
                 if (data.length) {
-                  applyCommand(command, data);
+                  apply(command, data);
                 }
               }
               else {
@@ -353,7 +353,7 @@ var svgToCanvas = {
         //
         var applied;
         for (var i in commands) {
-          applied = applyCommand(commands[i].command, commands[i].data);
+          applied = apply(commands[i].command, commands[i].data);
           if (applied === false) {
             return i;
           }
