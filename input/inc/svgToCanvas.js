@@ -120,6 +120,8 @@ var svgToCanvas = {
     var dAttr, styles, data;
     dAttr = pathNode.getAttribute('d');
     styles = pathNode.getAttribute('style');
+
+    //compiled data about this path
     data = this.compileSVGPath(dAttr, styles);
 
     var parseError = this.applyPathCommand(data.commands);
@@ -127,9 +129,7 @@ var svgToCanvas = {
       console.error('SVG Parser: Pre-maturely ending render of path (at command #%d) due to malformed SVG data: %s.', parseError, dAttr);
     }
 
-    //@TODO: do something with this data
-    console.error('vaporware: Nothing Coded for "style" attributes!! (styles: %s)\n',
-        data.styles);
+    var parseError = this.applyPathStyles(data.styles);
   },
 
   /**
@@ -234,10 +234,10 @@ var svgToCanvas = {
    *
    * @see http://www.w3.org/TR/SVG/paths.html
    *
-   * @param Array pathData
+   * @param Array commands
    *   @see this.compileSVGPath().commands
    */
-  applyPathCommand: function(pathData) {
+  applyPathCommand: function(commands) {
     var lib = this;
 
     //relativity, e = mc^2
@@ -454,12 +454,32 @@ var svgToCanvas = {
       }
     }
 
-    for (var i in pathData) {
-      if (applyCommand(pathData[i].command, pathData[i].data) === false) {
+    //
+    //run each SVG command provided
+    //
+    var applied;
+    for (var i in commands) {
+      applied = applyCommand(commands[i].command, commands[i].data);
+      if (applied === false) {
         return i;
       }
     }
     return null;
+  },
+
+  /**
+   * Actual "mapping" of our Mapper, manipulating valid Canvas context
+   * properties for each SVG "style" defined called.
+   *
+   * @TODO: Private; perhaps encapsulate within the public this.renderToCanvas()?
+   *
+   * @see http://www.w3.org/TR/SVG/paths.html
+   *
+   * @param Object styles
+   *   @see this.compileSVGPath().styles
+   */
+  applyPathStyles: function (styles) {
+    console.error('vaporware: styles not mapped yet!'); //@TODO: remove me!!    
   }
 };
 
