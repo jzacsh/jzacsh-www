@@ -140,7 +140,7 @@ var svgToCanvas = {
          * Call the correct Canvas API.
          */
         var apply = function (command, data) {
-          if (!command.match(map.spec.regex.hexStyle())) {
+          if (!command.match(map.spec.regex.commands)) {
             console.warn('Unknown SVG command found in [d] attribute of svg node id="%s".\n',
                 map.svg.id);
             return false;
@@ -390,20 +390,36 @@ var svgToCanvas = {
       styles: function (styles) {
         console.error('vaporware: styles not mapped yet!'); //@TODO: remove me!!    
 
-        switch (styles) {
-          case 'fill':
-            break;
+        var apply = function (style, value) {
+          switch (styles) {
+            case 'fill':
+              break;
 
-          case 'fill-opacity':
-            break;
+            case 'fill-opacity':
+              break;
 
-          case 'fill-rule':
-            break;
+            case 'fill-rule':
+              break;
 
-          case 'stroke':
-            map.context.strokeStyle();
-              .test(document.getElementById('colors-and-styles').getAttribute('style').toLowerCase());
-            break;
+            case 'stroke':
+              if (map.spec.regex.hexStyle.test(value)) {
+                map.context.strokeStyle(value);
+              }
+              else {
+                console.warn('vaporware: only hex color values are currently implemented in svg=>canvas mapping for [style="stroke"].');
+              }
+              break;
+
+            default:
+              return false;
+              break;
+          }
+        }
+
+        for (var i in styles) {
+          if (apply(i, styles[i])) {
+            console.warn('Skipping unrecognized property in [style] attribute of SVG path, "%s".', i);
+          }
         }
       }
     };
@@ -449,8 +465,8 @@ var svgToCanvas = {
     //
     //gather flags and data found in [d] attribute.
     //
-    var flags = dAttr.match(this.spec.regex.hexStyle());
-    var data = dAttr.split(this.spec.regex.hexStyle());
+    var flags = dAttr.match(this.spec.regex.commands);
+    var data = dAttr.split(this.spec.regex.commands);
     data.shift();
     data = data.map(function (str) {
       return str.trim();
@@ -506,28 +522,31 @@ var svgToCanvas = {
    *
    * @see this.applyPathCommand()
    */
-  spec: {
-    commands: 'mzlhvcsqta',
-    /**
-     * Methods to return valid RegExp objects.
-     */
-    regex: {
-      commands: function () {
-        var regex = '[';
-        regex += this.commands;
-        regex += ']';
-        return (new RegExp(regex, 'ig'));
+  spec: (function () {
+    var commands = 'mzlhvcsqta';
+
+    return {
+      commands: commands,
+      /**
+       * Methods to return valid RegExp objects.
+       */
+      regex: {
+        commands: (function () {
+          var regex = '[';
+          regex += commands;
+          regex += ']';
+          return (new RegExp(regex, 'ig'));
+        })(),
+        hexStyle: (function () {
+          var regex = '^#';
+          for (var i = 0; i < 6; i++) {
+            regex += '[a-f|0-9]';
+          }
+          regex += '$';
+          return (new RegExp(regex, 'i'));
+        })(),
       },
-      hexStyle: function () {
-        var regex = '^#';
-        //six digits hexidecimal characters.
-        for (var i = 0; i < 6; i++) {
-          regex += '[a-f|0-9]';
-        }
-        regex += '$';
-        return regex;
-      },
-    },
-  },
+    }
+  })(),
 };
 
