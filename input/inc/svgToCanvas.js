@@ -119,7 +119,7 @@ var svgToCanvas = {
   renderPath: function (pathNode) {
     var dAttr, styles, data;
     dAttr = pathNode.getAttribute('d');
-    styles = { /* @TODO: style-[x] attributes on this <path> node */ };
+    styles = pathNode.getAttribute('style');
     data = this.compileSVGPath(dAttr, styles);
 
     var parseError = this.applyPathCommand(data.commands);
@@ -189,8 +189,13 @@ var svgToCanvas = {
      * Gather style attributes we want to use from <path>, into a useful
      * object.
      */
-    var compileStyles = function () {
-      return null; //@TODO: append other path-wide attributes onto this array.
+    var compileStyles = function (s) {
+      var compilation = {};
+      s.split(';').map(function (style) {
+        style = style.split(':');
+        return compilation[style[0]] = style[1];
+      });
+      return compilation;
     }
 
     /**
