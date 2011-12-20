@@ -118,6 +118,7 @@ var svgToCanvas = {
     var data = this.compileSVGPath(pathNode.getAttribute('d'),
         pathNode.getAttribute('style'));
 
+    var lib = this;
     /**
      * Actual "mapping" of our Mapper, calling utilizing corresponding Canvas
      * APIs where SVG APIs are encountered in a given SVG <path>.
@@ -132,8 +133,6 @@ var svgToCanvas = {
        *   @see this.compileSVGPath().commands
        */
       commands: function(commands) {
-        var lib = this;
-
         //relativity, e = mc^2
         var emc = [0, 0]; // x, y
 
