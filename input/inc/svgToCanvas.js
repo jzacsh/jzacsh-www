@@ -142,7 +142,7 @@ var svgToCanvas = {
                 map.context.fillStyle = value;
               }
               else {
-                console.error('vaporware: only hex color values are currently implemented in svg=>canvas mapping for [style="%s"].', style);
+                console.error('vaporware: only hex color-values currently implemented in svg=>canvas mapping, ignoring [style="%s: %s;"].', style, value);
               }
               break;
 
@@ -159,7 +159,7 @@ var svgToCanvas = {
                 map.context.strokeStyle(value);
               }
               else {
-                console.error('vaporware: only hex color values are currently implemented in svg=>canvas mapping for [style="%s"].', style);
+                console.error('vaporware: only hex color-values currently implemented in svg=>canvas mapping, ignoring [style="%s: %s;"].', style, value);
               }
               break;
 
