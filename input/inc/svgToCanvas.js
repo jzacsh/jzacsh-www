@@ -155,7 +155,7 @@ var svgToCanvas = {
               break;
 
             case 'stroke':
-              if (map.spec.regex.hexStyle.test(value)) {
+              if (map.spec.regex.hexStyle.test(value) || value == 'none') {
                 map.context.strokeStyle(value);
               }
               else {
