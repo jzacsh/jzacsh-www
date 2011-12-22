@@ -328,11 +328,35 @@ var svgToCanvas = {
              */
             //absolute curveto
             case 'C':
-              console.error('vaporware: Absolute "curveto"-command not yet implemented'); //@TODO: code this
-              break;
+              if (data.length > 5) {
+                emc = [0, 0];
+              }
             //relative curveto
             case 'c':
-              console.error('vaporware: Relative "curveto"-command not yet implemented'); //@TODO: code this
+              if (data.length > 5) {
+                map.context.bezierCurveTo(data[0], data[1], data[2], data[3],
+                    data[4], data[5]);
+
+                //store our new relative location
+                emc[4] = data[4];
+                emc[5] = data[5];
+
+                //remove the 6 we've used (2 pairs of "control points" and a
+                //pair of "current point")
+                for (var i = 0; i < 6; i++) {
+                  emc[i] = data.shift();
+                }
+
+                if (data.length) {
+                  //continue processing the cooridnate pairs provided.
+                  apply(command, data);
+                }
+              }
+              else {
+                console.error('SVG Parse Error: in-sufficient number of coordinates to render "%" SVG-command; data below:', command);
+                console.error(data);
+                return false;
+              }
               break;
 
             /**
