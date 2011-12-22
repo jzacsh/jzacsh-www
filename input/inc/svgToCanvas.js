@@ -164,15 +164,14 @@ var svgToCanvas = {
               break;
 
             default:
+              console.warn('Skipping unrecognized property in [style] attribute of SVG path, "%s".', i);
               return false;
               break;
           }
         }
 
         for (var i in styles) {
-          if (apply(i, styles[i]) === false) {
-            console.warn('Skipping unrecognized property in [style] attribute of SVG path, "%s".', i);
-          }
+          apply(i, styles[i]);
         }
       },
 
