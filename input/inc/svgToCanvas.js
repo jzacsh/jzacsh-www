@@ -328,29 +328,42 @@ var svgToCanvas = {
              */
             //absolute curveto
             case 'C':
-              if (data.length > 5) {
-                emc = [0, 0];
-              }
+              console.error('vaporware: Absolute "curveto"-command not yet implemented!'); //@TODO: code this
+              break;
             //relative curveto
             case 'c':
-              if (data.length > 5) {
-                map.context.bezierCurveTo(data[0], data[1], data[2], data[3],
-                    data[4], data[5]);
+              if (data.length > 2) {
+                var coords = (function (d) {
+                  var c = [];
+                  for (var i in d) {
+                    c.push(d[i].split(','));
+                  }
+                  return c;
+                })(data);
 
-                //store our new relative location
-                emc[4] = data[4];
-                emc[5] = data[5];
+                map.context.bezierCurveTo(coords[0], coords[1], coords[2], coords[3],
+                    coords[4], coords[5]);
 
-                //remove the 6 we've used (2 pairs of "control points" and a
-                //pair of "current point")
-                for (var i = 0; i < 6; i++) {
-                  emc[i] = data.shift();
-                }
-
-                if (data.length) {
-                  //continue processing the cooridnate pairs provided.
-                  apply(command, data);
-                }
+                /**
+                 * //@TODO: figure out what to do withthis if you ever code
+                 * "C"-command!
+                 *
+                 * //store our new relative location
+                 * emc[4] = data[4];
+                 * emc[5] = data[5];
+                 *
+                 * //remove the 6 we've used (2 pairs of "control points" and a
+                 * //pair of "current point")
+                 * for (var i = 0; i < 6; i++) {
+                 *   emc[i] = data.shift();
+                 * }
+                 *
+                 * if (data.length) {
+                 *   //continue processing the cooridnate pairs provided.
+                 *   apply(command, data);
+                 * }
+                 *
+                 */
               }
               else {
                 console.error('SVG Parse Error: in-sufficient number of coordinates to render "%" SVG-command; data below:', command);
@@ -512,11 +525,18 @@ var svgToCanvas = {
      * Compile our d-attribute data into an array in the order it was found.
      */
     var compileDAttr = function (keys, values) {
-      var objectified = [];
+      var objectified = [], splitOn;
       for (var i in values) {
+        if (keys[i] == 'c') {
+          splitOn = ' ';
+        }
+        else {
+          splitOn = ',';
+        }
+
         objectified.push({
           command: keys[i],
-          data: values[i].split(','),
+          data: values[i].split(splitOn),
         });
       }
       return objectified;
