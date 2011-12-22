@@ -127,6 +127,56 @@ var svgToCanvas = {
      */
     var applyPath = {
       /**
+       * Map valid Canvas API methods for each SVG "style" defined.
+       *
+       * @param Object styles
+       *   @see this.compileSVGPath().styles
+       */
+      styles: function (styles) {
+        console.error('vaporware: styles not fully mapped, yet!'); //@TODO: remove me!!    
+
+        var apply = function (style, value) {
+          switch (style) {
+            case 'fill':
+              if (map.spec.regex.hexStyle.test(value)) {
+                map.context.fillStyle = value;
+              }
+              else {
+                console.error('vaporware: only hex color values are currently implemented in svg=>canvas mapping for [style="%s"].', style);
+              }
+              break;
+
+            case 'fill-opacity':
+              console.error('vaporware: "%s" for [style="stroke"] not yet implemented.', style);
+              break;
+
+            case 'fill-rule':
+              console.error('vaporware: "%s" for [style="stroke"] not yet implemented.', style);
+              break;
+
+            case 'stroke':
+              if (map.spec.regex.hexStyle.test(value)) {
+                map.context.strokeStyle(value);
+              }
+              else {
+                console.error('vaporware: only hex color values are currently implemented in svg=>canvas mapping for [style="%s"].', style);
+              }
+              break;
+
+            default:
+              return false;
+              break;
+          }
+        }
+
+        for (var i in styles) {
+          if (apply(i, styles[i]) === false) {
+            console.warn('Skipping unrecognized property in [style] attribute of SVG path, "%s".', i);
+          }
+        }
+      },
+
+      /**
        * Map valid Canvas API methods for each SVG "command" that's called.
        *
        * @param Array commands
@@ -379,48 +429,6 @@ var svgToCanvas = {
           }
         }
         return null;
-      },
-
-      /**
-       * Map valid Canvas API methods for each SVG "style" defined.
-       *
-       * @param Object styles
-       *   @see this.compileSVGPath().styles
-       */
-      styles: function (styles) {
-        console.error('vaporware: styles not fully mapped, yet!'); //@TODO: remove me!!    
-
-        var apply = function (style, value) {
-          switch (style) {
-            case 'fill':
-              break;
-
-            case 'fill-opacity':
-              break;
-
-            case 'fill-rule':
-              break;
-
-            case 'stroke':
-              if (map.spec.regex.hexStyle.test(value)) {
-                map.context.strokeStyle(value);
-              }
-              else {
-                console.warn('vaporware: only hex color values are currently implemented in svg=>canvas mapping for [style="stroke"].');
-              }
-              break;
-
-            default:
-              return false;
-              break;
-          }
-        }
-
-        for (var i in styles) {
-          if (apply(i, styles[i])) {
-            console.warn('Skipping unrecognized property in [style] attribute of SVG path, "%s".', i);
-          }
-        }
       }
     };
 
