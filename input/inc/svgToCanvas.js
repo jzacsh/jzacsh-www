@@ -391,7 +391,7 @@ var svgToCanvas = {
         console.error('vaporware: styles not fully mapped, yet!'); //@TODO: remove me!!    
 
         var apply = function (style, value) {
-          switch (styles) {
+          switch (style) {
             case 'fill':
               break;
 
