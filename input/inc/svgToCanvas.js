@@ -245,7 +245,7 @@ var svgToCanvas = {
             //closepath
             case 'Z':
             case 'z':
-              console.error('vaporware: "closepath"-command not yet implemented'); //@TODO: code this
+              map.context.closePath();
               break;
 
             /**
