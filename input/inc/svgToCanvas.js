@@ -499,7 +499,7 @@ var svgToCanvas = {
       var compilation = {};
       s.split(';').map(function (style) {
         style = style.split(':');
-        return compilation[style[0]] = style[1];
+        compilation[style[0]] = style[1];
       });
       return compilation;
     }
