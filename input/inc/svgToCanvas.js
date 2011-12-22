@@ -156,7 +156,7 @@ var svgToCanvas = {
 
             case 'stroke':
               if (map.spec.regex.hexStyle.test(value) || value == 'none') {
-                map.context.strokeStyle(value);
+                map.context.strokeStyle = value;
               }
               else {
                 console.error('vaporware: only hex color-values currently implemented in svg=>canvas mapping, ignoring [style="%s: %s;"].', style, value);
