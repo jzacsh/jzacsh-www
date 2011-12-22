@@ -147,11 +147,11 @@ var svgToCanvas = {
               break;
 
             case 'fill-opacity':
-              console.error('vaporware: "%s" for [style="stroke"] not yet implemented.', style);
+              console.error('vaporware: code for [style="%s"] not yet implemented.', style);
               break;
 
             case 'fill-rule':
-              console.error('vaporware: "%s" for [style="stroke"] not yet implemented.', style);
+              console.error('vaporware: code for [style="%s"] not yet implemented.', style);
               break;
 
             case 'stroke':
