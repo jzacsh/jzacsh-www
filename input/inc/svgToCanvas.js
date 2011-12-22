@@ -276,7 +276,7 @@ var svgToCanvas = {
                 }
               }
               else {
-                console.error('SVG Parse Error: in-sufficient number of coordinates to render "%" SVG-command, data below:', command);
+                console.error('SVG Parse Error: in-sufficient number of coordinates to render "%" SVG-command; data below:', command);
                 console.error(data);
                 return false;
               }
