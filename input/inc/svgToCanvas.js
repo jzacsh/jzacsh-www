@@ -133,7 +133,6 @@ var svgToCanvas = {
        *   @see this.compileSVGPath().styles
        */
       styles: function (styles) {
-        console.error('vaporware: styles not fully mapped, yet!'); //@TODO: remove me!!    
 
         var apply = function (style, value) {
           switch (style) {
