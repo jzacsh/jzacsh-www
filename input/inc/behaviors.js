@@ -108,3 +108,31 @@ jzacsh.behaviors.svgRender = function (c) {
   }
 }
 
+/**
+ * Render SVG drawings from content.jzacsh.com/drawings via slider.js
+ *
+ * @see http://greweb.fr/slider
+ */
+jzacsh.behaviors.sliderjsDrawings = function (c) {
+  var slides = function () {
+    var content = [];
+    var domain = '/', //@TODO: when live, 'http://content.jzacsh.com/';
+      uri = 'inc/sample_imagedex.json'; //@TODO: when live use: 'drawings/imagedex.json'
+
+    $.getJSON(domain + uri, function (dex) {
+      for (var i in dex.tablet) {
+        content.push({
+          src: 'http://content.jzacsh.com/' + dex.tablet[i], //@TODO: remove me content.jzacsh.com... !!    
+          name: dex.tablet[i].replace(/^\/.*\/.*\/(.*)\.svg$/, "$1"),
+        });
+      }
+    });
+    return content;
+  };
+
+  var slider = new Slider($('#sliderjs', c));
+  console.log('slides()'); //@TODO: remove me!!    
+  console.log(slides()); //@TODO: remove me!!    
+  slider.setPhotos(slides());
+}
+
