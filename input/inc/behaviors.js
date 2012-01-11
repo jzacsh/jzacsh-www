@@ -114,45 +114,55 @@ jzacsh.behaviors.svgRender = function (c) {
  * @see http://greweb.fr/slider
  */
 jzacsh.behaviors.sliderjsDrawings = function (c) {
-  var validListings = ['tablet', 'paper'];
+  var validListings = ['tablet', 'paper'],
+    site = 'http://content.jzacsh.com',
+    uri = '/drawings/imagedex.json';
 
-  var slides = (function () {
-    var s = [];
-    var site = '/', //@TODO: http://content.jzacsh.com
-      uri = 'inc/sample_imagedex.json'; //@TODO: drawings/imagedex.json
+  var compileSlides = function (dex) {
+    var listing, path, s = [];
+    for (var i in dex.files) {
+      if (typeof dex.files[i] != 'object') {
+        continue;
+      }
 
-    $.getJSON(site + uri, function (dex) {
-      var listing, path,
-        regexFname = new RegExp('^/.*/.*/(.*)\.[pn|jpe?|sv]g$', 'i');
-      for (var i in dex.files) {
-        if (typeof dex.files[i] != 'object') {
-          continue;
-        }
+      //only parse objects we've been asked to parse
+      for (var idx in validListings) {
+        if (validListings[idx] in dex.files[i]) {
+          listing = validListings[idx];
 
-        //only parse objects we've been asked to parse
-        for (var idx in validListings) {
-          if (validListings[idx] in dex.files[i]) {
-            listing = validListings[idx];
-
-            //run the the listing we're parsing
-            for (var n in dex.files[i][listing]) {
-              path = dex.files[i][listing][n];
-              s.push({
-                src: path,
-                name: $.trim(path.replace(regexFname, "$1")
-                  .replace(/[_-]/g, ' ')
-                  .replace(/ +/g, ' ')
-                  )
-              });
-            }
+          //run the the listing we're parsing
+          for (var n in dex.files[i][listing]) {
+            path = dex.files[i][listing][n];
+            s.push({
+              src: site + path,
+              name: $.trim(path
+                //get just the file name
+                .replace((new RegExp('^/.*/.*/(.*)\.[pn|jpe?|sv]g$', 'i')),
+                  "$1")
+                //strip out file-name conventions
+                .replace(/[_-]/g, ' ')
+                //cleanup after the above slopiness
+                .replace(/ +/g, ' ')
+                )
+            });
           }
         }
       }
-    });
+    }
     return s;
-  })();
+  };
 
-  var slider = new Slider($('#sliderjs', c));
-  slider.setPhotos(slides);
+  var initSliderJs = function (data) {
+    var slider = new Slider($('#sliderjs', c));
+    slider.setPhotos(compileSlides(data));
+  }
+
+  $.ajax({
+    url: site + uri,
+    dataType: 'jsonp',
+    jsonp: false,
+    jsonpCallback: 'drawings',
+    success: initSliderJs,
+  });
 }
 
