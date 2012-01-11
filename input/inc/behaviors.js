@@ -114,25 +114,45 @@ jzacsh.behaviors.svgRender = function (c) {
  * @see http://greweb.fr/slider
  */
 jzacsh.behaviors.sliderjsDrawings = function (c) {
-  var slides = function () {
-    var content = [];
-    var domain = '/', //@TODO: when live, 'http://content.jzacsh.com/';
-      uri = 'inc/sample_imagedex.json'; //@TODO: when live use: 'drawings/imagedex.json'
+  var validListings = ['tablet', 'paper'];
 
-    $.getJSON(domain + uri, function (dex) {
-      for (var i in dex.tablet) {
-        content.push({
-          src: 'http://content.jzacsh.com/' + dex.tablet[i], //@TODO: remove me content.jzacsh.com... !!    
-          name: dex.tablet[i].replace(/^\/.*\/.*\/(.*)\.svg$/, "$1"),
-        });
+  var slides = (function () {
+    var s = [];
+    var site = '/', //@TODO: http://content.jzacsh.com
+      uri = 'inc/sample_imagedex.json'; //@TODO: drawings/imagedex.json
+
+    $.getJSON(site + uri, function (dex) {
+      var listing, path,
+        regexFname = new RegExp('^/.*/.*/(.*)\.[pn|jpe?|sv]g$', 'i');
+      for (var i in dex.files) {
+        if (typeof dex.files[i] != 'object') {
+          continue;
+        }
+
+        //only parse objects we've been asked to parse
+        for (var idx in validListings) {
+          if (validListings[idx] in dex.files[i]) {
+            listing = validListings[idx];
+
+            //run the the listing we're parsing
+            for (var n in dex.files[i][listing]) {
+              path = dex.files[i][listing][n];
+              s.push({
+                src: path,
+                name: $.trim(path.replace(regexFname, "$1")
+                  .replace(/[_-]/g, ' ')
+                  .replace(/ +/g, ' ')
+                  )
+              });
+            }
+          }
+        }
       }
     });
-    return content;
-  };
+    return s;
+  })();
 
   var slider = new Slider($('#sliderjs', c));
-  console.log('slides()'); //@TODO: remove me!!    
-  console.log(slides()); //@TODO: remove me!!    
-  slider.setPhotos(slides());
+  slider.setPhotos(slides);
 }
 
