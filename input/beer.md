@@ -35,6 +35,7 @@ things about.
 + <cite>The Hustler</cite> (1961)
 + <cite>Stalag 17</cite>
 + <cite>Casablanca</cite>
++ <cite>Taxi Driver</cite>
 + <cite>The Dirty Dozen</cite>
 + <cite>History of the World</cite>
 + <cite>The Outlaw Josey Wales</cite>
