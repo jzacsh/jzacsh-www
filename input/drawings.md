@@ -16,7 +16,6 @@ of:
 * [inotify-tools][inotify]
 * [imagedex][]
 * [ImageMagick][]
-* [][]
 
 [inotify]: https://github.com/rvoicilas/inotify-tools/wiki/
 [imagedex]: https://github.com/jzacsh/imagedex
