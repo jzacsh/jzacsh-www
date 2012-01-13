@@ -185,11 +185,12 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
 
     //intialize slides
     var slider = new Slider($('#sliderjs', c));
-    slider.setPhotos(jzacsh.data.imagedex.medium);
-    slider.setSize(800, 800);
-    slider.setTheme('theme-dark');
-    slider.setTransition('transition-zoomin');
-    slider.start();
+    //@TODO: write slides.js, then call it here:
+//  slider.setPhotos(jzacsh.data.imagedex.medium);
+//  slider.setSize(800, 800);
+//  slider.setTheme('theme-dark');
+//  slider.setTransition('transition-zoomin');
+//  slider.start();
   }
 
   $.ajax({
