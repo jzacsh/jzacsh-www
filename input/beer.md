@@ -65,20 +65,18 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
   <span class="attribution">by <b>Richard Dawkins</b></span>
 
 * <del><cite>How Proust Can Change Your Life</cite></del> (*audio*)
-  <span class="attribution">by <b>Alain de
-  Botton</b></span>
+  <span class="attribution">by <b>Alain de Botton</b></span>
 
-* <cite>The Shallows: What the Internet Is Doing to Our Brains</cite> (*currently reading*)
+* <del><cite>The Shallows: What the Internet Is Doing to Our Brains</cite></del>
   <span class="attribution">by <b>Nicholas Carr</b></span>
+
+* <cite>The Hitchhiker's Guide to the Galaxy</cite> (*currently reading*)
+  <span class="attribution">by <b>Douglas Adams</b></span>
 
 * <cite>A Brief History of Time</cite> (*currently reading*)
   <span class="attribution">by <b>Stephen Hawking</b></span>
 
-* <cite>A Confederacy of Dunces</cite> (*currently listening on audio*)
-  <span class="attribution">by <b>John Kennedy
-  Toole</b></span>
-
-* <cite>Mountaineering: The Freedom of the Hills</cite> (*currently reading*)
+* <cite>Mountaineering: The Freedom of the Hills</cite>
   <span class="attribution">by <b>The Mountaineers</b></span>
 
 * <cite>Relativity</cite>
