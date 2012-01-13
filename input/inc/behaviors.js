@@ -185,7 +185,10 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
 
     //intialize slides
     var slider = new Slider($('#sliderjs', c));
-    slider.setPhotos(jzacsh.data.imagedex.small);
+    slider.setPhotos(jzacsh.data.imagedex.medium);
+    slider.setSize(800, 800);
+    slider.setTheme('theme-dark');
+    slider.setTransition('transition-zoomin');
     slider.start();
   }
 

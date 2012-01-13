@@ -294,3 +294,58 @@ body.beerand .list.active {
  * end: beer.md-specific styling
  */
 
+/**
+ * start: drawings.md-specific styling
+ */
+.slider.theme-dark {
+  background: black;
+  color: white;
+}
+.slider.theme-dark a {
+  color: white;
+}
+.slider.theme-dark .caption {
+  background: rgba(0,0,0,0.5);
+}
+.slider.theme-dark .options a {
+  color: #91BECC;
+}
+.slider.theme-dark .options a:hover {
+  color: #D3E5EB;
+}
+.slider.theme-dark .slide-image {
+  background: black;
+}
+.slider.theme-dark .slide-pager a.current {
+  background-color: #91BECC;
+  color: black;
+}
+.slider.theme-dark .loader .spinner {
+  background: url('/inc/load_dark.gif') no-repeat;
+}
+
+/* zoom in */
+.slider.transition-zoomin .slide-image {
+  transform: scale(2);
+  position: absolute;
+  visibility: hidden;
+}
+.slider.transition-zoomin .slide-image.current {
+  transform: scale(1);
+  visibility: visible;
+}
+
+/* left transition */
+.slider.transition-left .slide-image {
+  opacity: 1;
+  left: -100%;
+}
+.slider.transition-left .slide-image.current {
+  left: 0;
+}
+.slider.transition-left .slide-image.current .slide-image {
+  left: 100%;
+}
+/**
+ * end: drawings.md-specific styling
+ */
