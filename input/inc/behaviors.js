@@ -8,6 +8,9 @@
  * I'm already doing with "bodyClass".
  */
 
+jzacsh.data = jzacsh.data || {};
+jzacsh.content = 'http://content.jzacsh.com';
+
 /**
  * All behaviors should be defined here, or in other javascript files.
  */
@@ -115,11 +118,12 @@ jzacsh.behaviors.svgRender = function (c) {
  */
 jzacsh.behaviors.sliderjsDrawings = function (c) {
   var validListings = ['tablet', 'paper'],
-    site = 'http://content.jzacsh.com',
     uri = '/drawings/imagedex.json';
 
   var compileSlides = function (dex) {
-    var listing, path, s = [];
+    var listing, imgPath, imgName, current, src,
+        s = [], m = [], orig = [];
+
     for (var i in dex.files) {
       if (typeof dex.files[i] != 'object') {
         continue;
@@ -132,33 +136,61 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
 
           //run the the listing we're parsing
           for (var n in dex.files[i][listing]) {
-            path = dex.files[i][listing][n];
-            s.push({
-              src: site + path,
-              name: $.trim(path
-                //get just the file name
-                .replace((new RegExp('^/.*/.*/(.*)\.[pn|jpe?|sv]g$', 'i')),
-                  "$1")
-                //strip out file-name conventions
-                .replace(/[_-]/g, ' ')
-                //cleanup after the above slopiness
-                .replace(/ +/g, ' ')
-                )
-            });
+            imgPath = dex.files[i][listing][n];
+            imgName = $.trim(imgPath
+              //get just the file name
+              .replace((new RegExp('^/.*/.*/(.*)\.[pn|jpe?|sv]g$', 'i')),
+                "$1")
+              //strip out file-name conventions
+              .replace(/[_-]/g, ' ')
+              //cleanup after the above slopiness
+              .replace(/ +/g, ' ')
+            );
+
+            //
+            //store our collections
+            //
+            current = {
+              src: jzacsh.content + imgPath,
+              name: imgName
+            };
+            orig.push(current);
+
+            //resized SVGs are converted to bitmap
+            src = current.src.replace(/svg$/i, 'png');
+
+            //path to small images
+            src = src.replace(/\/drawings\//,
+                '/scaled/drawings/small/');
+            s.push({ src: src, name: current.name });
+
+            //path to medium images
+            src = src.replace(/\/drawings\/small\//,
+                '/drawings/medium/');
+            m.push({ src: src, name: current.name });
           }
         }
       }
     }
-    return s;
+
+    return {
+      small: s,
+      medium: m,
+      original: orig,
+    };
   };
 
-  var initSliderJs = function (data) {
+  var initSliderJs = function (json) {
+    jzacsh.data.imagedex = compileSlides(json);
+
+    //intialize slides
     var slider = new Slider($('#sliderjs', c));
-    slider.setPhotos(compileSlides(data));
+    slider.setPhotos(jzacsh.data.imagedex.small);
+    slider.start();
   }
 
   $.ajax({
-    url: site + uri,
+    url: jzacsh.content + uri,
     dataType: 'jsonp',
     jsonp: false,
     jsonpCallback: 'drawings',
