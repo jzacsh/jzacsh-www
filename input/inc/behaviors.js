@@ -184,13 +184,7 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
     jzacsh.data.imagedex = compileSlides(json);
 
     //intialize slides
-    var slider = new Slider($('#sliderjs', c));
-    //@TODO: write slides.js, then call it here:
-//  slider.setPhotos(jzacsh.data.imagedex.medium);
-//  slider.setSize(800, 800);
-//  slider.setTheme('theme-dark');
-//  slider.setTransition('transition-zoomin');
-//  slider.start();
+    var slider = new slides($('#sliderjs', c), jzacsh.data.imagedex.medium);
   }
 
   $.ajax({
