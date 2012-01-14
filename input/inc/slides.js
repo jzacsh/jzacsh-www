@@ -9,6 +9,7 @@
  window.Slides = function ($slider, photos, config) {
    this.slider = $slider;
    this.images = photos;
+   this.current = 0; //@TODO: code in some override-ability via `config` param.
    var jq = this.slider.constructor;
    that = this;
 
