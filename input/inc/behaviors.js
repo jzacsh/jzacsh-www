@@ -181,7 +181,9 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
     var slider = new Slides({
           slider: $('#sliderjs', c),
           images: jzacsh.data.imagedex,
-          context: c
+          context: c,
+          currentPage: 2,
+          pageSize: 6
         });
   }
 

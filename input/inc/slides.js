@@ -15,6 +15,8 @@
      slider: S.conf.slider || null,
      images: S.conf.images || null,
      current: S.conf.current || 0,
+     currentPage: S.conf.currentPage || 0,
+     pageSize: S.conf.pageSize || 3,
      jqc: S.conf.context || window.document,
      jq: S.conf.jq || (function () {
        if ('jquery' in S.conf.slider) {
@@ -45,6 +47,11 @@
        slide += ' title="' + S.conf.images[i].name + '"';
        slide += ' data-slide="' + i + '"';
        slide += '>';
+       if (i < S.conf.pageSize) {
+         slide += '<img alt="' + S.conf.images[i].name + '"';
+         slide += ' src="' + S.conf.images[i].src + '"';
+         slide += '/>'
+       }
        slide += '</div>';
 
        // initialize a bunch of empty slides
