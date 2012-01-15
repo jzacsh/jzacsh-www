@@ -121,8 +121,7 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
     uri = '/drawings/imagedex.json';
 
   var compileSlides = function (dex) {
-    var listing, imgPath, imgName, current, src,
-        s = [], m = [], orig = [];
+    var listing, imgPath, imgName, current, src, images = [];
 
     for (var i in dex.files) {
       if (typeof dex.files[i] != 'object') {
@@ -131,53 +130,48 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
 
       //only parse objects we've been asked to parse
       for (var idx in validListings) {
-        if (validListings[idx] in dex.files[i]) {
-          listing = validListings[idx];
+        if (!validListings[idx] in dex.files[i]) {
+          continue;
+        }
+        listing = validListings[idx];
 
-          //run the the listing we're parsing
-          for (var n in dex.files[i][listing]) {
-            imgPath = dex.files[i][listing][n];
-            imgName = $.trim(imgPath
-              //get just the file name //@TODO: fix this regex \.
-              .replace(/^\/.*\/.*\/(.*).[pn|jpe?|sv]g$/i,
-                "$1")
-              //strip out file-name conventions
-              .replace(/[_-]/g, ' ')
-              //cleanup after the above slopiness
-              .replace(/ +/g, ' ')
-            );
+        //run the the listing we're parsing
+        for (var n in dex.files[i][listing]) {
+          imgPath = dex.files[i][listing][n];
+          imgName = $.trim(imgPath
+            //get just the file name //@TODO: fix this regex \.
+            .replace(/^\/.*\/.*\/(.*).[pn|jpe?|sv]g$/i,
+              "$1")
+            //strip out file-name conventions
+            .replace(/[_-]/g, ' ')
+            //cleanup after the above slopiness
+            .replace(/ +/g, ' ')
+          );
 
-            //
-            //store our collections
-            //
-            current = {
-              src: jzacsh.content + imgPath,
-              name: imgName
-            };
-            orig.push(current);
+          //
+          //store our collections
+          //
+          current = {
+            src: jzacsh.content + imgPath,
+            name: imgName
+          };
+          images.push(current);
 
-            //resized SVGs are converted to bitmap
-            src = current.src.replace(/svg$/i, 'png');
+          //resized SVGs are converted to bitmap by imagedex
+          src = current.src.replace(/svg$/i, 'png');
 
-            //path to small images
-            src = src.replace(/\/drawings\//,
-                '/scaled/drawings/small/');
-            s.push({ src: src, name: current.name });
+          //path to small images
+          images[images.length - 1].thumb = src.replace(/\/drawings\//,
+              '/scaled/drawings/small/');
 
-            //path to medium images
-            src = src.replace(/\/drawings\/small\//,
-                '/drawings/medium/');
-            m.push({ src: src, name: current.name });
-          }
+          //path to medium images
+          images[images.length - 1].medium = src.replace(/\/drawings\//,
+              '/scaled/drawings/medium/');
         }
       }
     }
 
-    return {
-      small: s,
-      medium: m,
-      original: orig,
-    };
+    return images;
   };
 
   var initSliderJs = function (json) {
@@ -186,7 +180,7 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
     //intialize slides
     var slider = new Slides({
           slider: $('#sliderjs', c),
-          images: jzacsh.data.imagedex.medium,
+          images: jzacsh.data.imagedex,
           context: c
         });
   }

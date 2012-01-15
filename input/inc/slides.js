@@ -36,15 +36,19 @@
    //initialization
    //
    (function () {
+     var slide;
      for (var i in S.conf.images) {
-       //initialize empty properties, to avoid hastle later on
-       S.conf.images[i] = {
-         name: S.conf.images[i].name || null,
-         src: S.conf.images[i].src || null,
-       }
+       slide = '';
+
+       //build this slide
+       slide += '<div class="slide"';
+       slide += ' title="' + S.conf.images[i].name + '"';
+       slide += ' data-slide="' + i + '"';
+       slide += '>';
+       slide += '</div>';
 
        // initialize a bunch of empty slides
-       S.conf.jq('<div class="slide" title="' + S.conf.images[i].name + '" data-slide="' + i + '"></div>')
+       S.conf.jq(slide)
          .appendTo(S.conf.slider);
      }
      S.conf.jq('<div class="clear"></div>').appendTo(S.conf.slider);
