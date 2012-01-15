@@ -49,14 +49,13 @@
        slide += '>';
        if (i < S.conf.pageSize) {
          slide += '<img alt="' + S.conf.images[i].name + '"';
-         slide += ' src="' + S.conf.images[i].src + '"';
+         slide += ' src="' + S.conf.images[i].thumb + '"';
          slide += '/>'
        }
        slide += '</div>';
 
        // initialize a bunch of empty slides
-       S.conf.jq(slide)
-         .appendTo(S.conf.slider);
+       S.conf.jq(slide).appendTo(S.conf.slider);
      }
      S.conf.jq('<div class="clear"></div>').appendTo(S.conf.slider);
    })();
