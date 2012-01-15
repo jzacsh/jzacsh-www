@@ -304,6 +304,21 @@ body.beerand .list.active {
 /**
  * start: drawings.md-specific styling
  */
+
+#sliderjs {
+  width: 650px;
+  clear: both;
+}
+
+.slide {
+  width: 160px;
+  height: 200px;
+  margin: 0 26px 26px 26px;
+  display: block;
+  outline: 1px solid #444444;
+  float: left;
+}
+
 /**
  * end: drawings.md-specific styling
  */

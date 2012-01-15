@@ -38,6 +38,7 @@
        S.conf.jq('<div class="slide" data-slide="' + i + '"></div>')
          .appendTo(S.conf.slider);
      }
+     S.conf.jq('<div class="clear"></div>').appendTo(S.conf.slider);
    })();
 
    return this;
