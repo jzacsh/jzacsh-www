@@ -34,11 +34,10 @@
 
    // initialize a bunch of empty slides
    (function () {
-     for (var i in S.images) {
+     for (var i in S.conf.images) {
        S.conf.jq('<div class="slide" data-slide="' + i + '"></div>')
-         .insert(that.conf.slider);
+         .appendTo(S.conf.slider);
      }
-     S.conf.slider.hide();
    })();
 
    return this;
