@@ -184,7 +184,12 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
     jzacsh.data.imagedex = compileSlides(json);
 
     //intialize slides
-    var slider = window.Slides($('#sliderjs', c), jzacsh.data.imagedex.medium);
+    var slider = new Slides({
+//        slider: $('#sliderjs', c),
+//        images: jzacsh.data.imagedex.medium,
+          jq: $,
+          jqcontext: c
+        });
   }
 
   $.ajax({

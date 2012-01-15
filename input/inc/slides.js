@@ -6,36 +6,51 @@
  /***
   *
   */
- window.Slides = function ($slider, photos, config) {
-   this.slider = $slider;
-   this.images = photos;
-   this.current = 0; //@TODO: code in some override-ability via `config` param.
-   var jq = this.slider.constructor;
-   that = this;
+ Slides = function (config) {
+   this.config = config;
+   //
+   //default configuration
+   //
+   var config = this.config || {};
+   this.conf = {
+     current: config.current || 0,
+     jq: config.jq || this.slider.constructor,
+     jqcontext: config.context || window.document,
+     slider: config.slider || null,
+     images: config.photos || null
+   }
 
-   this.initSlides = function () {
+   //sanity check
+   if (this.conf.images == null || this.conf.slider == null) {
+     console.error('Must pass "slider" and "images" properties to configuration oject of Slides().');
+     return false;
+   }
+
+   // initialize a bunch of empty slides
+   (function () {
      for (var i in that.images) {
-       jq('<div class="slide" data-slide="' + i + '"></div>')
+       this.conf.jq('<div class="slide" data-slide="' + i + '"></div>')
          .append(that.slider);
      }
      that.slider.hide();
-   }
+   })();
 
-   /**
-    * Actually fill in our DOM with these images.
-    */
+   return this;
+ }
 
-   this.setSlide = function (index) {
-   }
+ Slides.prototype.setSlide = function (index) {
+   return this;
+ }
 
-   this.next = function () {
-     that.setSlide(that.current + 1);
-   }
-   this.previous = function () {
-     that.setSlide(that.current - 1);
-   }
-   this.pausePlay = function () {
-   }
+ Slides.prototype.next = function () {
+   that.setSlide(that.current + 1);
+   return this;
+ }
+ Slides.prototype.previous = function () {
+   that.setSlide(that.current - 1);
+   return this;
+ }
+ Slides.prototype.pausePlay = function () {
    return this;
  }
 })()
