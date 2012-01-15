@@ -185,10 +185,9 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
 
     //intialize slides
     var slider = new Slides({
-//        slider: $('#sliderjs', c),
-//        images: jzacsh.data.imagedex.medium,
-          jq: $,
-          jqcontext: c
+          slider: $('#sliderjs', c),
+          images: jzacsh.data.imagedex.medium,
+          context: c
         });
   }
 
