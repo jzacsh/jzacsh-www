@@ -48,11 +48,11 @@
  }
 
  Slides.prototype.next = function () {
-   that.setSlide(that.current + 1);
+   this.setSlide(this.current + 1);
    return this;
  }
  Slides.prototype.previous = function () {
-   that.setSlide(that.current - 1);
+   this.setSlide(this.current - 1);
    return this;
  }
  Slides.prototype.pausePlay = function () {
