@@ -19,6 +19,13 @@ body {
   color: #2e3436;
 }
 
+.clear {
+  clear: both;
+  width: 100%;
+  height: 1px;
+  visibility: hidden;
+}
+
 .dev {
   outline: 1px dotted #000000;
 }
