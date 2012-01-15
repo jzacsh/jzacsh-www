@@ -315,7 +315,7 @@ body.beerand .list.active {
   height: 200px;
   margin: 0 26px 26px 26px;
   display: block;
-  outline: 1px solid #444444;
+  outline: 1px solid #cccccc;
   float: left;
 }
 

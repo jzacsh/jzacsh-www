@@ -32,10 +32,19 @@
      return false;
    }
 
-   // initialize a bunch of empty slides
+   //
+   //initialization
+   //
    (function () {
      for (var i in S.conf.images) {
-       S.conf.jq('<div class="slide" data-slide="' + i + '"></div>')
+       //initialize empty properties, to avoid hastle later on
+       S.conf.images[i] = {
+         name: S.conf.images[i].name || null,
+         src: S.conf.images[i].src || null,
+       }
+
+       // initialize a bunch of empty slides
+       S.conf.jq('<div class="slide" title="' + S.conf.images[i].name + '" data-slide="' + i + '"></div>')
          .appendTo(S.conf.slider);
      }
      S.conf.jq('<div class="clear"></div>').appendTo(S.conf.slider);
