@@ -68,7 +68,6 @@
        });
 
      window.onkeyup = function (e) {
-       //escape key
        switch (e.keyCode) {
          //close modal window
          case 27: // ESC
@@ -262,9 +261,10 @@
  /**
   *
   */
- Slides.prototype.setSlide = function (index) {
-   var $viewing = this.conf.jq(this.conf.viewerID + ' .viewing', this.conf.jqc);
+ Slides.prototype.view = function (index) {
+   this.current = index;
 
+   var $viewing = this.conf.jq('#' + this.conf.viewerID + ' .viewing', this.conf.jqc);
    var requested = this.getImgTag(index, 'medium');
    var $current = this.conf.jq('img', $viewing);
 
@@ -281,7 +281,7 @@
   *
   */
  Slides.prototype.next = function () {
-   this.setSlide(this.current + 1);
+   this.view((this.current * 1) + 1);
    return this;
  }
 
@@ -289,7 +289,7 @@
   *
   */
  Slides.prototype.previous = function () {
-   this.setSlide(this.current - 1);
+   this.view((this.current * 1) - 1);
    return this;
  }
 
