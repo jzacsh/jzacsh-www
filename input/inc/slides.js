@@ -309,8 +309,8 @@
    modal += '<div id="' + this.conf.viewerID + '" style="' + viewerStyle + '">';
    modal += '<div class="viewing" style="' + viewingStyle + '">';
    modal += this.getImgTag(index, 'medium');
-   modal += '</div><!--//.viewing-->';
-   modal += '</div><!--//#' + this.conf.viewerID + '-->';
+   modal += '</div>';
+   modal += '</div>';
 
    return modal;
  }
