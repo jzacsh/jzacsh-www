@@ -55,9 +55,7 @@
        slide += ' title="' + S.conf.images[i].name + '"';
        slide += '>';
        if (page == S.conf.currentPage) {
-         slide += '<img alt="' + S.conf.images[i].name + '"';
-         slide += ' src="' + S.conf.images[i].thumb + '"';
-         slide += '/>'
+         slide += S.getImgTag(i);
        }
        slide += '</div>';
 
@@ -76,18 +74,46 @@
    return this;
  }
 
+ /**
+  *
+  * @TODO: this should be "protected/private".
+  */
+ Slides.prototype.getImgTag = function (index) {
+   slide = '';
+
+   slide += '<img alt="' + this.conf.images[index].name + '"';
+   slide += ' src="' + this.conf.images[index].thumb + '"';
+   slide += '/>'
+
+   return slide;
+ }
+
+ /**
+  *
+  */
  Slides.prototype.setSlide = function (index) {
    return this;
  }
 
+ /**
+  *
+  */
  Slides.prototype.next = function () {
    this.setSlide(this.current + 1);
    return this;
  }
+
+ /**
+  *
+  */
  Slides.prototype.previous = function () {
    this.setSlide(this.current - 1);
    return this;
  }
+
+ /**
+  *
+  */
  Slides.prototype.pausePlay = function () {
    return this;
  }
