@@ -27,7 +27,7 @@ body {
 }
 
 .dev {
-  outline: 1px dotted #000000;
+  outline: 1px dotted #ffc0cb;
 }
 
 a, .clickable, .button {
