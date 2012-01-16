@@ -63,8 +63,7 @@
      //
      S.conf.jq('.' + S.conf.slideClass, S.conf.slider)
        .click(function (event) {
-         var img = S.getViewerMarkup(S.conf.jq(this).attr('data-slide'));
-         S.conf.jq(img).appendTo(S.conf.jq('body'));
+         S.createViewer(S.conf.jq(this).attr('data-slide'));
        });
 
      window.onkeyup = function (e) {
@@ -131,7 +130,59 @@
  }
 
  /**
+  * Initialize the viewer and create scroll locks.
+  */
+ Slides.prototype.createViewer = function(index) {
+   this.getModalLock();
+   var img = this.getViewerMarkup(index);
+   this.conf.jq(img).appendTo(this.conf.jq('body'));
+ }
+
+ /**
+  * Retain and lock scroll settings for later.
+  *
+  * @TODO: this should be "protected/private".
+  */
+ Slides.prototype.getModalLock = function () {
+    var scrollPos = [
+      self.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft,
+      self.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+    ];
+    var $html = this.conf.jq('html');
+
+    //retain current settings
+    this.modal = {
+      lock: {
+        scrollPosition: scrollPos,
+        overflow: $html.css('overflow'),
+      }
+    };
+
+    //lock our scroll
+    window.scrollTo(scrollPos[0], scrollPos[1]);
+    $html.css('overflow', 'hidden');
+ }
+
+ /**
+  * Un-lock scroll position.
+  *
+  * @TODO: this should be "protected/private".
+  */
+ Slides.prototype.breakModalLock = function () {
+    var scrollPos = this.modal.lock.scrollPosition;
+
+    //restore previous settings
+    this.conf.jq('html').css('overflow', this.modal.lock.overFlow);
+    window.scrollTo(scrollPos[0], scrollPos[1])
+
+    //delete previous settings
+    delete this.modal;
+ }
+
+ /**
   * Build the correct markup for modal window.
+  *
+  * @TODO: this should be "protected/private".
   */
  Slides.prototype.getViewerMarkup = function (index) {
    var modal = '', style = [], left = 0, top = 0;
@@ -176,6 +227,7 @@
   * Destroy the slider viewer we've used to take over the DOM.
   */
  Slides.prototype.destroyViewer = function () {
+   this.breakModalLock();
    this.conf.jq('#viewer').remove();
  }
 
