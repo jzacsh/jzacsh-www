@@ -29,6 +29,8 @@
 
  /**
   * Initialize configuration with our own defaults.
+  *
+  * @TODO: this should be "protected/private".
   */
  Slides.prototype.initConfig = function (config) {
    var S = this;
@@ -60,6 +62,8 @@
  /**
   * Create necessary grid, DOM elements, and initialize event bindings as
   * necessary.
+  *
+  * @TODO: this should be "protected/private".
   */
  Slides.prototype.initGrid = function () {
    var slide, S = this;
@@ -93,6 +97,8 @@
 
  /**
   * Bind to various events to make our show work.
+  *
+  * @TODO: this should be "protected/private".
   */
  Slides.prototype.initBindings = function () {
    var S = this;
