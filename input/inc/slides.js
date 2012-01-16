@@ -153,8 +153,20 @@
    this.current = index;
 
    this.getModalLock();
-   var img = this.getViewerMarkup(index);
-   this.conf.jq(img).appendTo(this.conf.jq('body'));
+   var $viewer = this.conf.jq(this.getViewerMarkup(index));
+   $viewer.appendTo(this.conf.jq('body'));
+
+   var S = this;
+   //allow user to click their way out of viewer
+   $viewer.click(function (e) {
+     e.preventDefault();
+     S.destroyViewer();
+   });
+   //user clicks on image, that doesn't count.
+   var $img = this.conf.jq('#' + this.conf.viewerID + ' .viewing img');
+   $img.click(function (e) {
+     return false;
+   });
  }
 
  /**
