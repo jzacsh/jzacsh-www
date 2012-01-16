@@ -18,6 +18,7 @@
      currentPage: S.conf.currentPage || 1, //1-based index
      pageSize: S.conf.pageSize || 3,
      slideTag: S.conf.slideTag || 'li',
+     slideClass: S.conf.slideClass || 'slide',
      jqc: S.conf.context || window.document,
      jq: S.conf.jq || (function () {
        if ('jquery' in S.conf.slider) {
@@ -51,6 +52,10 @@
        $slide.appendTo(S.conf.slider);
      }
      S.conf.jq('<div class="clear"></div>').appendTo(S.conf.slider);
+
+     //bind our click handler to the finished grid
+     S.conf.jq('.' + S.conf.slideClass, S.conf.slider)
+       .click(S.viewClickedSlide);
    })();
 
    return this;
@@ -72,7 +77,7 @@
 
    //build our markup
    slide += '<' + this.conf.slideTag;
-   slide += ' class="slide"';
+   slide += ' class="' + this.conf.slideClass + '"';
    slide += ' data-page="' + page + '"';
    slide += ' data-slide="' + index + '"';
    slide += ' title="' + this.conf.images[index].name + '"';
@@ -98,6 +103,12 @@
    slide += '/>'
 
    return slide;
+ }
+
+ /**
+  * Event handler for 'click' on a given slide element.
+  */
+ Slides.prototype.viewClickedSlide = function (event) {
  }
 
  /**

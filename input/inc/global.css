@@ -311,6 +311,7 @@ body.beerand .list.active {
 }
 
 .slide {
+  cursor: pointer;
   width: 160px;
   height: 200px;
   margin: 0 26px 26px 26px;
