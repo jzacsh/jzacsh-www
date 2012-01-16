@@ -15,7 +15,7 @@
      slider: S.conf.slider || null,
      images: S.conf.images || null,
      current: S.conf.current || 0,
-     currentPage: S.conf.currentPage || 0,
+     currentPage: S.conf.currentPage || 1, //1-based index
      pageSize: S.conf.pageSize || 3,
      jqc: S.conf.context || window.document,
      jq: S.conf.jq || (function () {
@@ -38,16 +38,21 @@
    //initialization
    //
    (function () {
-     var slide;
+     var slide, page = 0;
      for (var i in S.conf.images) {
-       slide = '';
+       if ((i % S.conf.pageSize) == 0) {
+         ++page;
+       }
 
+       slide = '';
+       //
        //build this slide
+       //
        slide += '<div class="slide"';
        slide += ' data-slide="' + i + '"';
        slide += ' title="' + S.conf.images[i].name + '"';
        slide += '>';
-       if (i < S.conf.pageSize) {
+       if (page == S.conf.currentPage) {
          slide += '<img alt="' + S.conf.images[i].name + '"';
          slide += ' src="' + S.conf.images[i].thumb + '"';
          slide += '/>'
