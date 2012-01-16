@@ -20,6 +20,7 @@
      pageSize: S.conf.pageSize || 3,
      slideTag: S.conf.slideTag || 'li',
      viewerID: S.conf.viewerID || 'viewer',
+     filmStrip: S.conf.filmStrip || false,
      slideClass: S.conf.slideClass || 'slide',
      jqc: S.conf.context || window.document,
      jq: S.conf.jq || (function () {
@@ -39,61 +40,89 @@
    }
 
    //initialize each slide in our grid
-   (function () {
-     var slide;
-     for (var i in S.conf.images) {
-       //get our slide markup
-       slide = S.getSlideMarkup(i);
-
-       $slide = S.conf.jq(slide, S.conf.jqc);
-       if ($slide.attr('data-page') == S.conf.currentPage) {
-         S.preLoad(i);
-       }
-       else {
-         $slide.hide();
-       }
-
-       //append our slide to the DOM, hidden or not.
-       $slide.appendTo(S.conf.slider);
-     }
-     S.conf.jq('<div class="clear"></div>').appendTo(S.conf.slider);
-     S.conf.jq('<div id="' + S.conf.viewerID + '"></div>').appendTo(window.document);
-
-     //
-     //bind to various events
-     //
-     S.conf.jq('.' + S.conf.slideClass, S.conf.slider)
-       .click(function (event) {
-         S.createViewer(S.conf.jq(this).attr('data-slide'));
-       });
-
-     window.onkeyup = function (e) {
-       switch (e.keyCode) {
-         //close modal window
-         case 27: // ESC
-           S.destroyViewer();
-           break;
-
-         //previous slide
-         case 37: // left-arrow
-         case 75: // k
-         case 80: // p
-           S.previous();
-           break;
-
-         //next slide
-         case 39: // right-arrow
-         case 74: // j
-         case 78: // n
-           S.next();
-           break;
-       }
-     };
-   })();
+   this.init();
 
    return this;
  }
 
+ /**
+  * Create necessary grid, DOM elements, and initialize event bindings as
+  * necessary.
+  */
+ Slides.prototype.init = function () {
+   var slide, S = this;
+
+   //
+   //create the entire slide grid, empty.
+   //
+   this.initSlides();
+
+   //
+   //bind to various events
+   //
+   this.conf.jq('.' + this.conf.slideClass, this.conf.slider)
+     .click(function (event) {
+       S.createViewer(S.conf.jq(this).attr('data-slide'));
+     });
+   window.onkeyup = function (e) {
+     switch (e.keyCode) {
+       //close modal window
+       case 27: // ESC
+         S.destroyViewer();
+         break;
+
+       //previous slide
+       case 37: // left-arrow
+       case 75: // k
+       case 80: // p
+         S.previous();
+         break;
+
+       //next slide
+       case 39: // right-arrow
+       case 74: // j
+       case 78: // n
+         S.next();
+         break;
+     }
+   };
+   return this;
+ }
+
+ /**
+  *
+  */
+ Slides.prototype.initSlides = function () {
+   $slides = this.conf.jq('.slide', this.conf.slider);
+   if ('length' in $slides && $slides.length > 0) {
+     return this;
+   }
+
+   for (var i in this.conf.images) {
+     //get our slide markup
+     slide = this.getSlideMarkup(i);
+
+     $slide = this.conf.jq(slide, this.conf.jqc);
+     if ($slide.attr('data-page') == this.conf.currentPage) {
+       this.preLoad(i);
+     }
+     else {
+       $slide.hide();
+     }
+
+     //append our slide to the DOM, hidden or not.
+     $slide.appendTo(this.conf.slider);
+   }
+   this.conf.jq('<div class="clear"></div>').appendTo(this.conf.slider);
+   this.conf.jq('<div id="' + this.conf.viewerID + '"></div>').appendTo(window.document);
+ }
+
+ /**
+  * Preload image somewhere on the DOM, primarily so that we will have
+  * dimension information on the image we're dealing with, before we show it.
+  *
+  * @TODO: this is probably hacky and sloppy. What to do, what to do??
+  */
  Slides.prototype.preLoad = function (index) {
    var $img = this.conf.jq(this.getImgTag(index, 'medium'));
    this.pre[index] = $img.get(0);
@@ -292,6 +321,15 @@
  }
 
  /**
+  * Load the requested page of slides within the grid.
+  */
+ Slides.prototype.loadPage = function (page) {
+   //@TODO: code this
+
+   return this;
+ }
+
+ /**
   *
   */
  Slides.prototype.next = function () {
@@ -311,6 +349,8 @@
   *
   */
  Slides.prototype.pausePlay = function () {
+   //@TODO: code this
+
    return this;
  }
 })()

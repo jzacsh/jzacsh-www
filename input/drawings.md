@@ -7,7 +7,8 @@ menu-position: 3
 Drawings from various past sketchbooks and some recent work of the same style,
 done in Inkscape with a computer tablet.
 
-<div id="sliderjs"></div>
+<div id="filmstrip"></div><!--//#filmstrip-->
+<div id="sliderjs"></div><!--//#sliderjs-->
 
 ##Nerd Info
 This page is built and kept up to date automatically with the help

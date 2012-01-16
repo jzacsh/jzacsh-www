@@ -183,7 +183,8 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
           images: jzacsh.data.imagedex,
           context: c,
           currentPage: 2,
-          pageSize: 6
+          pageSize: 6,
+          filmStrip: '#filmstrip'
         });
   }
 
