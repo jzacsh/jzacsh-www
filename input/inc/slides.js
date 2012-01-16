@@ -9,6 +9,7 @@
  Slides = function (config) {
    var S = this; //that
 
+   this.pre = [];
    //default configuration
    this.conf = config || {};
    this.conf = {
@@ -44,7 +45,10 @@
        slide = S.getSlideMarkup(i);
 
        $slide = S.conf.jq(slide);
-       if ($slide.attr('data-page') != S.conf.currentPage) {
+       if ($slide.attr('data-page') == S.conf.currentPage) {
+         S.preLoad(i);
+       }
+       else {
          $slide.hide();
        }
 
@@ -52,13 +56,31 @@
        $slide.appendTo(S.conf.slider);
      }
      S.conf.jq('<div class="clear"></div>').appendTo(S.conf.slider);
+     S.conf.jq('<div id="viewer"></div>').appendTo(window.document);
 
-     //bind our click handler to the finished grid
+     //
+     //bind to various events
+     //
      S.conf.jq('.' + S.conf.slideClass, S.conf.slider)
-       .click(S.viewClickedSlide);
+       .click(function (event) {
+         var img = S.getViewerMarkup(S.conf.jq(this).attr('data-slide'));
+         S.conf.jq(img).appendTo(S.conf.jq('body'));
+       });
+
+     window.onkeyup = function (e) {
+       //escape key
+       if (e.keyCode == 27) {
+         S.destroyViewer();
+       }
+     };
    })();
 
    return this;
+ }
+
+ Slides.prototype.preLoad = function (index) {
+   var $img = this.conf.jq(this.getImgTag(index, 'medium')); // .appendTo(this.conf.jq('html'));
+   this.pre[index] = $img.get(0);
  }
 
  /**
@@ -66,8 +88,8 @@
   *
   * @TODO: this should be "protected/private".
   */
- Slides.prototype.getSlideMarkup = function (index) {
-   slide = '';
+ Slides.prototype.getSlideMarkup = function (index, preload) {
+   var slide = '';
 
    //keep track of the page we're rendering slides for
    var page = Math.floor(index / this.conf.pageSize);
@@ -95,20 +117,66 @@
   *
   * @TODO: this should be "protected/private".
   */
- Slides.prototype.getImgTag = function (index) {
-   slide = '';
+ Slides.prototype.getImgTag = function (index, version) {
+   var slide = '';
+   version = (typeof(version) == 'undefined')? 'thumb' : version;
 
    slide += '<img alt="' + this.conf.images[index].name + '"';
-   slide += ' src="' + this.conf.images[index].thumb + '"';
+   slide += ' data-slide="' + index + '"';
+   slide += ' data-version="' + version + '"';
+   slide += ' src="' + this.conf.images[index][version] + '"';
    slide += '/>'
 
    return slide;
  }
 
  /**
-  * Event handler for 'click' on a given slide element.
+  * Build the correct markup for modal window.
   */
- Slides.prototype.viewClickedSlide = function (event) {
+ Slides.prototype.getViewerMarkup = function (index) {
+   var modal = '', style = [], left = 0, top = 0;
+
+   //
+   //viewer container
+   //
+   style.push('position: absolute');
+   style.push('background-color: rgba(0, 0, 0, 0.05)');
+   style.push('width: 100%');
+   style.push('height: 100%');
+   style.push('z-index: 999');
+   style.push('top: 0');
+   style.push('left: 0');
+   viewerStyle = this.conf.jq.trim(style.join('; '));
+
+   //determine useful positoins/sizes based on the given image
+   top = (this.conf.jq(window).height() - this.pre[index].naturalHeight) / 2;
+   left = this.pre[index].naturalWidth / 2;
+
+   //
+   //image container
+   //
+   style = [];
+   style.push('position: relative');
+   style.push('top: ' + top + 'px');
+   style.push('left: 50%');
+   style.push('margin-left: -' + left + 'px');
+   viewingStyle = this.conf.jq.trim(style.join('; '));
+
+   //build the actual markup
+   modal += '<div id="viewer" style="' + viewerStyle + '">';
+   modal += '<div class="viewing" style="' + viewingStyle + '">';
+   modal += this.getImgTag(index, 'medium');
+   modal += '</div><!--//.viewing-->';
+   modal += '</div><!--//#viewer-->';
+
+   return modal;
+ }
+
+ /**
+  * Destroy the slider viewer we've used to take over the DOM.
+  */
+ Slides.prototype.destroyViewer = function () {
+   this.conf.jq('#viewer').remove();
  }
 
  /**
