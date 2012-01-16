@@ -17,6 +17,7 @@
      current: S.conf.current || 0,
      currentPage: S.conf.currentPage || 1, //1-based index
      pageSize: S.conf.pageSize || 3,
+     slideTag: S.conf.slideTag || 'li',
      jqc: S.conf.context || window.document,
      jq: S.conf.jq || (function () {
        if ('jquery' in S.conf.slider) {
@@ -34,39 +35,20 @@
      return false;
    }
 
-   //
-   //initialization
-   //
+   //initialize each slide in our grid
    (function () {
-     var slide, page = 0;
+     var slide;
      for (var i in S.conf.images) {
-       //keep track of the page we're rendering slides for
-       if ((i % S.conf.pageSize) == 0) {
-         ++page;
+       //get our slide markup
+       slide = S.getSlideMarkup(i);
+
+       $slide = S.conf.jq(slide);
+       if ($slide.attr('data-page') != S.conf.currentPage) {
+         $slide.hide();
        }
 
-       slide = '';
-       //
-       //build this slide
-       //
-       slide += '<div class="slide"';
-       slide += ' data-page="' + page + '"';
-       slide += ' data-slide="' + i + '"';
-       slide += ' title="' + S.conf.images[i].name + '"';
-       slide += '>';
-       if (page == S.conf.currentPage) {
-         slide += S.getImgTag(i);
-       }
-       slide += '</div>';
-
-       //
-       // append our slide to the DOM, hidden or not.
-       //
-       slide = S.conf.jq(slide);
-       if (page != S.conf.currentPage) {
-         slide.hide();
-       }
-       slide.appendTo(S.conf.slider);
+       //append our slide to the DOM, hidden or not.
+       $slide.appendTo(S.conf.slider);
      }
      S.conf.jq('<div class="clear"></div>').appendTo(S.conf.slider);
    })();
@@ -75,6 +57,36 @@
  }
 
  /**
+  * Build the correct markup for a slide at index.
+  *
+  * @TODO: this should be "protected/private".
+  */
+ Slides.prototype.getSlideMarkup = function (index) {
+   slide = '';
+
+   //keep track of the page we're rendering slides for
+   var page = Math.floor(index / this.conf.pageSize);
+   if (index % this.conf.pageSize) {
+     ++page;
+   }
+
+   //build our markup
+   slide += '<' + this.conf.slideTag;
+   slide += ' class="slide"';
+   slide += ' data-page="' + page + '"';
+   slide += ' data-slide="' + index + '"';
+   slide += ' title="' + this.conf.images[index].name + '"';
+   slide += '>';
+   if (page == this.conf.currentPage) {
+     slide += this.getImgTag(index);
+   }
+   slide += '</' + this.conf.slideTag + '>'
+
+   return slide;
+ }
+
+ /**
+  * Build the correct markup for a slide at index.
   *
   * @TODO: this should be "protected/private".
   */
