@@ -315,8 +315,11 @@ body.beerand .list.active {
   height: 200px;
   margin: 0 26px 26px 26px;
   display: block;
-  outline: 1px solid #cccccc;
   float: left;
+}
+
+.slide img {
+  outline: 1px solid #cccccc;
 }
 
 /**

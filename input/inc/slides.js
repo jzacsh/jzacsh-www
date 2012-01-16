@@ -44,8 +44,8 @@
 
        //build this slide
        slide += '<div class="slide"';
-       slide += ' title="' + S.conf.images[i].name + '"';
        slide += ' data-slide="' + i + '"';
+       slide += ' title="' + S.conf.images[i].name + '"';
        slide += '>';
        if (i < S.conf.pageSize) {
          slide += '<img alt="' + S.conf.images[i].name + '"';
