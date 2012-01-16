@@ -7,9 +7,32 @@
   *
   */
  Slides = function (config) {
-   var S = this; //that
-
    this.pre = [];
+
+   //intialize config
+   this.initConfig(config);
+
+   //sanity check
+   if (this.conf.images == null || this.conf.slider == null) {
+     console.error('Must pass "slider" and "images" properties to configuration oject of Slides().');
+     return false;
+   }
+
+   //initialize each slide in our grid
+   this.initGrid();
+
+   //bind to events in DOM for our features
+   this.initBindings();
+
+   return this;
+ }
+
+ /**
+  * Initialize configuration with our own defaults.
+  */
+ Slides.prototype.initConfig = function (config) {
+   var S = this;
+
    //default configuration
    this.conf = config || {};
    this.conf = {
@@ -32,34 +55,48 @@
        }
      })(),
    }
-
-   //sanity check
-   if (S.conf.images == null || S.conf.slider == null) {
-     console.error('Must pass "slider" and "images" properties to configuration oject of Slides().');
-     return false;
-   }
-
-   //initialize each slide in our grid
-   this.init();
-
-   return this;
  }
 
  /**
   * Create necessary grid, DOM elements, and initialize event bindings as
   * necessary.
   */
- Slides.prototype.init = function () {
+ Slides.prototype.initGrid = function () {
    var slide, S = this;
 
-   //
-   //create the entire slide grid, empty.
-   //
-   this.initSlides();
+   //sanity check
+   var $slides = this.conf.jq('.slide', this.conf.slider);
+   if ('length' in $slides && $slides.length > 0) {
+     return this;
+   }
 
-   //
-   //bind to various events
-   //
+   for (var i in this.conf.images) {
+     //get our slide markup
+     slide = this.getSlideMarkup(i);
+
+     $slide = this.conf.jq(slide, this.conf.jqc);
+     if ($slide.attr('data-page') == this.conf.currentPage) {
+       this.preLoad(i);
+     }
+     else {
+       $slide.hide();
+     }
+
+     //append our slide to the DOM, hidden or not.
+     $slide.appendTo(this.conf.slider);
+   }
+   this.conf.jq('<div class="clear"></div>').appendTo(this.conf.slider);
+   this.conf.jq('<div id="' + this.conf.viewerID + '"></div>').appendTo(window.document);
+
+   return this;
+ }
+
+ /**
+  * Bind to various events to make our show work.
+  */
+ Slides.prototype.initBindings = function () {
+   var S = this;
+
    this.conf.jq('.' + this.conf.slideClass, this.conf.slider)
      .click(function (event) {
        S.createViewer(S.conf.jq(this).attr('data-slide'));
@@ -86,35 +123,6 @@
          break;
      }
    };
-   return this;
- }
-
- /**
-  *
-  */
- Slides.prototype.initSlides = function () {
-   $slides = this.conf.jq('.slide', this.conf.slider);
-   if ('length' in $slides && $slides.length > 0) {
-     return this;
-   }
-
-   for (var i in this.conf.images) {
-     //get our slide markup
-     slide = this.getSlideMarkup(i);
-
-     $slide = this.conf.jq(slide, this.conf.jqc);
-     if ($slide.attr('data-page') == this.conf.currentPage) {
-       this.preLoad(i);
-     }
-     else {
-       $slide.hide();
-     }
-
-     //append our slide to the DOM, hidden or not.
-     $slide.appendTo(this.conf.slider);
-   }
-   this.conf.jq('<div class="clear"></div>').appendTo(this.conf.slider);
-   this.conf.jq('<div id="' + this.conf.viewerID + '"></div>').appendTo(window.document);
  }
 
  /**
