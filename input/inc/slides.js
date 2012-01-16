@@ -241,7 +241,7 @@
     this.modal = this.modal || {
       lock: {
         scrollPosition: scrollPos,
-        overflow: $html.css('overflow'),
+        overFlow: $html.css('overflow'),
       }
     };
 
