@@ -323,6 +323,14 @@ body.beerand .list.active {
   outline: 1px solid #cccccc;
 }
 
+#viewer.reached-beginning img {
+  border-left: 1px solid #ffc0cb;
+}
+
+#viewer.reached-end img {
+  border-right: 1px solid #ffc0cb;
+}
+
 /**
  * end: drawings.md-specific styling
  */

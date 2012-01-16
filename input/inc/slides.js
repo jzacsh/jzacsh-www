@@ -41,7 +41,7 @@
      slider: S.conf.slider || null,
      images: S.conf.images || null,
      current: S.conf.current || 0,
-     currentPage: S.conf.currentPage || 1, //1-based index
+     currentPage: S.conf.currentPage || 0, //1-based index
      pageSize: S.conf.pageSize || 3,
      slideTag: S.conf.slideTag || 'li',
      viewerID: S.conf.viewerID || 'viewer',
@@ -76,9 +76,7 @@
 
    for (var i in this.conf.images) {
      //get our slide markup
-     slide = this.getSlideMarkup(i);
-
-     $slide = this.conf.jq(slide, this.conf.jqc);
+     $slide = this.conf.jq(this.getSlideMarkup(i));
      if ($slide.attr('data-page') == this.conf.currentPage) {
        this.preLoad(i);
      }
@@ -149,12 +147,7 @@
   */
  Slides.prototype.getSlideMarkup = function (index, preload) {
    var slide = '';
-
-   //keep track of the page we're rendering slides for
-   var page = Math.floor(index / this.conf.pageSize);
-   if (index % this.conf.pageSize) {
-     ++page;
-   }
+   var page = this.pageNumber(index);
 
    //build our markup
    slide += '<' + this.conf.slideTag;
@@ -169,6 +162,22 @@
    slide += '</' + this.conf.slideTag + '>'
 
    return slide;
+ }
+
+ /**
+  * Get the page number for the proposed index.
+  */
+ Slides.prototype.pageNumber = function (index) {
+   var page = Math.floor(index / this.conf.pageSize);
+   if (index % this.conf.pageSize) {
+     ++page;
+
+     if (page != 0) {
+       page -= 1;
+     }
+   }
+
+   return page;
  }
 
  /**
@@ -319,6 +328,9 @@
   *
   */
  Slides.prototype.view = function (index) {
+   if (!this.checkViewerBounds(index)) {
+     return this;
+   }
    this.current = index;
 
    var $viewing = this.conf.jq('#' + this.conf.viewerID + ' .viewing', this.conf.jqc);
@@ -332,6 +344,34 @@
      S.conf.jq('img', $viewing).fadeIn();
    });
    return this;
+ }
+
+ /**
+  * Determine if the proposed index is within our bounds.
+  */
+ Slides.prototype.checkViewerBounds = function (index) {
+   var $viewer = this.conf.jq('#' + this.conf.viewerID, this.conf.jqc);
+   if (index > this.conf.images.length || index < 0) {
+     //let the user know
+     $viewer.addClass('reach');
+
+     //be more specific
+     if (index < 0) {
+       $viewer.addClass('reached-beginning');
+     }
+     else {
+       $viewer.addClass('reached-end');
+     }
+     window.setTimeout(function() {
+         $viewer
+           .removeClass('reach')
+           .removeClass('reached-beginning')
+           .removeClass('reached-end');
+     }, 1500);
+
+     return false;
+   }
+   return true;
  }
 
  /**

@@ -182,7 +182,6 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
           slider: $('#sliderjs', c),
           images: jzacsh.data.imagedex,
           context: c,
-          currentPage: 2,
           pageSize: 6,
           filmStrip: '#filmstrip'
         });
