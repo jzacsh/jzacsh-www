@@ -19,6 +19,7 @@
      currentPage: S.conf.currentPage || 1, //1-based index
      pageSize: S.conf.pageSize || 3,
      slideTag: S.conf.slideTag || 'li',
+     viewerID: S.conf.viewerID || 'viewer',
      slideClass: S.conf.slideClass || 'slide',
      jqc: S.conf.context || window.document,
      jq: S.conf.jq || (function () {
@@ -44,7 +45,7 @@
        //get our slide markup
        slide = S.getSlideMarkup(i);
 
-       $slide = S.conf.jq(slide);
+       $slide = S.conf.jq(slide, S.conf.jqc);
        if ($slide.attr('data-page') == S.conf.currentPage) {
          S.preLoad(i);
        }
@@ -56,7 +57,7 @@
        $slide.appendTo(S.conf.slider);
      }
      S.conf.jq('<div class="clear"></div>').appendTo(S.conf.slider);
-     S.conf.jq('<div id="viewer"></div>').appendTo(window.document);
+     S.conf.jq('<div id="' + S.conf.viewerID + '"></div>').appendTo(window.document);
 
      //
      //bind to various events
@@ -68,8 +69,23 @@
 
      window.onkeyup = function (e) {
        //escape key
-       if (e.keyCode == 27) {
-         S.destroyViewer();
+       switch (e.keyCode) {
+         //close modal window
+         case 27: // ESC
+           S.destroyViewer();
+           break;
+
+         //previous slide
+         case 80: // p
+         case 37: // left-arrow
+           S.previous();
+           break;
+
+         //next slide
+         case 78: // n
+         case 39: // right-arrow
+           S.next();
+           break;
        }
      };
    })();
@@ -78,7 +94,7 @@
  }
 
  Slides.prototype.preLoad = function (index) {
-   var $img = this.conf.jq(this.getImgTag(index, 'medium')); // .appendTo(this.conf.jq('html'));
+   var $img = this.conf.jq(this.getImgTag(index, 'medium'));
    this.pre[index] = $img.get(0);
  }
 
@@ -133,13 +149,28 @@
   * Initialize the viewer and create scroll locks.
   */
  Slides.prototype.createViewer = function(index) {
+   this.current = index;
+
    this.getModalLock();
    var img = this.getViewerMarkup(index);
    this.conf.jq(img).appendTo(this.conf.jq('body'));
  }
 
  /**
+  * Destroy the slider viewer we've used to take over the DOM.
+  */
+ Slides.prototype.destroyViewer = function () {
+   this.current = null;
+
+   this.breakModalLock();
+   this.conf.jq('#' + this.conf.viewerID + '', this.conf.jqc).remove();
+ }
+
+ /**
   * Retain and lock scroll settings for later.
+  *
+  * @note: this is only necessary if this.createViewer is using a modal window
+  * that floats in the DOM, as opposed to inline elements on the page.
   *
   * @TODO: this should be "protected/private".
   */
@@ -189,11 +220,12 @@
   * @TODO: this should be "protected/private".
   */
  Slides.prototype.getViewerMarkup = function (index) {
-   var modal = '', style = [], left = 0, top = 0;
+   var modal = '', style, left = 0, top = 0;
 
    //
    //viewer container
    //
+   style = [];
    style.push('position: absolute');
    style.push('background-color: rgba(0, 0, 0, 0.05)');
    style.push('width: 100%');
@@ -203,14 +235,14 @@
    style.push('left: 0');
    viewerStyle = this.conf.jq.trim(style.join('; '));
 
-   //determine useful positoins/sizes based on the given image
-   top = (this.conf.jq(window).height() - this.pre[index].naturalHeight) / 2;
-   left = this.pre[index].naturalWidth / 2;
 
    //
    //image container
    //
    style = [];
+   //determine useful positoins/sizes based on the given image
+   top = (this.conf.jq(window).height() - this.pre[index].naturalHeight) / 2;
+   left = this.pre[index].naturalWidth / 2;
    style.push('position: relative');
    style.push('top: ' + top + 'px');
    style.push('left: 50%');
@@ -218,27 +250,30 @@
    viewingStyle = this.conf.jq.trim(style.join('; '));
 
    //build the actual markup
-   modal += '<div id="viewer" style="' + viewerStyle + '">';
+   modal += '<div id="' + this.conf.viewerID + '" style="' + viewerStyle + '">';
    modal += '<div class="viewing" style="' + viewingStyle + '">';
    modal += this.getImgTag(index, 'medium');
    modal += '</div><!--//.viewing-->';
-   modal += '</div><!--//#viewer-->';
+   modal += '</div><!--//#' + this.conf.viewerID + '-->';
 
    return modal;
- }
-
- /**
-  * Destroy the slider viewer we've used to take over the DOM.
-  */
- Slides.prototype.destroyViewer = function () {
-   this.breakModalLock();
-   this.conf.jq('#viewer').remove();
  }
 
  /**
   *
   */
  Slides.prototype.setSlide = function (index) {
+   var $viewing = this.conf.jq(this.conf.viewerID + ' .viewing', this.conf.jqc);
+
+   var requested = this.getImgTag(index, 'medium');
+   var $current = this.conf.jq('img', $viewing);
+
+   var S = this;
+   $current.fadeOut(function () {
+     $current.remove();
+     S.conf.jq(requested).hide().appendTo($viewing);
+     S.conf.jq('img', $viewing).fadeIn();
+   });
    return this;
  }
 
