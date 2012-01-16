@@ -75,14 +75,16 @@
            break;
 
          //previous slide
-         case 80: // p
          case 37: // left-arrow
+         case 75: // k
+         case 80: // p
            S.previous();
            break;
 
          //next slide
-         case 78: // n
          case 39: // right-arrow
+         case 74: // j
+         case 78: // n
            S.next();
            break;
        }
