@@ -285,43 +285,57 @@
   * @TODO: this should be "protected/private".
   */
  Slides.prototype.getViewerMarkup = function (index) {
-   var modal = '', style, left = 0, top = 0;
+   var modal = '';
 
-   //
-   //viewer container
-   //
-   style = [];
-   style.push('position: absolute');
-   style.push('background-color: rgba(0, 0, 0, 0.05)');
-   style.push('width: 100%');
-   style.push('height: 100%');
-   style.push('z-index: 999');
-   style.push('top: 0');
-   style.push('left: 0');
-   viewerStyle = this.conf.jq.trim(style.join('; '));
-
-
-   //
-   //image container
-   //
-   style = [];
-   //determine useful positoins/sizes based on the given image
-   top = (this.conf.jq(window).height() - this.pre[index].naturalHeight) / 2;
-   left = this.pre[index].naturalWidth / 2;
-   style.push('position: relative');
-   style.push('top: ' + top + 'px');
-   style.push('left: 50%');
-   style.push('margin-left: -' + left + 'px');
-   viewingStyle = this.conf.jq.trim(style.join('; '));
+   var styles = this.viewerStyles(index);
 
    //build the actual markup
-   modal += '<div id="' + this.conf.viewerID + '" style="' + viewerStyle + '">';
-   modal += '<div class="viewing" style="' + viewingStyle + '">';
+   modal += '<div id="' + this.conf.viewerID + '" style="' + styles.viewer + '">';
+   modal += '<div class="viewing" style="' + styles.viewing + '">';
    modal += this.getImgTag(index, 'medium');
    modal += '</div>';
    modal += '</div>';
 
    return modal;
+ }
+
+ /**
+  * Return strings to be used as the "style" attribute of viewer and its inner
+  * viewing div.
+  */
+ Slides.prototype.viewerStyles = function (index) {
+   var viewer = [], viewing = [], left = 0, top = 0;
+
+   //
+   //viewer container
+   //
+   viewer.push('position: absolute');
+   viewer.push('background-color: rgba(0, 0, 0, 0.05)');
+   viewer.push('width: 100%');
+   viewer.push('height: 100%');
+   viewer.push('z-index: 999');
+   viewer.push('top: 0');
+   viewer.push('left: 0');
+   viewer = this.conf.jq.trim(viewer.join('; '));
+
+   //
+   //image container
+   // - Determine useful positoins/sizes based on the given image.
+   //
+   if (this.pre[index]) {
+     top = (this.conf.jq(window).height() - this.pre[index].naturalHeight) / 2;
+     left = this.pre[index].naturalWidth / 2;
+   }
+   viewing.push('position: relative');
+   viewing.push('top: ' + top + 'px');
+   viewing.push('left: 50%');
+   viewing.push('margin-left: -' + left + 'px');
+   viewing = this.conf.jq.trim(viewing.join('; '));
+
+   return {
+     viewer: viewer,
+     viewing: viewing
+   };
  }
 
  /**
@@ -339,8 +353,15 @@
 
    var S = this;
    $current.fadeOut(function () {
+     var styles = S.viewerStyles(index);
      $current.remove();
      S.conf.jq(requested).hide().appendTo($viewing);
+
+     //adjust for the new image
+     $viewing.attr('style', styles.viewing)
+       .parent('#' + S.conf.viewerID)
+       .attr('style', styles.viewer);
+
      S.conf.jq('img', $viewing).fadeIn();
    });
    return this;
