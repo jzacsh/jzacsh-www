@@ -40,6 +40,7 @@
    (function () {
      var slide, page = 0;
      for (var i in S.conf.images) {
+       //keep track of the page we're rendering slides for
        if ((i % S.conf.pageSize) == 0) {
          ++page;
        }
@@ -49,6 +50,7 @@
        //build this slide
        //
        slide += '<div class="slide"';
+       slide += ' data-page="' + page + '"';
        slide += ' data-slide="' + i + '"';
        slide += ' title="' + S.conf.images[i].name + '"';
        slide += '>';
@@ -59,8 +61,14 @@
        }
        slide += '</div>';
 
-       // initialize a bunch of empty slides
-       S.conf.jq(slide).appendTo(S.conf.slider);
+       //
+       // append our slide to the DOM, hidden or not.
+       //
+       slide = S.conf.jq(slide);
+       if (page != S.conf.currentPage) {
+         slide.hide();
+       }
+       slide.appendTo(S.conf.slider);
      }
      S.conf.jq('<div class="clear"></div>').appendTo(S.conf.slider);
    })();
