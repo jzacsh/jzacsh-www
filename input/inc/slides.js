@@ -151,7 +151,7 @@
     var $html = this.conf.jq('html');
 
     //retain current settings
-    this.modal = {
+    this.modal = this.modal || {
       lock: {
         scrollPosition: scrollPos,
         overflow: $html.css('overflow'),
@@ -169,14 +169,18 @@
   * @TODO: this should be "protected/private".
   */
  Slides.prototype.breakModalLock = function () {
-    var scrollPos = this.modal.lock.scrollPosition;
+   if (!('modal' in this)) {
+     return false;
+   }
 
-    //restore previous settings
-    this.conf.jq('html').css('overflow', this.modal.lock.overFlow);
-    window.scrollTo(scrollPos[0], scrollPos[1])
+   var scrollPos = this.modal.lock.scrollPosition;
 
-    //delete previous settings
-    delete this.modal;
+   //restore previous settings
+   this.conf.jq('html').css('overflow', this.modal.lock.overFlow);
+   window.scrollTo(scrollPos[0], scrollPos[1])
+
+   //delete previous settings
+   delete this.modal;
  }
 
  /**
