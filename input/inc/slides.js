@@ -55,7 +55,7 @@
      jqc: S.conf.context || window.document,
      jq: S.conf.jq || (function () {
        if ('jquery' in S.conf.slider) {
-         return S.conf.slider.constructor
+         return S.conf.slider.constructor;
        }
        else {
          return null;
@@ -173,6 +173,10 @@
   * Get the page number for the proposed index.
   */
  Slides.prototype.pageNumber = function (index) {
+   if (!index) {
+     return null;
+   }
+
    var page = Math.floor(index / this.conf.pageSize);
    if (index % this.conf.pageSize) {
      ++page;
