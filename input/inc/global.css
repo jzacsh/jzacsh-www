@@ -19,8 +19,15 @@ body {
   color: #2e3436;
 }
 
+.clear {
+  clear: both;
+  width: 100%;
+  height: 1px;
+  visibility: hidden;
+}
+
 .dev {
-  outline: 1px dotted #000000;
+  outline: 1px dotted #ffc0cb;
 }
 
 a, .clickable, .button {
@@ -294,3 +301,36 @@ body.beerand .list.active {
  * end: beer.md-specific styling
  */
 
+/**
+ * start: drawings.md-specific styling
+ */
+
+#sliderjs {
+  width: 650px;
+  clear: both;
+}
+
+.slide {
+  cursor: pointer;
+  width: 160px;
+  height: 200px;
+  margin: 0 26px 26px 26px;
+  display: block;
+  float: left;
+}
+
+.slide img {
+  outline: 1px solid #cccccc;
+}
+
+#viewer.reached-beginning img {
+  border-left: 1px solid #ffc0cb;
+}
+
+#viewer.reached-end img {
+  border-right: 1px solid #ffc0cb;
+}
+
+/**
+ * end: drawings.md-specific styling
+ */
