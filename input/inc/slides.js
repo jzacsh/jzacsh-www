@@ -400,6 +400,7 @@
      //
      i = 0;
      for (i in newSlides) {
+       this.preLoad(newSlides[i]);
        $slide = this.conf.jq('[data-slide="' + newSlides[i] + '"]',
            this.conf.slider);
 
