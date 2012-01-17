@@ -202,7 +202,7 @@
   * Initialize the viewer and create scroll locks.
   */
  Slides.prototype.createViewer = function(index) {
-   this.current = index;
+   this.conf.current = index;
 
    this.getModalLock();
    var $viewer = this.conf.jq(this.getViewerMarkup(index));
@@ -225,7 +225,7 @@
   * Destroy the slider viewer we've used to take over the DOM.
   */
  Slides.prototype.destroyViewer = function () {
-   this.current = null;
+   this.conf.current = null;
 
    this.breakModalLock();
    this.conf.jq('#' + this.conf.viewerID + '', this.conf.jqc).remove();
@@ -241,8 +241,8 @@
   */
  Slides.prototype.getModalLock = function () {
     var scrollPos = [
-      self.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft,
-      self.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft,
+      window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
     ];
     var $html = this.conf.jq('html');
 
@@ -342,10 +342,9 @@
   *
   */
  Slides.prototype.view = function (index) {
-   if (!this.checkViewerBounds(index)) {
+   if (!this.setCurrent(index)) {
      return this;
    }
-   this.current = index;
 
    var $viewing = this.conf.jq('#' + this.conf.viewerID + ' .viewing', this.conf.jqc);
    var requested = this.getImgTag(index, 'medium');
@@ -368,7 +367,76 @@
  }
 
  /**
+  * Update the this.current to a new index.
+  */
+ Slides.prototype.setCurrent = function (index) {
+   var live = this.conf.current;
+   if (this.checkViewerBounds()) {
+     this.conf.current = index;
+   }
+   else {
+     return false;
+   }
+
+   //
+   //update our page if necessary
+   //
+   var currentPage = this.pageNumber(this.conf.current);
+   if (currentPage != this.conf.currentPage) {
+     var i = 0, slide,
+         liveSlides = this.slidesOnPage(this.pageNumber(live)),
+         newSlides = this.slidesOnPage(currentPage);
+
+     //
+     //hide currently live slide
+     //
+     for (i in liveSlides) {
+       this.conf.jq('[data-slide="' + liveSlides[i] + '"]',
+           this.conf.slider).hide();
+     }
+
+     //
+     //load slides onto grid
+     //
+     i = 0;
+     for (i in newSlides) {
+       $slide = this.conf.jq('[data-slide="' + newSlides[i] + '"]',
+           this.conf.slider);
+
+       if (!$slide.children('img').length) {
+         $slide.append(this.getImgTag(newSlides[i]));
+       }
+       $slide.show();
+     }
+
+     //keep track of the new page
+     this.conf.currentPage = this.pageNumber(index);
+   }
+
+   return true;
+ }
+
+ /**
+  * Return an array of integers representing the index values of slides that we
+  * *should* theoritically find on a given page.
+  */
+ Slides.prototype.slidesOnPage = function (page) {
+   page = (typeof(page) == 'undefined')? this.conf.current : page;
+   var slides = [], last, first;
+
+   last = (this.conf.pageSize * (page + 1));
+   first = last - this.conf.pageSize;
+   for (var i = first; i < last; i++) {
+     slides.push(i);
+   }
+
+   return slides;
+ }
+
+ /**
   * Determine if the proposed index is within our bounds.
+  *
+  * @TODO: this should be "protected/private".
   */
  Slides.prototype.checkViewerBounds = function (index) {
    var $viewer = this.conf.jq('#' + this.conf.viewerID, this.conf.jqc);
@@ -408,7 +476,7 @@
   *
   */
  Slides.prototype.next = function () {
-   this.view((this.current * 1) + 1);
+   this.view((this.conf.current * 1) + 1);
    return this;
  }
 
@@ -416,7 +484,7 @@
   *
   */
  Slides.prototype.previous = function () {
-   this.view((this.current * 1) - 1);
+   this.view((this.conf.current * 1) - 1);
    return this;
  }
 
