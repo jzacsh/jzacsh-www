@@ -25,7 +25,7 @@
    this.initBindings();
 
    //start the viewer, if necessary
-   this.createViewer(this.conf.current);
+   this.createViewer();
 
    return this;
  }
@@ -71,14 +71,16 @@
   * @TODO: this should be "protected/private".
   */
  Slides.prototype.initGrid = function () {
-   var slide, S = this;
+   var $slide, S = this;
 
    //sanity check
    var $slides = this.conf.jq('.slide', this.conf.slider);
    if ('length' in $slides && $slides.length > 0) {
+     //grid already exists
      return this;
    }
 
+   this.conf.currentPage = this.conf.currentPage || 0;
    for (var i in this.conf.images) {
      //get our slide markup
      $slide = this.conf.jq(this.getSlideMarkup(i));
@@ -211,7 +213,8 @@
   * Initialize the viewer and create scroll locks.
   */
  Slides.prototype.createViewer = function(index) {
-   if (!this.setCurrent(index)) {
+   index = (typeof(index) == 'undefined')? this.conf.current : index;
+   if (!index || !this.setCurrent(index)) {
      return false;
    }
 
@@ -437,7 +440,7 @@
  Slides.prototype.slidesOnPage = function (page) {
    var slides = [], last, first;
    page = (typeof(page) == 'undefined')? this.conf.current : page;
-   if (!page) {
+   if (page == null) {
      return slides;
    }
 
