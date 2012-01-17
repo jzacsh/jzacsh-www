@@ -24,6 +24,9 @@
    //bind to events in DOM for our features
    this.initBindings();
 
+   //start the viewer, if necessary
+   this.createViewer(this.conf.current);
+
    return this;
  }
 
@@ -40,8 +43,10 @@
    this.conf = {
      slider: S.conf.slider || null,
      images: S.conf.images || null,
-     current: S.conf.current || 0,
-     currentPage: S.conf.currentPage || 0, //1-based index
+     current: S.conf.current || null,
+     currentPage: S.conf.currentPage || (function () {
+       return S.pageNumber(S.conf.current);
+     })(),
      pageSize: S.conf.pageSize || 3,
      slideTag: S.conf.slideTag || 'li',
      viewerID: S.conf.viewerID || 'viewer',
@@ -202,7 +207,9 @@
   * Initialize the viewer and create scroll locks.
   */
  Slides.prototype.createViewer = function(index) {
-   this.conf.current = index;
+   if (!this.setCurrent(index)) {
+     return false;
+   }
 
    this.getModalLock();
    var $viewer = this.conf.jq(this.getViewerMarkup(index));
@@ -226,6 +233,7 @@
   */
  Slides.prototype.destroyViewer = function () {
    this.conf.current = null;
+   document.location.hash = '';
 
    this.breakModalLock();
    this.conf.jq('#' + this.conf.viewerID + '', this.conf.jqc).remove();
@@ -367,12 +375,13 @@
  }
 
  /**
-  * Update the this.current to a new index.
+  * Update the this.conf.current to a new index.
   */
  Slides.prototype.setCurrent = function (index) {
    var live = this.conf.current;
-   if (this.checkViewerBounds()) {
+   if (index && this.checkViewerBounds()) {
      this.conf.current = index;
+     document.location.hash = 'slide-' + this.conf.current;
    }
    else {
      return false;
@@ -422,8 +431,11 @@
   * *should* theoritically find on a given page.
   */
  Slides.prototype.slidesOnPage = function (page) {
-   page = (typeof(page) == 'undefined')? this.conf.current : page;
    var slides = [], last, first;
+   page = (typeof(page) == 'undefined')? this.conf.current : page;
+   if (!page) {
+     return slides;
+   }
 
    last = (this.conf.pageSize * (page + 1));
    first = last - this.conf.pageSize;

@@ -175,16 +175,25 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
   };
 
   var initSliderJs = function (json) {
-    jzacsh.data.imagedex = compileSlides(json);
+    var conf = {
+      slider: $('#sliderjs', c),
+      images: compileSlides(json),
+      context: c,
+      pageSize: 6,
+      filmStrip: '#filmstrip'
+    };
+
+    var current = document.location.hash.match(/^#slide-(\d+)$/),
+        page = document.location.hash.match(/^#page-(\d+)$/);
+    if (current && 'length' in current && current.length > 0) {
+      conf.current = current.pop();
+    }
+    else if (page && 'length' in page && page.length > 0) {
+      conf.currentPage = page.pop();
+    }
 
     //intialize slides
-    var slider = new Slides({
-          slider: $('#sliderjs', c),
-          images: jzacsh.data.imagedex,
-          context: c,
-          pageSize: 6,
-          filmStrip: '#filmstrip'
-        });
+    var slider = new Slides(conf);
   }
 
   $.ajax({
