@@ -10,7 +10,7 @@
    this.pre = [];
 
    //intialize config
-   this.initConfig(config);
+   this.conf = this.initConfig(config);
 
    //sanity check
    if (this.conf.images == null || this.conf.slider == null) {
@@ -36,32 +36,33 @@
   * @TODO: this should be "protected/private".
   */
  Slides.prototype.initConfig = function (config) {
-   var S = this;
+   var conf, self = this;
 
    //default configuration
-   this.conf = config || {};
-   this.conf = {
-     slider: S.conf.slider || null,
-     images: S.conf.images || null,
-     current: S.conf.current || null,
-     currentPage: S.conf.currentPage || (function () {
-       return S.pageNumber(S.conf.current || 0);
+   conf = config || {};
+   conf = {
+     slider: conf.slider || null,
+     images: conf.images || null,
+     current: conf.current || null,
+     currentPage: conf.currentPage || (function () {
+       return self.pageNumber(conf.current || 0);
      })(),
-     pageSize: S.conf.pageSize || 3,
-     slideTag: S.conf.slideTag || 'li',
-     viewerID: S.conf.viewerID || 'viewer',
-     filmStrip: S.conf.filmStrip || false,
-     slideClass: S.conf.slideClass || 'slide',
-     jqc: S.conf.context || window.document,
-     jq: S.conf.jq || (function () {
-       if ('jquery' in S.conf.slider) {
-         return S.conf.slider.constructor;
+     pageSize: conf.pageSize || 3,
+     slideTag: conf.slideTag || 'li',
+     viewerID: conf.viewerID || 'viewer',
+     filmStrip: conf.filmStrip || false,
+     slideClass: conf.slideClass || 'slide',
+     jqc: conf.context || window.document,
+     jq: conf.jq || (function () {
+       if ('jquery' in conf.slider) {
+         return conf.slider.constructor;
        }
        else {
          return null;
        }
      })(),
    }
+   return conf;
  }
 
  /**
