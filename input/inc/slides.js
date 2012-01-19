@@ -204,7 +204,7 @@
    slide += ' data-slide="' + index + '"';
    slide += ' data-version="' + version + '"';
    slide += ' src="' + this.conf.images[index][version] + '"';
-   slide += '/>'
+   slide += ' />'
 
    return slide;
  }
@@ -386,9 +386,9 @@
   */
  Slides.prototype.setCurrent = function (index) {
    var live = this.conf.current;
-   if (index && this.checkViewerBounds()) {
-     this.conf.current = index;
-     document.location.hash = 'slide-' + this.conf.current;
+   if (index && this.checkViewerBounds(index)) {
+     this.conf.current = parseInt(index, 10);
+     document.location.hash = 'slide/' + (this.conf.current + 1);
    }
    else {
      return false;
