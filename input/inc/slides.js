@@ -416,7 +416,7 @@
    //
    var shouldBePage = this.pageNumber(this.conf.current);
    if (shouldBePage != this.conf.currentPage) {
-     this.setPage(shouldBePage, live);
+     this.setPage(shouldBePage, this.pageNumber(live));
    }
 
    return true;
