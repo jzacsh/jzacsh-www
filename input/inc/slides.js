@@ -45,7 +45,7 @@
      images: S.conf.images || null,
      current: S.conf.current || null,
      currentPage: S.conf.currentPage || (function () {
-       return S.pageNumber(S.conf.current);
+       return S.pageNumber(S.conf.current || 0);
      })(),
      pageSize: S.conf.pageSize || 3,
      slideTag: S.conf.slideTag || 'li',
@@ -123,14 +123,26 @@
        case 37: // left-arrow
        case 75: // k
        case 80: // p
-         S.previous();
+         if (S.conf.current === null) {
+           //user doesn't have viewer open; switch pages.
+           S.previousPage();
+         }
+         else {
+           S.previous();
+         }
          break;
 
        //next slide
        case 39: // right-arrow
        case 74: // j
        case 78: // n
-         S.next();
+         if (S.conf.current === null) {
+           //user doesn't have viewer open; switch pages.
+           S.nextPage();
+         }
+         else {
+           S.next();
+         }
          break;
      }
    };
@@ -240,7 +252,12 @@
   */
  Slides.prototype.destroyViewer = function () {
    this.conf.current = null;
-   document.location.hash = '';
+   if (parseInt(this.conf.currentPage, 10) == NaN) {
+     document.location.hash = '';
+   }
+   else {
+     document.location.hash = 'page/' + (this.conf.currentPage + 1);
+   }
 
    this.breakModalLock();
    this.conf.jq('#' + this.conf.viewerID + '', this.conf.jqc).remove();
@@ -397,40 +414,62 @@
    //
    //update our page if necessary
    //
-   var currentPage = this.pageNumber(this.conf.current);
-   if (currentPage != this.conf.currentPage) {
-     var i = 0, slide,
-         liveSlides = this.slidesOnPage(this.pageNumber(live)),
-         newSlides = this.slidesOnPage(currentPage);
-
-     //
-     //hide currently live slide
-     //
-     for (i in liveSlides) {
-       this.conf.jq('[data-slide="' + liveSlides[i] + '"]',
-           this.conf.slider).hide();
-     }
-
-     //
-     //load slides onto grid
-     //
-     i = 0;
-     for (i in newSlides) {
-       this.preLoad(newSlides[i]);
-       $slide = this.conf.jq('[data-slide="' + newSlides[i] + '"]',
-           this.conf.slider);
-
-       if (!$slide.children('img').length) {
-         $slide.append(this.getImgTag(newSlides[i]));
-       }
-       $slide.show();
-     }
-
-     //keep track of the new page
-     this.conf.currentPage = this.pageNumber(index);
+   var shouldBePage = this.pageNumber(this.conf.current);
+   if (shouldBePage != this.conf.currentPage) {
+     this.setPage(shouldBePage, live);
    }
 
    return true;
+ }
+
+ /**
+  * Set our current page of slides.
+  *
+  * @param int page
+  *   Numeric 0-based index of the page number you'd like to see slides for.
+  * @param int current
+  *   Optional page number currently being viewed, if not the same page as
+  *   this.conf.current (which may have been updated already to something else,
+  *   before this method was called). Defaults to
+  *   this.pageNumber(this.conf.current)
+  *   @see this.setCurrent for example use-case.
+  */
+ Slides.prototype.setPage = function (page, current) {
+   current = (typeof(current) == 'undefined')? this.pageNumber(this.conf.current) : current;
+
+   var i = 0, $slide,
+       liveSlides = this.slidesOnPage(current),
+       newSlides = this.slidesOnPage(page);
+
+   //
+   //hide currently live slide
+   //
+   for (i in liveSlides) {
+     this.conf.jq('[data-slide="' + liveSlides[i] + '"]',
+         this.conf.slider).hide();
+   }
+
+   //
+   //load slides onto grid
+   //
+   i = 0;
+   for (i in newSlides) {
+     this.preLoad(newSlides[i]);
+     $slide = this.conf.jq('[data-slide="' + newSlides[i] + '"]',
+         this.conf.slider);
+
+     if (!$slide.children('img').length) {
+       $slide.append(this.getImgTag(newSlides[i]));
+     }
+     $slide.show();
+   }
+
+   //keep track of the new page
+   this.conf.currentPage = page;
+   if (this.conf.current == null) {
+     //viewer is closed, appropriate to update #page/x
+     document.location.hash = 'page/' + (this.conf.currentPage + 1);
+   }
  }
 
  /**
@@ -493,7 +532,7 @@
  }
 
  /**
-  *
+  * Switch our current viewer to the next slide.
   */
  Slides.prototype.next = function () {
    this.view((this.conf.current * 1) + 1);
@@ -501,10 +540,25 @@
  }
 
  /**
-  *
+  * @TODO: code this
+  */
+ Slides.prototype.nextPage = function () {
+   return this;
+ }
+
+ /**
+  * Switch our current viewer to the previous slide.
   */
  Slides.prototype.previous = function () {
    this.view((this.conf.current * 1) - 1);
+   return this;
+ }
+
+ /**
+  * @TODO: code this
+  */
+ Slides.prototype.previousPage = function () {
+   this.view((this.conf.currentPage * 1) - 1);
    return this;
  }
 
