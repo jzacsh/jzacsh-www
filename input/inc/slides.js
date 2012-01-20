@@ -135,8 +135,8 @@
     //
     //keyboard events
     //
-    window.onkeyup = function (e) {
-      switch (e.keyCode) {
+    this.conf.jq(this.conf.jqc).keyup(function (e) {
+      switch (e.which) {
         //close modal window
         case 27: // ESC
           S.destroyViewer();
@@ -168,7 +168,7 @@
           }
           break;
       }
-    };
+    });
   }
 
   /**
