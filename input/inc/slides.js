@@ -9,6 +9,12 @@
    *
    */
   Slides = function (config) {
+    //some constants
+    this.regex = {
+      slideHash: /^#slide\/(\d+)$/,
+      pageHash: /^#page\/(\d+)$/,
+    };
+
     //intialize config
     this.initConfig(config);
 
@@ -32,7 +38,22 @@
   Slides.prototype.initConfig = function (config) {
     var self = this;
 
+    //
+    //end-user's GET request takes highest priority
+    //
+    var current = document.location.hash.match(this.regex.slideHash),
+        page = document.location.hash.match(this.regex.pageHash);
+    if (current && 'length' in current && current.length > 1) {
+      config.current = parseInt(current.pop(), 10) - 1;
+    }
+    else if (page && 'length' in page && page.length > 0) {
+      config.currentPage = parseInt(page.pop(), 10) - 1;
+    }
+
+
+    //
     //default configuration
+    //
     this.conf = config || {};
     this.conf = {
       slider: self.conf.slider || null,
@@ -88,7 +109,23 @@
       return this;
     }
 
-    this.conf.currentPage = this.conf.currentPage || 0;
+    //double check the user's requested-page number.
+    if (!this.checkPageBounds(this.conf.currentPage)) {
+      var pageReq = document.location.hash.match(this.regex.pageHash),
+        lastPage = this.pageNumber(this.conf.images.length - 1);
+
+      //user GET-requested a non-sensical page number
+      if (pageReq && parseInt(pageReq.pop(), 10) > lastPage) {
+        //user just made a request that was too high
+        document.location.hash = 'page/' + (lastPage + 1);
+        this.conf.currentPage = lastPage;
+      }
+      else {
+        this.conf.currentPage = 0;
+      }
+    }
+
+    //build the slides, configured for the correct page
     for (var i in this.conf.images) {
       //get our slide markup
       $slide = this.conf.jq(this.getSlideMarkup(i));

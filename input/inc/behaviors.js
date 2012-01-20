@@ -204,15 +204,6 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
       prevButton: '#prev-page'
     };
 
-    var current = document.location.hash.match(/^#slide\/(\d+)$/),
-        page = document.location.hash.match(/^#page\/(\d+)$/);
-    if (current && 'length' in current && current.length > 1) {
-      conf.current = parseInt(current.pop(), 10) - 1;
-    }
-    else if (page && 'length' in page && page.length > 0) {
-      conf.currentPage = parseInt(page.pop(), 10) - 1;
-    }
-
     //intialize slides
     var slider = new Slides(conf);
   }
