@@ -60,8 +60,13 @@
       images: self.conf.images || null,
       pageSize: self.conf.pageSize || 3,
       current: self.conf.current || null,
-      currentPage: self.conf.currentPage || (function () {
-        return self.pageNumber(self.conf.current || 0);
+      currentPage: (function () {
+        if (typeof(self.conf.currentPage) == 'undefined') {
+          return self.pageNumber(self.conf.current || 0);
+        }
+        else {
+          return self.conf.currentPage;
+        }
       })(),
       slideTag: self.conf.slideTag || 'span',
       viewerID: self.conf.viewerID || 'viewer',
@@ -91,6 +96,29 @@
       console.error(e.message);
       throw e;
     }
+
+    //check the user's requested-page number.
+    if (!this.checkPageBounds(this.conf.currentPage)) {
+      var pageReq = document.location.hash.match(this.regex.pageHash),
+        lastPage = this.pageNumber(this.conf.images.length - 1);
+
+      //user GET-requested a non-sensical page number
+      if (!pageReq) {
+        this.conf.currentPage = 0;
+      }
+      else if (parseInt(pageReq.pop(), 10) > lastPage) {
+        this.conf.currentPage = lastPage;
+
+        //user just made a request that was too high
+        document.location.hash = 'page/' + (lastPage + 1);
+      }
+      else {
+        this.conf.currentPage = 0;
+
+        //the user *did* make a hash-page request and its no good
+        document.location.hash = '';
+      }
+    }
   }
 
   /**
@@ -107,22 +135,6 @@
     if ('length' in $slides && $slides.length > 0) {
       //grid already exists
       return this;
-    }
-
-    //double check the user's requested-page number.
-    if (!this.checkPageBounds(this.conf.currentPage)) {
-      var pageReq = document.location.hash.match(this.regex.pageHash),
-        lastPage = this.pageNumber(this.conf.images.length - 1);
-
-      //user GET-requested a non-sensical page number
-      if (pageReq && parseInt(pageReq.pop(), 10) > lastPage) {
-        //user just made a request that was too high
-        document.location.hash = 'page/' + (lastPage + 1);
-        this.conf.currentPage = lastPage;
-      }
-      else {
-        this.conf.currentPage = 0;
-      }
     }
 
     //build the slides, configured for the correct page
