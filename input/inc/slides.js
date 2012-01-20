@@ -12,12 +12,6 @@
    //intialize config
    this.conf = this.initConfig(config);
 
-   //sanity check
-   if (this.conf.images == null || this.conf.slider == null) {
-     console.error('Must pass "slider" and "images" properties to configuration oject of Slides().');
-     return false;
-   }
-
    //initialize each slide in our grid
    this.initGrid();
 
@@ -54,7 +48,7 @@
      slideClass: conf.slideClass || 'slide',
      jqc: conf.context || window.document,
      jq: conf.jq || (function () {
-       if ('jquery' in conf.slider) {
+       if ('slider' in conf && 'jquery' in conf.slider) {
          return conf.slider.constructor;
        }
        else {
@@ -62,6 +56,19 @@
        }
      })(),
    }
+
+   //sanity check
+   if (conf.images == null || conf.slider == null) {
+     var ConfigurationException, e;
+     function ConfigurationException () {
+       this.name = 'ConfigurationException';
+       this.message = 'Must pass "slider" and "images" properties to config object of Slides().';
+     }
+     e = new ConfigurationException();
+     console.error(e.message);
+     throw e;
+   }
+
    return conf;
  }
 
