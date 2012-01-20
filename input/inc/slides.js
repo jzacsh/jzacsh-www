@@ -547,15 +547,6 @@
   }
 
   /**
-   * Load the requested page of slides within the grid.
-   */
-  Slides.prototype.loadPage = function (page) {
-    //@TODO: code this
-
-    return this;
-  }
-
-  /**
    * Switch our current viewer to the next slide.
    */
   Slides.prototype.next = function () {
@@ -567,7 +558,8 @@
    * @TODO: code this
    */
   Slides.prototype.nextPage = function () {
-    this.view(parseInt(this.conf.currentPage, 10) + 1);
+    var current = parseInt(this.conf.currentPage, 10);
+    this.setPage(current + 1, current);
     return this;
   }
 
@@ -583,7 +575,8 @@
    * @TODO: code this
    */
   Slides.prototype.previousPage = function () {
-    this.view(parseInt(this.conf.currentPage, 10) - 1);
+    var current = parseInt(this.conf.currentPage, 10);
+    this.setPage(current - 1, current);
     return this;
   }
 
