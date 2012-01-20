@@ -8,7 +8,7 @@
   */
  Slides = function (config) {
    //intialize config
-   this.conf = this.initConfig(config);
+   this.initConfig(config);
 
    //initialize each slide in our grid
    this.initGrid();
@@ -28,26 +28,26 @@
   * @TODO: this should be "protected/private".
   */
  Slides.prototype.initConfig = function (config) {
-   var conf, self = this;
+   var self = this;
 
    //default configuration
-   conf = config || {};
-   conf = {
-     slider: conf.slider || null,
-     images: conf.images || null,
-     current: conf.current || null,
-     currentPage: conf.currentPage || (function () {
-       return self.pageNumber(conf.current || 0);
+   this.conf = config || {};
+   this.conf = {
+     slider: self.conf.slider || null,
+     images: self.conf.images || null,
+     pageSize: self.conf.pageSize || 3,
+     current: self.conf.current || null,
+     currentPage: self.conf.currentPage || (function () {
+       return self.pageNumber(self.conf.current || 0);
      })(),
-     pageSize: conf.pageSize || 3,
-     slideTag: conf.slideTag || 'li',
-     viewerID: conf.viewerID || 'viewer',
-     filmStrip: conf.filmStrip || false,
-     slideClass: conf.slideClass || 'slide',
-     jqc: conf.context || window.document,
-     jq: conf.jq || (function () {
-       if ('slider' in conf && 'jquery' in conf.slider) {
-         return conf.slider.constructor;
+     slideTag: self.conf.slideTag || 'li',
+     viewerID: self.conf.viewerID || 'viewer',
+     filmStrip: self.conf.filmStrip || false,
+     slideClass: self.conf.slideClass || 'slide',
+     jqc: self.conf.context || window.document,
+     jq: self.conf.jq || (function () {
+       if ('slider' in self.conf && 'jquery' in self.conf.slider) {
+         return self.conf.slider.constructor;
        }
        else {
          return null;
@@ -56,7 +56,7 @@
    }
 
    //sanity check
-   if (conf.images == null || conf.slider == null) {
+   if (this.conf.images == null || this.conf.slider == null) {
      var ConfigurationException, e;
      function ConfigurationException () {
        this.name = 'ConfigurationException';
@@ -66,8 +66,6 @@
      console.error(e.message);
      throw e;
    }
-
-   return conf;
  }
 
  /**
