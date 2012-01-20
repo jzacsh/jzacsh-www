@@ -119,6 +119,9 @@
         document.location.hash = '';
       }
     }
+
+    //let user know if they're at one end or another
+    this.warnBoundaryPage();
   }
 
   /**
@@ -546,7 +549,12 @@
       $slide.show();
     }
 
+    //let user know they're at one end or another
+    this.warnBoundaryPage();
+
+    //
     //update hash for our user
+    //
     if (this.conf.current == null) {
       //viewer is closed, appropriate to update #page/x
       document.location.hash = 'page/' + (this.conf.currentPage + 1);
@@ -609,7 +617,34 @@
           .removeClass('reach')
           .removeClass('reached-' + limit);
     }, warning);
+
+    return this;
   }
+
+  /**
+   * Modify the DOM by adding a few classes to let our user know they've
+   * reached page boundaries.
+   */
+  Slides.prototype.warnBoundaryPage = function () {
+    var lastPage = this.pageNumber(this.conf.images.length - 1);
+
+    //give some feedback if we're currently at our boudnaries
+    if (this.conf.currentPage == lastPage || this.conf.currentPage == 0) {
+      if (this.conf.currentPage == 0) {
+        this.conf.jq(this.conf.prevButton, this.conf.jqc).addClass('disabled');
+      }
+      else {
+        this.conf.jq(this.conf.nextButton, this.conf.jqc).addClass('disabled');
+      }
+    }
+    else {
+      this.conf.jq(this.conf.prevButton, this.conf.jqc).removeClass('disabled');
+      this.conf.jq(this.conf.nextButton, this.conf.jqc).removeClass('disabled');
+    }
+
+    return this;
+  }
+
 
   /**
    * Determine if the proposed page index is within our bounds.

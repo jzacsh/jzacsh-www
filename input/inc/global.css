@@ -364,7 +364,7 @@ body.beerand .list.active {
 
 .slider.disabled {
   color: #dddddd;
-  cursor: normal;
+  cursor: default;
 }
 
 #prev-page {
