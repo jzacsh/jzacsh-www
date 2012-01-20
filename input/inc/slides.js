@@ -114,10 +114,27 @@
   Slides.prototype.initBindings = function () {
     var S = this;
 
+    //
+    //user clicks on a thumbnail
+    //
     this.conf.jq('.' + this.conf.slideClass, this.conf.slider)
       .click(function (event) {
         S.createViewer(S.conf.jq(this).attr('data-slide'));
       });
+
+    //
+    //user clicks on "next/previous"-page buttons
+    //
+    this.conf.jq(this.conf.nextButton).click(function () {
+      S.nextPage();
+    });
+    this.conf.jq(this.conf.prevButton).click(function () {
+      S.previousPage();
+    });
+
+    //
+    //keyboard events
+    //
     window.onkeyup = function (e) {
       switch (e.keyCode) {
         //close modal window
@@ -550,6 +567,7 @@
    * @TODO: code this
    */
   Slides.prototype.nextPage = function () {
+    this.view(parseInt(this.conf.currentPage, 10) + 1);
     return this;
   }
 
@@ -565,7 +583,7 @@
    * @TODO: code this
    */
   Slides.prototype.previousPage = function () {
-    this.view((this.conf.currentPage * 1) - 1);
+    this.view(parseInt(this.conf.currentPage, 10) - 1);
     return this;
   }
 
