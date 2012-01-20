@@ -7,8 +7,6 @@
   *
   */
  Slides = function (config) {
-   this.pre = [];
-
    //intialize config
    this.conf = this.initConfig(config);
 
@@ -163,6 +161,7 @@
   * @TODO: this is probably hacky and sloppy. What to do, what to do??
   */
  Slides.prototype.preLoad = function (index) {
+   this.pre = this.pre || [];
    var $img = this.conf.jq(this.getImgTag(index, 'medium'));
    this.pre[index] = $img.get(0);
  }
