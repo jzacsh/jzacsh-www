@@ -199,7 +199,9 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
       images: compileSlides(json),
       context: c,
       pageSize: 6,
-      filmStrip: '#filmstrip'
+      filmStrip: '#filmstrip',
+      nextButton: '#next-page',
+      prevButton: '#prev-page'
     };
 
     var current = document.location.hash.match(/^#slide\/(\d+)$/),

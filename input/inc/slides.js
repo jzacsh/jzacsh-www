@@ -43,6 +43,8 @@
       slideTag: self.conf.slideTag || 'li',
       viewerID: self.conf.viewerID || 'viewer',
       filmStrip: self.conf.filmStrip || false,
+      nextButton: self.conf.nextButton || null,
+      prevButton: self.conf.prevButton || null,
       slideClass: self.conf.slideClass || 'slide',
       jqc: self.conf.context || window.document,
       jq: self.conf.jq || (function () {
