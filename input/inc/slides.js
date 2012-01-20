@@ -61,7 +61,7 @@
       pageSize: self.conf.pageSize || 3,
       current: self.conf.current || null,
       currentPage: (function () {
-        if (typeof(self.conf.currentPage) == 'undefined') {
+        if (!self.conf.currentPage && self.conf.currentPage !== 0) {
           return self.pageNumber(self.conf.current || 0);
         }
         else {
@@ -262,7 +262,7 @@
    * Get the page number for the proposed index.
    */
   Slides.prototype.pageNumber = function (index) {
-    if (!index) {
+    if (!index && index !== 0) {
       return null;
     }
 
