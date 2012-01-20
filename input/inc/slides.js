@@ -40,7 +40,7 @@
       currentPage: self.conf.currentPage || (function () {
         return self.pageNumber(self.conf.current || 0);
       })(),
-      slideTag: self.conf.slideTag || 'li',
+      slideTag: self.conf.slideTag || 'span',
       viewerID: self.conf.viewerID || 'viewer',
       filmStrip: self.conf.filmStrip || false,
       nextButton: self.conf.nextButton || null,

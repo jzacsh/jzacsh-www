@@ -8,9 +8,13 @@ Drawings from various past sketchbooks and some recent work of the same style,
 done in Inkscape with a computer tablet.
 
 <div id="filmstrip"></div><!--//#filmstrip-->
-<div id="prev-page" class="button slider" title="Previous Page of Slides">Previous</div>
+<div class="dev" id="slide-nav">
+  <div id="prev-page" class="button slider"
+    title="Previous Page of Slides">Prev</div>
+  <div id="next-page" class="button slider"
+    title="Next Page of Slides">Next</div>
+</div>
 <div id="sliderjs"></div><!--//#sliderjs-->
-<div id="next-page" class="button slider"title="Next Page of Slides">Next</div>
 
 ##Nerd Info
 This page is built and kept up to date automatically with the help
