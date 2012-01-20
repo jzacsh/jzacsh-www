@@ -74,6 +74,9 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 * <del><cite>The Hitchhiker's Guide to the Galaxy</cite></del>
   <span class="attribution">by <b>Douglas Adams</b></span>
 
+* <cite>The Great Gatsby</cite>
+  <span class="attribution">by <b>F. Scott Fitzgerald</b></span>
+
 * <cite>A Brief History of Time</cite> (*currently reading*)
   <span class="attribution">by <b>Stephen Hawking</b></span>
 
@@ -106,9 +109,6 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 
 * <cite>Garbage Land: On the Secret Trail of Trash</cite>
   <span class="attribution">by <b>Elizabeth Royte</b></span>
-
-* <cite>The Great Gatsby</cite>
-  <span class="attribution">by <b>F. Scott Fitzgerald</b></span>
 
 * <cite>The Pragmatic Programmer: From Journeyman to Master</cite>
   <span class="attribution">by <b>Andrew Hunt</b></span>
