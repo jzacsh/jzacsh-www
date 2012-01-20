@@ -1,5 +1,7 @@
 /**
  * @file: slide-show and grid-display manager.
+ *
+ * @TODO: bug: click slide #2 on page 1, hit left-key, cannot transition to 1st slide.
  */
 
 (function() {
