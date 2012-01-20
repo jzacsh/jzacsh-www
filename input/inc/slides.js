@@ -460,6 +460,13 @@
    */
   Slides.prototype.setPage = function (page, current) {
     current = (typeof(current) == 'undefined')? this.pageNumber(this.conf.current) : current;
+    if (this.checkPageBounds(page)) {
+      //keep track of the new page
+      this.conf.currentPage = page;
+    }
+    else {
+      return false;
+    }
 
     var i = 0, $slide,
         liveSlides = this.slidesOnPage(current),
@@ -488,8 +495,7 @@
       $slide.show();
     }
 
-    //keep track of the new page
-    this.conf.currentPage = page;
+    //update hash for our user
     if (this.conf.current == null) {
       //viewer is closed, appropriate to update #page/x
       document.location.hash = 'page/' + (this.conf.currentPage + 1);
@@ -517,30 +523,59 @@
   }
 
   /**
-   * Determine if the proposed index is within our bounds.
-   *
-   * @TODO: this should be "protected/private".
+   * Determine if the proposed slide index is within our bounds.
    */
   Slides.prototype.checkViewerBounds = function (index) {
-    var $viewer = this.conf.jq('#' + this.conf.viewerID, this.conf.jqc);
     if (index > this.conf.images.length || index < 0) {
-      //let the user know
-      $viewer.addClass('reach');
+      var $viewer = this.conf.jq('#' + this.conf.viewerID, this.conf.jqc);
 
-      //be more specific
+      //warn our user
+      var bound;
       if (index < 0) {
-        $viewer.addClass('reached-beginning');
+        bound = 'low';
       }
       else {
-        $viewer.addClass('reached-end');
+        bound = 'high';
       }
-      window.setTimeout(function() {
-          $viewer
-            .removeClass('reach')
-            .removeClass('reached-beginning')
-            .removeClass('reached-end');
-      }, 1500);
+      this.warnOutOfBounds($viewer, bound);
 
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Modify the dom by addeding a few classes to let our user know they've
+   * reached out of their bounds in some way.
+   */
+  Slides.prototype.warnOutOfBounds = function (boundedBy, limit, warning) {
+    warning = parseInt(warning, 10)? warning : 1500;
+
+    boundedBy.addClass('reach');
+    boundedBy.addClass('reached-' + limit);
+    window.setTimeout(function() {
+        boundedBy
+          .removeClass('reach')
+          .removeClass('reached-' + limit);
+    }, warning);
+  }
+
+  /**
+   * Determine if the proposed page index is within our bounds.
+   */
+  Slides.prototype.checkPageBounds = function (page) {
+    page = parseInt(page, 10);
+
+    var lastPage = this.pageNumber(this.conf.images.length - 1);
+    if (page == NaN || page < 0 || page > lastPage) {
+      var limit;
+      if (page < 0) {
+        limit = 'low';
+      }
+      else {
+        limit = 'high';
+      }
+      this.warnOutOfBounds(this.conf.slider, limit);
       return false;
     }
     return true;

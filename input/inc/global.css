@@ -310,6 +310,14 @@ body.beerand .list.active {
   clear: both;
 }
 
+#sliderjs.reached-low {
+  border-left: 1px solid #ffc0cb;
+}
+
+#sliderjs.reached-high {
+  border-right: 1px solid #ffc0cb;
+}
+
 .slide {
   cursor: pointer;
   width: 175px;
@@ -323,11 +331,11 @@ body.beerand .list.active {
   outline: 1px solid #cccccc;
 }
 
-#viewer.reached-beginning img {
+#viewer.reached-low img {
   border-left: 1px solid #ffc0cb;
 }
 
-#viewer.reached-end img {
+#viewer.reached-high img {
   border-right: 1px solid #ffc0cb;
 }
 
@@ -352,6 +360,11 @@ body.beerand .list.active {
 
 .slider:hover {
   text-shadow: 2px 2px 1px #ffffff;
+}
+
+.slider.disabled {
+  color: #dddddd;
+  cursor: normal;
 }
 
 #prev-page {
