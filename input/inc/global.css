@@ -343,12 +343,15 @@ body.beerand .list.active {
   width: 40px;
   line-height: 28px;
   text-transform: uppercase;
-  text-shadow: 3px 3px 3px #ffffff;
   font-weight: bold;
   text-align: center;
   height: 100%;
   position: relative;
   border-color: #dddddd;
+}
+
+.slider:hover {
+  text-shadow: 2px 2px 1px #ffffff;
 }
 
 #prev-page {
