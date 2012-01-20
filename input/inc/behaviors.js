@@ -31,23 +31,42 @@ jzacsh.behaviors.beerAndTabbed = function (context) {
     $listing.append(tab);
   });
 
+  //pick a default tab to show, based on possible hash tag
+  var defaultTab = (function () {
+    var legit = /^#([a-z]+)$/i;
+    if (document.location.hash.match(legit)) {
+      var proposed = document.location.hash.match(legit).pop(),
+        list = $('[data-list="' + proposed + '"]', context),
+        tab = $('[data-tab="' + proposed + '"]', context);
+      if ('length' in list && list.length > 0 &&
+        'length' in tab && tab.length > 0) {
+        return proposed;
+      }
+    }
+    return undefined;
+  })() || 'beer';
+
   //bind to new tabs
   $('.tab', $listing).click(function () {
-    var $this = $(this);
-    var requested = '[data-list="' + $this.attr('data-tab') + '"]';
+    var $this = $(this),
+      category = $this.attr('data-tab'),
+      requested = '[data-list="' + category + '"]';
 
     //the tab
     $this.addClass('active');
-    $('#listing .tab').not('[data-tab="'+ $this.attr('data-tab') +'"]')
+    $('#listing .tab').not('[data-tab="'+ category +'"]')
       .removeClass('active');
 
     //the content
     $lists.not(requested).removeClass('active');
     $(requested).addClass('active');
+
+    //the url
+    document.location.hash = category;
   });
 
-  $('body.beerand .list[data-list="beer"]').addClass('active');
-  $('body.beerand #listing [data-tab="beer"]').addClass('active');
+  $('body.beerand .list[data-list="' + defaultTab + '"]').addClass('active');
+  $('body.beerand #listing [data-tab="' + defaultTab + '"]').addClass('active');
 }
 
 /**
