@@ -13,7 +13,7 @@ del {
 
 body {
   font-family: sans-serif;
-  width: 700px;
+  width: 600px;
   margin: 1em auto;
   font-size: 12px;
   color: #2e3436;
@@ -68,7 +68,8 @@ nav, section#content, footer {
 }
 
 article {
-  padding-left: 2ex;
+  padding-left: 15px;
+  width: 500px;
 }
 
 h1, h2, h3, h4, h5, h6 {
