@@ -420,7 +420,7 @@
     //viewer container
     //
     viewer.push('position: absolute');
-    viewer.push('background-color: rgba(0, 0, 0, 0.05)');
+    viewer.push('background-color: rgba(0, 0, 0, 0.5)');
     viewer.push('width: 100%');
     viewer.push('height: 100%');
     viewer.push('z-index: 999');
