@@ -51,6 +51,7 @@ things about.
 + <cite>Imitation of Life</cite> (1930s version, specifically)
 + <cite>Burn After Reading</cite>
 + <cite>There Will Be Blood</cite>
++ <cite>Rat Race</cite>
 
 </div><!--//[movies]-->
 
@@ -91,6 +92,9 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 
 * <cite>Walden</cite>
   <span class="attribution">by <b>Henry David Thoreau</b></span>
+
+* <cite>The Color Purple</cite>
+  <span class="attribution">by <b>Alice Walker</b></span>
 
 * <cite>Common Sense</cite>
   <span class="attribution">by <b>Thomas Paine</b></span>
