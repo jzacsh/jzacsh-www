@@ -141,6 +141,10 @@ nav a {
   list-style: none;
 }
 
+.projects li {
+  margin-top: 2em;
+}
+
 .projects li > p {
   margin-left: 5em;
   margin-bottom: 1em;
@@ -157,7 +161,10 @@ nav a {
   font-style: italic;
   padding-top: .5ex;
   margin-top: .5ex;
-  border-top: 1px dotted #cccccc;
+  border-bottom: 1px dotted #cccccc;
+  border-right: 1px dotted #cccccc;
+  padding-bottom: .5ex;
+  padding-right: .75ex;
 }
 
 .projects .fork input {
@@ -181,7 +188,7 @@ nav a {
 }
 
 .projects .fork input:focus {
-  outline: 0;
+  color: #333333;
 }
 
 footer {
