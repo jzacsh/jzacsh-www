@@ -3,7 +3,7 @@ menu-position: 4
 classes: beerand
 ---
 
-##Beer Log and Other Checklists
+#Beer Log and Other Checklists
 
 <div id="listing"></div>
 
