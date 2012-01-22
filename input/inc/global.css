@@ -30,8 +30,11 @@ body {
   outline: 1px dotted #ffc0cb;
 }
 
-a, .clickable, .button {
+a,
+.clickable,
+.button {
   color: #7A63FF;
+  color: #BC7134;
   text-decoration: none;
   cursor: pointer;
 }
@@ -68,8 +71,15 @@ nav, section#content, footer {
 }
 
 article {
+  padding-top: 1.5em;
   padding-left: 15px;
   width: 500px;
+}
+
+article h1,
+article h2 {
+  color: #999999;
+  margin-bottom: 2em;
 }
 
 h1, h2, h3, h4, h5, h6 {
