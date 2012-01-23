@@ -488,7 +488,7 @@
    * @see this.conf
    */
   Slides.prototype.viewerToolbarMarkup = function (index) {
-    if (this.conf.viewerToolbarMarkup) {
+    if (typeof(this.conf.viewerToolbarMarkup) == 'function') {
       //user defined a custom callback
       return this.conf.viewerToolbarMarkup(index, this);
     }
