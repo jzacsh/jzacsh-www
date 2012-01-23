@@ -182,6 +182,15 @@
     });
 
     //
+    //user clicks somewhere inside viewer
+    //
+    this.conf.jq(this.conf.jqc).on('click', '#' + this.conf.viewerID, function (e) {
+      // @TODO: use this opportunnity to fix the fact that clicks from the
+      // viewer will not work
+      e.preventDefault();
+    });
+
+    //
     //keyboard events
     //
     this.conf.jq(this.conf.jqc).keyup(function (e) {
