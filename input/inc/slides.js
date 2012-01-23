@@ -32,8 +32,6 @@
 
   /**
    * Initialize configuration with our own defaults.
-   *
-   * @TODO: this should be "protected/private".
    */
   Slides.prototype.initConfig = function (config) {
     var self = this;
@@ -127,8 +125,6 @@
   /**
    * Create necessary grid, DOM elements, and initialize event bindings as
    * necessary.
-   *
-   * @TODO: this should be "protected/private".
    */
   Slides.prototype.initGrid = function () {
     var $slide, S = this;
@@ -162,8 +158,6 @@
 
   /**
    * Bind to various events to make our show work.
-   *
-   * @TODO: this should be "protected/private".
    */
   Slides.prototype.initBindings = function () {
     var S = this;
@@ -239,8 +233,6 @@
 
   /**
    * Build the correct markup for a slide at index.
-   *
-   * @TODO: this should be "protected/private".
    */
   Slides.prototype.getSlideMarkup = function (index, preload) {
     var slide = '';
@@ -346,8 +338,6 @@
    *
    * @note: this is only necessary if this.createViewer is using a modal window
    * that floats in the DOM, as opposed to inline elements on the page.
-   *
-   * @TODO: this should be "protected/private".
    */
   Slides.prototype.getModalLock = function () {
      var scrollPos = [
@@ -371,8 +361,6 @@
 
   /**
    * Un-lock scroll position.
-   *
-   * @TODO: this should be "protected/private".
    */
   Slides.prototype.breakModalLock = function () {
     if (!('modal' in this)) {
@@ -391,20 +379,37 @@
 
   /**
    * Build the correct markup for modal window.
-   *
-   * @TODO: this should be "protected/private".
    */
   Slides.prototype.getViewerMarkup = function (index) {
     var modal = '';
 
     var styles = this.viewerStyles(index);
 
+    //
     //build the actual markup
+    //
+
     modal += '<div id="' + this.conf.viewerID + '" style="' + styles.viewer + '">';
+
+    //toolbar
+    modal += '<div class="toolbar" style="' + styles.toolbar + '">';
+    modal += '<span class="prev-slide" style="float: left;">&laquo;&nbsp;Previous</span>';
+
+    modal += '<span class="orig" style="margin-left: 3em;">';
+    modal += 'Full size ';
+    modal += '"<em style="text-decoration: underline;">';
+    modal += this.conf.images[index].name + '</em>"';
+    modal += '</span>';
+
+    modal += '<span class="next-slide" style="float: right;">Next&nbsp;&raquo;</span>';
+    modal += '</div>'; //close toolbar
+
+    //actual viewer content
     modal += '<div class="viewing" style="' + styles.viewing + '">';
     modal += this.getImgTag(index, 'medium');
     modal += '</div>';
-    modal += '</div>';
+
+    modal += '</div>'; //close the viewer
 
     return modal;
   }
@@ -414,7 +419,13 @@
    * viewing div.
    */
   Slides.prototype.viewerStyles = function (index) {
-    var viewer = [], viewing = [], left = 0, top = 0;
+    var viewer = [], viewing = [], toolbar = [], left = 0, top = 0;
+
+    //calculate some image-dependent dimensions
+    if (this.pre[index]) {
+      top = (this.conf.jq(window).height() - this.pre[index].naturalHeight) / 2;
+      left = this.pre[index].naturalWidth / 2;
+    }
 
     //
     //viewer container
@@ -429,22 +440,43 @@
     viewer = this.conf.jq.trim(viewer.join('; '));
 
     //
+    //toolbar for buttons/links
+    //
+    toolbar.push('position: relative');
+    toolbar.push('top: ' + top + 'px');
+    toolbar.push('left: 50%');
+    toolbar.push('margin-left: -' + left + 'px');
+    toolbar.push('color: #ffffff');
+    toolbar.push('height: 2em');
+    toolbar.push('line-height: 2em');
+    toolbar.push('font-size: 1em');
+    toolbar.push('font-weight: bold');
+    toolbar.push('text-align: left');
+    toolbar.push('background-color: rgba(0, 0, 0, 0.3)');
+    toolbar.push('width: ' + (this.pre[index].naturalWidth - 12) + 'px');
+    toolbar.push('padding-left: 6px');
+    toolbar.push('padding-right: 6px');
+    toolbar.push('margin-bottom: 1ex');
+    toolbar.push('-webkit-border-radius: 3px');
+    toolbar.push('-moz-border-radius: 3px');
+    toolbar.push('border-radius: 3px');
+    toolbar = this.conf.jq.trim(toolbar.join('; '));
+
+    //
     //image container
     // - Determine useful positoins/sizes based on the given image.
     //
-    if (this.pre[index]) {
-      top = (this.conf.jq(window).height() - this.pre[index].naturalHeight) / 2;
-      left = this.pre[index].naturalWidth / 2;
-    }
     viewing.push('position: relative');
     viewing.push('top: ' + top + 'px');
     viewing.push('left: 50%');
     viewing.push('margin-left: -' + left + 'px');
+    viewing.push('width: ' + this.pre[index].naturalWidth + 'px');
     viewing = this.conf.jq.trim(viewing.join('; '));
 
     return {
       viewer: viewer,
-      viewing: viewing
+      viewing: viewing,
+      toolbar: toolbar
     };
   }
 
@@ -702,10 +734,9 @@
   }
 
   /**
-   *
+   * @TODO: code this
    */
   Slides.prototype.pausePlay = function () {
-    //@TODO: code this
 
     return this;
   }
