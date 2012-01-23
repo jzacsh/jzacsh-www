@@ -69,7 +69,7 @@
       slideTag: self.conf.slideTag || 'span',
       viewerID: self.conf.viewerID || 'viewer',
       filmStrip: self.conf.filmStrip || false,
-      viewerToolbarMarkup: self.conf.viewerToolbarMarkup || self.viewerToolbarMarkup,
+      viewerToolbarMarkup: self.conf.viewerToolbarMarkup || null,
       nextButton: self.conf.nextButton || null,
       prevButton: self.conf.prevButton || null,
       slideClass: self.conf.slideClass || 'slide',
@@ -397,7 +397,7 @@
     modal += '<span class="prev-slide" style="float: left;">&laquo;&nbsp;Previous</span>';
 
     //toolbar customizable-contents
-    modal += this.conf.viewerToolbarMarkup(index);
+    modal += this.viewerToolbarMarkup(index);
 
     modal += '<span class="next-slide" style="float: right;">Next&nbsp;&raquo;</span>';
     modal += '</div>'; //close toolbar
@@ -488,6 +488,10 @@
    * @see this.conf
    */
   Slides.prototype.viewerToolbarMarkup = function (index) {
+    if (this.conf.viewerToolbarMarkup) {
+      //user defined a custom callback
+      return this.conf.viewerToolbarMarkup(index, this);
+    }
     var modal = '';
 
     modal += '<a class="orig" style="color: inherit; margin-left: 3em;"';
