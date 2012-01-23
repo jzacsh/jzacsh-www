@@ -69,6 +69,7 @@
       slideTag: self.conf.slideTag || 'span',
       viewerID: self.conf.viewerID || 'viewer',
       filmStrip: self.conf.filmStrip || false,
+      viewerToolbarMarkup: self.conf.viewerToolbarMarkup || self.viewerToolbarMarkup,
       nextButton: self.conf.nextButton || null,
       prevButton: self.conf.prevButton || null,
       slideClass: self.conf.slideClass || 'slide',
@@ -395,11 +396,8 @@
     modal += '<div class="toolbar" style="' + styles.toolbar + '">';
     modal += '<span class="prev-slide" style="float: left;">&laquo;&nbsp;Previous</span>';
 
-    modal += '<span class="orig" style="margin-left: 3em;">';
-    modal += 'Full size ';
-    modal += '"<em style="text-decoration: underline;">';
-    modal += this.conf.images[index].name + '</em>"';
-    modal += '</span>';
+    //toolbar customizable-contents
+    modal += this.conf.viewerToolbarMarkup(index);
 
     modal += '<span class="next-slide" style="float: right;">Next&nbsp;&raquo;</span>';
     modal += '</div>'; //close toolbar
@@ -478,6 +476,26 @@
       viewing: viewing,
       toolbar: toolbar
     };
+  }
+
+  /**
+   * Render the markup needed for a given slide's toolbar text, between the
+   * "previous" and "next" links.
+   *
+   * @note This is a default, that is meant to be easily overridden via
+   * this.conf object's API, with the "viewerToolbarMarkup" property.
+   *
+   * @see this.conf
+   */
+  Slides.prototype.viewerToolbarMarkup = function (index) {
+    var modal = '';
+
+    modal += '<a class="orig" style="color: inherit; margin-left: 3em;"';
+    modal += ' href="'+  this.conf.images[index].src +'" target="_blank">';
+    modal += '"<em>' + this.conf.images[index].name + '</em>"';
+    modal += '</a>';
+
+    return modal;
   }
 
   /**
