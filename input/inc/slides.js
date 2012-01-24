@@ -423,21 +423,8 @@
 
     modal += '<div id="' + this.conf.viewerID + '" style="' + styles.viewer + '">';
 
-    //toolbar
-    modal += '<div class="toolbar" style="' + styles.toolbar + '">';
-    disabled = (index == 0)? ' color: rgba(255, 255, 255, 0.7);' : '';
-    dataMove = (index == 0)? '' : ' data-move="' + (index - 1) + '"';
-    modal += '<span class="slide-change prev-slide"' + dataMove;
-    modal += ' style="float: left; cursor: pointer;' + disabled + '">&laquo;&nbsp;Previous</span>';
-
     //toolbar customizable-contents
-    modal += this.viewerToolbarMarkup(index);
-
-    disabled = (index >= this.conf.images.length)? ' color: rgba(255, 255, 255, 0.7);' : '';
-    dataMove = (index >= this.conf.images.length)? '' : ' data-move="' + (index + 1) + '"';
-    modal += '<span class="slide-change next-slide"' + dataMove;
-    modal += ' style="float: right; cursor: pointer;' + disabled + '">Next&nbsp;&raquo;</span>';
-    modal += '</div>'; //close toolbar
+    modal += this.viewerToolbarMarkup(index, styles.toolbar);
 
     //actual viewer content
     modal += '<div class="viewing" style="' + styles.viewing + '">';
@@ -524,17 +511,34 @@
    *
    * @see this.conf
    */
-  Slides.prototype.viewerToolbarMarkup = function (index) {
+  Slides.prototype.viewerToolbarMarkup = function (index, styles) {
     if (typeof(this.conf.viewerToolbarMarkup) == 'function') {
       //user defined a custom callback
       return this.conf.viewerToolbarMarkup(index, this);
     }
     var modal = '';
 
+    //start
+    modal += '<div class="toolbar" style="' + styles + '">';
+
+    //previous-slide button
+    disabled = (index == 0)? ' color: rgba(255, 255, 255, 0.7);' : '';
+    dataMove = (index == 0)? '' : ' data-move="' + (index - 1) + '"';
+    modal += '<span class="slide-change prev-slide"' + dataMove;
+    modal += ' style="float: left; cursor: pointer;' + disabled + '">&laquo;&nbsp;Previous</span>';
+
+    //current toolbar content
     modal += '<a class="orig" style="color: inherit; margin-left: 3em;"';
     modal += ' href="'+  this.conf.images[index].src +'" target="_blank">';
     modal += '"<em>' + this.conf.images[index].name + '</em>"';
     modal += '</a>';
+
+    //next-slide button
+    disabled = (index >= this.conf.images.length)? ' color: rgba(255, 255, 255, 0.7);' : '';
+    dataMove = (index >= this.conf.images.length)? '' : ' data-move="' + (index + 1) + '"';
+    modal += '<span class="slide-change next-slide"' + dataMove;
+    modal += ' style="float: right; cursor: pointer;' + disabled + '">Next&nbsp;&raquo;</span>';
+    modal += '</div>'; //close toolbar
 
     return modal;
   }
@@ -548,24 +552,32 @@
     }
 
     var $viewing = this.conf.jq('#' + this.conf.viewerID + ' .viewing', this.conf.jqc),
+      styles = this.viewerStyles(index),
       $toolbar = $viewing.siblings('.toolbar'),
+      $current = this.conf.jq('img', $viewing),
       requested = this.getImgTag(index, 'medium'),
-      $current = this.conf.jq('img', $viewing);
+      toolbar = this.viewerToolbarMarkup(index, styles.toolbar);
 
     var S = this;
     $toolbar.fadeOut();
     $current.fadeOut(function () {
-      var styles = S.viewerStyles(index);
+      //remove and rebuild our image
       $current.remove();
       S.conf.jq(requested).hide().appendTo($viewing);
 
       //adjust for the new image
-      $viewing.attr('style', styles.viewing)
+      var $viewer = $viewing.attr('style', styles.viewing)
         .parent('#' + S.conf.viewerID)
         .attr('style', styles.viewer);
-      $toolbar.attr('style', styles.toolbar)
 
+      //remove and rebuild our toolbar
+      $toolbar.remove();
+      $toolbar = S.conf.jq(toolbar).hide().prependTo($viewer);
+
+      //fade our new image in
       S.conf.jq('img', $viewing).fadeIn();
+
+      //fade our new toolbar in
       $toolbar.fadeIn();
     });
     return this;
