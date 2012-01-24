@@ -184,11 +184,30 @@
     //
     //user clicks somewhere inside viewer
     //
+    //@note user should write their own click handlers if they're generating
+    //their own content
+    //
     if (!this.conf.viewerToolbarMarkup) {
+      //user clicks main full-size image link
       this.conf.jq(this.conf.jqc).on('click', '#' + this.conf.viewerID + ' a', function (e) {
         e.preventDefault();
         document.location = S.conf.jq(this).attr('href');
       });
+
+      //user clicks next/previous links
+      var slideChanger = function (e) {
+        if (S.conf.jq(this).hasClass('prev-slide')) {
+          S.previous();
+        }
+        else if (S.conf.jq(this).hasClass('next-slide')) {
+          S.next();
+        }
+        return false;
+      };
+      this.conf.jq(this.conf.jqc).on('click',
+          '#' + this.conf.viewerID + ' .prev-slide', slideChanger);
+      this.conf.jq(this.conf.jqc).on('click',
+          '#' + this.conf.viewerID + ' .next-slide', slideChanger);
     }
 
     //
@@ -318,8 +337,9 @@
     var S = this;
     //allow user to click their way out of viewer
     $viewer.click(function (e) {
-      e.preventDefault();
-      S.destroyViewer();
+      if (S.conf.jq(e.target).is('#' + S.conf.viewerID)) {
+        S.destroyViewer();
+      }
     });
     //user clicks on image, that doesn't count.
     var $img = this.conf.jq('#' + this.conf.viewerID + ' .viewing img');
@@ -392,9 +412,10 @@
    * Build the correct markup for modal window.
    */
   Slides.prototype.getViewerMarkup = function (index) {
+    index = parseInt(index, 10);
     var modal = '';
 
-    var styles = this.viewerStyles(index);
+    var disabled, dataMove, styles = this.viewerStyles(index);
 
     //
     //build the actual markup
@@ -404,12 +425,18 @@
 
     //toolbar
     modal += '<div class="toolbar" style="' + styles.toolbar + '">';
-    modal += '<span class="prev-slide" style="float: left;">&laquo;&nbsp;Previous</span>';
+    disabled = (index == 0)? ' color: rgba(255, 255, 255, 0.7);' : '';
+    dataMove = (index == 0)? '' : ' data-move="' + (index - 1) + '"';
+    modal += '<span class="slide-change prev-slide"' + dataMove;
+    modal += ' style="float: left; cursor: pointer;' + disabled + '">&laquo;&nbsp;Previous</span>';
 
     //toolbar customizable-contents
     modal += this.viewerToolbarMarkup(index);
 
-    modal += '<span class="next-slide" style="float: right;">Next&nbsp;&raquo;</span>';
+    disabled = (index >= this.conf.images.length)? ' color: rgba(255, 255, 255, 0.7);' : '';
+    dataMove = (index >= this.conf.images.length)? '' : ' data-move="' + (index + 1) + '"';
+    modal += '<span class="slide-change next-slide"' + dataMove;
+    modal += ' style="float: right; cursor: pointer;' + disabled + '">Next&nbsp;&raquo;</span>';
     modal += '</div>'; //close toolbar
 
     //actual viewer content
@@ -520,11 +547,13 @@
       return this;
     }
 
-    var $viewing = this.conf.jq('#' + this.conf.viewerID + ' .viewing', this.conf.jqc);
-    var requested = this.getImgTag(index, 'medium');
-    var $current = this.conf.jq('img', $viewing);
+    var $viewing = this.conf.jq('#' + this.conf.viewerID + ' .viewing', this.conf.jqc),
+      $toolbar = $viewing.siblings('.toolbar'),
+      requested = this.getImgTag(index, 'medium'),
+      $current = this.conf.jq('img', $viewing);
 
     var S = this;
+    $toolbar.fadeOut();
     $current.fadeOut(function () {
       var styles = S.viewerStyles(index);
       $current.remove();
@@ -534,8 +563,10 @@
       $viewing.attr('style', styles.viewing)
         .parent('#' + S.conf.viewerID)
         .attr('style', styles.viewer);
+      $toolbar.attr('style', styles.toolbar)
 
       S.conf.jq('img', $viewing).fadeIn();
+      $toolbar.fadeIn();
     });
     return this;
   }
@@ -713,19 +744,22 @@
   /**
    * Determine if the proposed page index is within our bounds.
    */
-  Slides.prototype.checkPageBounds = function (page) {
+  Slides.prototype.checkPageBounds = function (page, warn) {
     page = parseInt(page, 10);
+    warn = (typeof(warn) == 'undefined')? false : warn;
 
     var lastPage = this.pageNumber(this.conf.images.length - 1);
     if (page == NaN || page < 0 || page > lastPage) {
-      var limit;
-      if (page < 0) {
-        limit = 'low';
+      if (warn) {
+        var limit;
+        if (page < 0) {
+          limit = 'low';
+        }
+        else {
+          limit = 'high';
+        }
+        this.warnOutOfBounds(this.conf.slider, limit);
       }
-      else {
-        limit = 'high';
-      }
-      this.warnOutOfBounds(this.conf.slider, limit);
       return false;
     }
     return true;
