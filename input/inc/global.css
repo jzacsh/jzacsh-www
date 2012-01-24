@@ -386,6 +386,11 @@ body.beerand .list.active {
   cursor: default;
 }
 
+.slider.disabled:hover {
+  text-shadow: inherit;
+  opacity: 0.3;
+}
+
 #prev-page {
   float: left;
 }
