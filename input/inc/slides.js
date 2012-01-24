@@ -185,9 +185,9 @@
     //user clicks somewhere inside viewer
     //
     if (!this.conf.viewerToolbarMarkup) {
-      this.conf.jq(this.conf.jqc).on('click', '#' + this.conf.viewerID, function (e) {
+      this.conf.jq(this.conf.jqc).on('click', '#' + this.conf.viewerID + ' a', function (e) {
         e.preventDefault();
-        document.location = S.conf.jq('.toolbar .orig', this).attr('href');
+        document.location = S.conf.jq(this).attr('href');
       });
     }
 
