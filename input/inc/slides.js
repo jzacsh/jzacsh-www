@@ -2,6 +2,9 @@
  * @file: slide-show and grid-display manager.
  *
  * @TODO: bug: click slide #2 on page 1, hit left-key, cannot transition to 1st slide.
+ * @TODO: bug: click last or first slide before another page, right-click
+ * (transition) to next page, view the slide-viewer, notice the viewer does not
+ * have time to check the image's size
  */
 
 (function() {
