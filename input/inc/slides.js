@@ -679,19 +679,23 @@
   /**
    * Determine if the proposed slide index is within our bounds.
    */
-  Slides.prototype.checkViewerBounds = function (index) {
-    if (index > this.conf.images.length || index < 0) {
+  Slides.prototype.checkViewerBounds = function (index, warn) {
+    warn = (typeof(warn) == 'undefined')? true : warn;
+
+    if (index > (this.conf.images.length - 1) || index < 0) {
       var $viewer = this.conf.jq('#' + this.conf.viewerID, this.conf.jqc);
 
       //warn our user
-      var bound;
-      if (index < 0) {
-        bound = 'low';
+      if (warn) {
+        var bound;
+        if (index < 0) {
+          bound = 'low';
+        }
+        else {
+          bound = 'high';
+        }
+        this.warnOutOfBounds($viewer, bound);
       }
-      else {
-        bound = 'high';
-      }
-      this.warnOutOfBounds($viewer, bound);
 
       return false;
     }
@@ -699,7 +703,7 @@
   }
 
   /**
-   * Modify the dom by addeding a few classes to let our user know they've
+   * Modify the dom by adding a few classes to let our user know they've
    * reached out of their bounds in some way.
    */
   Slides.prototype.warnOutOfBounds = function (boundedBy, limit, warning) {
@@ -746,7 +750,7 @@
    */
   Slides.prototype.checkPageBounds = function (page, warn) {
     page = parseInt(page, 10);
-    warn = (typeof(warn) == 'undefined')? false : warn;
+    warn = (typeof(warn) == 'undefined')? true : warn;
 
     var lastPage = this.pageNumber(this.conf.images.length - 1);
     if (page == NaN || page < 0 || page > lastPage) {
