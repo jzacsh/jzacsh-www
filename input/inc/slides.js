@@ -184,11 +184,12 @@
     //
     //user clicks somewhere inside viewer
     //
-    this.conf.jq(this.conf.jqc).on('click', '#' + this.conf.viewerID, function (e) {
-      // @TODO: use this opportunnity to fix the fact that clicks from the
-      // viewer will not work
-      e.preventDefault();
-    });
+    if (!this.conf.viewerToolbarMarkup) {
+      this.conf.jq(this.conf.jqc).on('click', '#' + this.conf.viewerID, function (e) {
+        e.preventDefault();
+        document.location = S.conf.jq('.toolbar .orig', this).attr('href');
+      });
+    }
 
     //
     //keyboard events
