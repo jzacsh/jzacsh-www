@@ -27,6 +27,8 @@ of:
   displaying, converting, and editing raster image files.*"
 * [Prep Images][prepimg]: The awesome glue! Bash script to run process my
   artwork with ImageMagick when inotify events occur.
+* **slides.js**: (*coming soon*) open sourced slideshow/grid/etc. I wrote that makes
+  this page possible.
 
 [inotify]: https://github.com/rvoicilas/inotify-tools/wiki/
 [imagedex]: https://github.com/jzacsh/imagedex
