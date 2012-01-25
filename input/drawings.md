@@ -16,9 +16,12 @@ done in Inkscape with a computer tablet.
 </div>
 <div id="sliderjs"></div><!--//#sliderjs-->
 
+<hgroup markdown="1">
 ##Nerd Info
-This page is built and kept up to date automatically with the help
-of:
+### note: *You can stop reading now if software doesn't excite you :)*
+</hgroup>
+
+This page is built and kept up to date automatically with the help of:
 
 * [inotify-tools][inotify]: simple interface to the Linux kernel's
   filesystem-monitoring API that avoids polling.
