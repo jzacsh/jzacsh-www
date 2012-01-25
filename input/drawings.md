@@ -20,13 +20,13 @@ done in Inkscape with a computer tablet.
 This page is built and kept up to date automatically with the help
 of:
 
-* [inotify-tools][inotify]: Automatic, efficient triggering of all the
-  necessary scripts, via to keep this site updated, without polling.
+* [inotify-tools][inotify]: simple interface to the Linux kernel's
+  filesystem-monitoring API that avoids polling.
 * [imagedex][]: Basic [file system listing][jsondrawings] for JSON consumers.
-* [Prep Images][prepimg]: bash script to dynamically run [ImageMagick][] over
-  artwork
 * [ImageMagick][]: from Wikipedia, "*an open source software suite for
   displaying, converting, and editing raster image files.*"
+* [Prep Images][prepimg]: The awesome glue! Bash script to run process my
+  artwork with ImageMagick when inotify events occur.
 
 [inotify]: https://github.com/rvoicilas/inotify-tools/wiki/
 [imagedex]: https://github.com/jzacsh/imagedex
