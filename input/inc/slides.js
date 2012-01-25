@@ -2,9 +2,6 @@
  * @file: slide-show and grid-display manager.
  *
  * @TODO: bug: click slide #2 on page 1, hit left-key, cannot transition to 1st slide.
- * @TODO: bug: click last or first slide before another page, right-click
- * (transition) to next page, view the slide-viewer, notice the viewer does not
- * have time to check the image's size
  */
 
 (function() {
@@ -140,14 +137,16 @@
       return this;
     }
 
+    //pre load images to enable dimension-based placement in the browser
+    this.preLoadPage(this.conf.currentPage);
+
     //build the slides, configured for the correct page
     for (var i in this.conf.images) {
       //get our slide markup
       $slide = this.conf.jq(this.getSlideMarkup(i));
-      if ($slide.attr('data-page') == this.conf.currentPage) {
-        this.preLoad(i);
-      }
-      else {
+
+      //hide it if it's out of view
+      if ($slide.attr('data-page') != this.conf.currentPage) {
         $slide.hide();
       }
 
@@ -253,15 +252,68 @@
   }
 
   /**
-   * Preload image somewhere on the DOM, primarily so that we will have
-   * dimension information on the image we're dealing with, before we show it.
-   *
+   * Preload all images for a given page of slides, primarily so that we will
+   * have dimension information on the image we're dealing with, *before* we
+   * show it.
    * @TODO: this is probably hacky and sloppy. What to do, what to do??
+   *
+   * @see this.viewerStyles().
+   *
+   * @param <int> page
+   *   Numeric index of the page of slides to be pre-loaded.
+   * @param <boolean> buffer
+   *   Indicates if immediately surrounding pages should be pre-loaded as well.
+   *   This is recommended, so transitions to new pages do not result in
+   *   dimension-less placement of an image in its view. Defaults to true.
    */
-  Slides.prototype.preLoad = function (index) {
-    this.pre = this.pre || [];
-    var $img = this.conf.jq(this.getImgTag(index, 'medium'));
-    this.pre[index] = $img.get(0);
+  Slides.prototype.preLoadPage = function (page, buffer) {
+    buffer = (typeof(buffer) == 'undefined')? true : buffer;
+    page = parseInt(page, 10);
+
+    //store all pre-loaded images in this.pre
+    this.pre = this.pre || (new Array(this.conf.images.length));
+
+    var self = this, i;
+    /**
+     * Preload a given slide number.
+     */
+    var preLoad = function (index) {
+      if (typeof(self.pre[index]) == 'undefined') {
+        var $img = self.conf.jq(self.getImgTag(index, 'medium'));
+        self.pre[index] = $img.get(0);
+      }
+    }
+
+    //
+    //pre-load our current page's images.
+    //
+    var currentSlides = this.slidesOnPage(this.conf.currentPage);
+    for (i in currentSlides) {
+      preLoad(currentSlides[i]);
+    }
+
+    //
+    //pre-load for the surrounding pages.
+    //
+    if (buffer) {
+      //second most likely place for our user to go.
+      var next = this.conf.currentPage + 1;
+      if (this.checkPageBounds(next, false)) {
+        var nextSlides = this.slidesOnPage(next);
+        for (i in nextSlides) {
+          preLoad(nextSlides[i]);
+        }
+      }
+
+      //third most likely place for our user to go.
+      var prev = this.conf.currentPage - 1;
+      if (this.checkPageBounds(prev, false)) {
+        var prevSlides = this.slidesOnPage(prev);
+        for (i in prevSlides) {
+          preLoad(prevSlides[i]);
+        }
+      }
+    }
   }
 
   /**
@@ -448,6 +500,8 @@
 
     //calculate some image-dependent dimensions
     if (this.pre[index]) {
+      //@note this depends on this.preLoadPage() having run for
+      //this.conf.currentPage
       top = (this.conf.jq(window).height() - this.pre[index].naturalHeight) / 2;
       left = this.pre[index].naturalWidth / 2;
     }
@@ -644,12 +698,14 @@
           this.conf.slider).hide();
     }
 
+    //preload our new page of slides
+    this.preLoadPage(page);
+
     //
     //load slides onto grid
     //
     i = 0;
     for (i in newSlides) {
-      this.preLoad(newSlides[i]);
       $slide = this.conf.jq('[data-slide="' + newSlides[i] + '"]',
           this.conf.slider);
 
