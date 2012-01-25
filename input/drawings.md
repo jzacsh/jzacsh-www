@@ -27,8 +27,12 @@ of:
   displaying, converting, and editing raster image files.*"
 * [Prep Images][prepimg]: The awesome glue! Bash script to run process my
   artwork with ImageMagick when inotify events occur.
-* **slides.js**: (*coming soon*) open sourced slideshow/grid/etc. I wrote that makes
-  this page possible.
+* **slides.js**: (*coming soon*) open sourced slideshow/grid-management I wrote
+  being used on this page.
+* **svgToCanvas**: (*coming soon*) open sourced SVG rendering library using
+  Canvas APIs. I wrote this specifically to allow fine-grained control of the
+  render-process for SVG files (*sometimes visually noticable over a slow
+  network connection*).
 
 [inotify]: https://github.com/rvoicilas/inotify-tools/wiki/
 [imagedex]: https://github.com/jzacsh/imagedex
