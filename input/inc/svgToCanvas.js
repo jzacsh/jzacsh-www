@@ -74,8 +74,7 @@ var SvgToCanvas = function (svgNode, canvasNode, config) {
   this.context = this.canvas.getContext('2d');
   this.config = config;
   if (!this.context) {
-    console.error('Could not get canvas context with
-        canvas.getContext("2d").');
+    console.error('Could not get canvas context with canvas.getContext("2d").');
     return false;
   }
 
