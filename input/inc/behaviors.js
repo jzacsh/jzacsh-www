@@ -113,8 +113,6 @@ jzacsh.behaviors.svgRender = function (c) {
 
 /**
  * Render SVG drawings from content.jzacsh.com/drawings via slider.js
- *
- * @see http://greweb.fr/slider
  */
 jzacsh.behaviors.sliderjsDrawings = function (c) {
   var validListings = ['tablet', 'paper'],
