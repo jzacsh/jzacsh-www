@@ -27,9 +27,7 @@
 
 
 /**
- * Initialize storage build methods needed to use this library.
- *
- * @note Public: accessing this API is encouraged.
+ * Initialize and run sanity check over configuration needed to use this library.
  *
  * @param object svgNode
  *   The <svg> node, as found somewhere in the DOM tree of our page.
