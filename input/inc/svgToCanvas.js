@@ -34,10 +34,12 @@
  * @param object svgNode
  *   The <svg> node, as found somewhere in the DOM tree of our page.
  * @param object canvasNode
- *   The <canvash> node, as found somewhere in the DOM tree, on which we
+ *   The <canvas> node, as found somewhere in the DOM tree, on which we
  *   should be rendering our 2d representation of svgNode
  *   @note: don't pass the canvas "context" (ie.: don't call getContext()).
  * @param object config
+ *     Optional configuration object containing any of the following properties
+ *     to modify behavior of rendering process.
  *     @TODO: code this:
  *   - mirrorSize <bool>: re-size our canvas according to the SVG node's
  *     original size.
@@ -68,15 +70,17 @@ var SvgToCanvas = function (svgNode, canvasNode, config) {
     return null;
   }
 
-  //basic instant-specific storage for this call.
+  //the crticial DOM elements we need to do anything
   this.svg = svgNode;
   this.canvas = canvasNode;
   this.context = this.canvas.getContext('2d');
-  this.config = config;
   if (!this.context) {
     console.error('Could not get canvas context with canvas.getContext("2d").');
     return false;
   }
+
+  //store our rendering configuration.
+  this.config = config || null;
 
   var commands = 'mzlhvcsqta';
   /**

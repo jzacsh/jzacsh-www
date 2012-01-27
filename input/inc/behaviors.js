@@ -54,8 +54,8 @@ jzacsh.behaviors.beerAndTabbed = function (context) {
  * Read SVG data and re-render via canvas APIs.
  */
 jzacsh.behaviors.svgToCanvas = function (c) {
-  var $svg = $('#svg2', c).first(),
-      $canvas = $('#airspace', c).first(),
+  var $svg = $('#svg2', c).first()[0],
+      $canvas = $('#airspace', c).first()[0],
       config = {
         reverse: false,
         speed: 400,
@@ -65,7 +65,7 @@ jzacsh.behaviors.svgToCanvas = function (c) {
   //render our SVG image as canvas, using svgToCanvas lib.
   if ('length' in $svg && $svg.length > 0 &&
       'length' in $canvas && $canvas.length > 0) {
-    var mapper = svgToCanvas.mapToCanvas($svg[0], $canvas[0], config);
+    var mapper = new SvgToCanvas($svg, $canvas, config);
     if (mapper) {
       mapper.renderToCanvas();
     }
