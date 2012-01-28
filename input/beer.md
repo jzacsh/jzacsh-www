@@ -3,7 +3,7 @@ menu-position: 4
 classes: beerand
 ---
 
-##Beer Log and Other Checklists
+#Beer Log and Other Checklists
 
 <div id="listing"></div>
 
@@ -51,6 +51,7 @@ things about.
 + <cite>Imitation of Life</cite> (1930s version, specifically)
 + <cite>Burn After Reading</cite>
 + <cite>There Will Be Blood</cite>
++ <cite>Rat Race</cite>
 
 </div><!--//[movies]-->
 
@@ -71,8 +72,11 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 * <del><cite>The Shallows: What the Internet Is Doing to Our Brains</cite></del>
   <span class="attribution">by <b>Nicholas Carr</b></span>
 
-* <cite>The Hitchhiker's Guide to the Galaxy</cite> (*currently reading*)
+* <del><cite>The Hitchhiker's Guide to the Galaxy</cite></del>
   <span class="attribution">by <b>Douglas Adams</b></span>
+
+* <cite>The Great Gatsby</cite>
+  <span class="attribution">by <b>F. Scott Fitzgerald</b></span>
 
 * <cite>A Brief History of Time</cite> (*currently reading*)
   <span class="attribution">by <b>Stephen Hawking</b></span>
@@ -88,6 +92,9 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 
 * <cite>Walden</cite>
   <span class="attribution">by <b>Henry David Thoreau</b></span>
+
+* <cite>The Color Purple</cite>
+  <span class="attribution">by <b>Alice Walker</b></span>
 
 * <cite>Common Sense</cite>
   <span class="attribution">by <b>Thomas Paine</b></span>
@@ -106,9 +113,6 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 
 * <cite>Garbage Land: On the Secret Trail of Trash</cite>
   <span class="attribution">by <b>Elizabeth Royte</b></span>
-
-* <cite>The Great Gatsby</cite>
-  <span class="attribution">by <b>F. Scott Fitzgerald</b></span>
 
 * <cite>The Pragmatic Programmer: From Journeyman to Master</cite>
   <span class="attribution">by <b>Andrew Hunt</b></span>
