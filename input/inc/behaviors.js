@@ -134,6 +134,11 @@ jzacsh.behaviors.svgRender = function (c) {
  * Render SVG drawings from content.jzacsh.com/drawings via slider.js
  */
 jzacsh.behaviors.sliderjsDrawings = function (c) {
+  var $sliderjs = $('#sliderjs', c);
+  if (!($sliderjs && 'length' in $sliderjs && $sliderjs.length > 0)) {
+    return false;
+  }
+
   var validListings = ['tablet', 'paper'],
     uri = '/drawings/imagedex.json';
 
@@ -193,7 +198,7 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
 
   var initSliderJs = function (json) {
     var conf = {
-      slider: $('#sliderjs', c),
+      slider: $sliderjs,
       images: compileSlides(json),
       context: c,
       pageSize: 6,
