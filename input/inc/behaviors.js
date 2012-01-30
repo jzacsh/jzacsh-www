@@ -82,8 +82,8 @@ jzacsh.behaviors.svgToCanvas = function (c) {
       };
 
   //render our SVG image as canvas, using svgToCanvas lib.
-  if ('length' in $svg && $svg.length > 0 &&
-      'length' in $canvas && $canvas.length > 0) {
+  if ($svg && 'length' in $svg && $svg.length > 0 &&
+      $canvas && 'length' in $canvas && $canvas.length > 0) {
     var mapper = new SvgToCanvas($svg, $canvas, config);
     if (mapper) {
       mapper.renderToCanvas();
