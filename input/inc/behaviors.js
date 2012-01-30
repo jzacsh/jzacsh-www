@@ -211,7 +211,7 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
     dataType: 'jsonp',
     jsonp: false,
     jsonpCallback: 'drawings',
-    success: initSliderJs,
+    success: initSliderJs
   });
 }
 
