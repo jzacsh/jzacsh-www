@@ -73,8 +73,8 @@ jzacsh.behaviors.beerAndTabbed = function (context) {
  * Read SVG data and re-render via canvas APIs.
  */
 jzacsh.behaviors.svgToCanvas = function (c) {
-  var $svg = $('#svg2', c).first(),
-      $canvas = $('#airspace', c).first(),
+  var $svg = $('#svg2', c).first()[0],
+      $canvas = $('#airspace', c).first()[0],
       config = {
         reverse: false,
         speed: 400,
@@ -82,9 +82,9 @@ jzacsh.behaviors.svgToCanvas = function (c) {
       };
 
   //render our SVG image as canvas, using svgToCanvas lib.
-  if ('length' in $svg && $svg.length > 0 &&
-      'length' in $canvas && $canvas.length > 0) {
-    var mapper = svgToCanvas.mapToCanvas($svg[0], $canvas[0], config);
+  if ($svg && 'length' in $svg && $svg.length > 0 &&
+      $canvas && 'length' in $canvas && $canvas.length > 0) {
+    var mapper = new SvgToCanvas($svg, $canvas, config);
     if (mapper) {
       mapper.renderToCanvas();
     }
@@ -132,10 +132,13 @@ jzacsh.behaviors.svgRender = function (c) {
 
 /**
  * Render SVG drawings from content.jzacsh.com/drawings via slider.js
- *
- * @see http://greweb.fr/slider
  */
 jzacsh.behaviors.sliderjsDrawings = function (c) {
+  var $sliderjs = $('#sliderjs', c);
+  if (!($sliderjs && 'length' in $sliderjs && $sliderjs.length > 0)) {
+    return false;
+  }
+
   var validListings = ['tablet', 'paper'],
     uri = '/drawings/imagedex.json';
 
@@ -195,7 +198,7 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
 
   var initSliderJs = function (json) {
     var conf = {
-      slider: $('#sliderjs', c),
+      slider: $sliderjs,
       images: compileSlides(json),
       context: c,
       pageSize: 6,
@@ -213,7 +216,7 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
     dataType: 'jsonp',
     jsonp: false,
     jsonpCallback: 'drawings',
-    success: initSliderJs,
+    success: initSliderJs
   });
 }
 

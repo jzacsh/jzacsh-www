@@ -1,5 +1,4 @@
 title: beer
-menu-position: 4
 classes: beerand
 ---
 
