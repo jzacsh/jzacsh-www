@@ -52,6 +52,8 @@ things about.
 + <cite>Burn After Reading</cite>
 + <cite>There Will Be Blood</cite>
 + <cite>Rat Race</cite>
++ <cite>Citizen cane</cite>
++ <cite>China town</cite>
 
 </div><!--//[movies]-->
 
