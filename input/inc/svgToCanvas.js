@@ -167,7 +167,7 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
       var apply = function (style, value) {
         switch (style) {
           case 'fill':
-            if (map.spec.regex.hexStyle.test(value)) {
+            if (map.regex.hexStyle.test(value)) {
               map.context.fillStyle = value;
             }
             else {
@@ -184,7 +184,7 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
             break;
 
           case 'stroke':
-            if (map.spec.regex.hexStyle.test(value) || value == 'none') {
+            if (map.regex.hexStyle.test(value) || value == 'none') {
               map.context.strokeStyle = value;
             }
             else {
@@ -218,7 +218,7 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
        * Call the correct Canvas API.
        */
       var apply = function (command, data) {
-        if (!command.match(map.spec.regex.commands)) {
+        if (!command.match(map.regex.commands)) {
           console.warn('Unknown SVG command found in [d] attribute of svg node id="%s".\n',
               map.svg.id);
           return false;
@@ -538,8 +538,8 @@ SvgToCanvas.prototype.compileSVGPath = function (dAttr, styles) {
   //
   //gather flags and data found in [d] attribute.
   //
-  var flags = dAttr.match(this.spec.regex.commands);
-  var data = dAttr.split(this.spec.regex.commands);
+  var flags = dAttr.match(this.regex.commands);
+  var data = dAttr.split(this.regex.commands);
   data.shift();
   data = data.map(function (str) {
     return str.trim();
