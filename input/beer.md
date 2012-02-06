@@ -53,6 +53,7 @@ things about.
 + <cite>Rat Race</cite>
 + <cite>Citizen cane</cite>
 + <cite>China town</cite>
++ <cite>Running Man</cite>
 
 </div><!--//[movies]-->
 
