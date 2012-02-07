@@ -577,7 +577,7 @@
   Slides.prototype.viewerToolbarMarkup = function (index, styles) {
     if (typeof(this.conf.viewerToolbarMarkup) == 'function') {
       //user defined a custom callback
-      return this.conf.viewerToolbarMarkup(index, this);
+      return this.conf.viewerToolbarMarkup.call(this, index, styles);
     }
 
     var modal = '';
