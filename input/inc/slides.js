@@ -5,10 +5,10 @@
  */
 
 (function() {
-  /***
-   *
+  /**
+   * Constructor for 'config'-specific slides.
    */
-  Slides = function (config) {
+  window.Slides = function (config) {
     //some constants
     this.regex = {
       slideHash: /^#slide\/(\d+)$/,
