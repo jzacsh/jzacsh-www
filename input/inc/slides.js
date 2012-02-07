@@ -567,16 +567,27 @@
    * this.conf object's API, with the "viewerToolbarMarkup" property.
    *
    * @see this.conf
+   *
+   * @param <int> index
+   *   The slide index for which markup should be built.
+   * @param <string> styles
+   *   Optional [style] attribute markup that should be used for the toolbar's
+   *   outter-most div.
    */
   Slides.prototype.viewerToolbarMarkup = function (index, styles) {
     if (typeof(this.conf.viewerToolbarMarkup) == 'function') {
       //user defined a custom callback
       return this.conf.viewerToolbarMarkup(index, this);
     }
+
     var modal = '';
 
     //start
-    modal += '<div class="toolbar" style="' + styles + '">';
+    modal += '<div class="toolbar"';
+    if (styles) {
+      modal += ' style="' + styles + '"';
+    }
+    modal += '>';
 
     //previous-slide button
     disabled = (index == 0)? ' color: rgba(255, 255, 255, 0.7);' : '';
