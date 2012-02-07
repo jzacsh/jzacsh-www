@@ -62,9 +62,9 @@
  */
 var SvgToCanvas = function (svgNode, canvasNode, config) {
   //sanity check
-  if (svgNode.nodeName.toLowerCase() != 'svg' ||
-      canvasNode.nodeName.toLowerCase() != 'canvas') {
-    console.error('SVG or Canvas nodes passed incorrectly.');
+  if (svgNode.nodeName.toLowerCase() !== 'svg' ||
+      canvasNode.nodeName.toLowerCase() !== 'canvas') {
+    window.console.error('SVG or Canvas nodes passed incorrectly.');
     return null;
   }
 
@@ -73,7 +73,7 @@ var SvgToCanvas = function (svgNode, canvasNode, config) {
   this.canvas = canvasNode;
   this.context = this.canvas.getContext('2d');
   if (!this.context) {
-    console.error('Could not get canvas context with canvas.getContext("2d").');
+    window.console.error('Could not get canvas context with canvas.getContext("2d").');
     return false;
   }
 
@@ -104,11 +104,11 @@ var SvgToCanvas = function (svgNode, canvasNode, config) {
       }
       regex += '$';
       return (new RegExp(regex, 'i'));
-    })(),
-  }
+    })()
+  };
 
   return this;
-}
+};
 
 /**
  * Render, in canvas calling all necessary internal methods to map our SVG
@@ -126,14 +126,14 @@ SvgToCanvas.prototype.renderToCanvas = function () {
   for (var i in paths) {
     //for some reason we atually hit the 'length' property.
     if (typeof paths[i] === 'object' &&
-        'nodeName' in paths[i] && paths[i].nodeName == 'path') {
+        'nodeName' in paths[i] && paths[i].nodeName === 'path') {
       this.renderPath(paths[i]);
     }
   }
 
   //@TODO: code, then call methods to take the rest of our <svg> object into
   //consideration
-}
+};
 
 /**
  * Render a particular <path>, on our DOM's canvas.
@@ -171,33 +171,32 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
               map.context.fillStyle = value;
             }
             else {
-              console.error('vaporware: only hex color-values currently implemented in svg=>canvas mapping, ignoring [style="%s: %s;"].', style, value);
+              window.console.error('vaporware: only hex color-values currently implemented in svg=>canvas mapping, ignoring [style="%s: %s;"].', style, value);
             }
             break;
 
           case 'fill-opacity':
-            console.error('vaporware: code for [style="%s"] not yet implemented.', style);
+            window.console.error('vaporware: code for [style="%s"] not yet implemented.', style);
             break;
 
           case 'fill-rule':
-            console.error('vaporware: code for [style="%s"] not yet implemented.', style);
+            window.console.error('vaporware: code for [style="%s"] not yet implemented.', style);
             break;
 
           case 'stroke':
-            if (map.regex.hexStyle.test(value) || value == 'none') {
+            if (map.regex.hexStyle.test(value) || value === 'none') {
               map.context.strokeStyle = value;
             }
             else {
-              console.error('vaporware: only hex color-values currently implemented in svg=>canvas mapping, ignoring [style="%s: %s;"].', style, value);
+              window.console.error('vaporware: only hex color-values currently implemented in svg=>canvas mapping, ignoring [style="%s: %s;"].', style, value);
             }
             break;
 
           default:
-            console.warn('Skipping unrecognized property in [style] attribute of SVG path, "%s".', i);
+            window.console.warn('Skipping unrecognized property in [style] attribute of SVG path, "%s".', i);
             return false;
-            break;
         }
-      }
+      };
 
       for (var i in styles) {
         apply(i, styles[i]);
@@ -219,7 +218,7 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
        */
       var apply = function (command, data) {
         if (!command.match(map.regex.commands)) {
-          console.warn('Unknown SVG command found in [d] attribute of svg node id="%s".\n',
+          window.console.warn('Unknown SVG command found in [d] attribute of svg node id="%s".\n',
               map.svg.id);
           return false;
         }
@@ -259,8 +258,8 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
               }
             }
             else {
-              console.error('SVG Parse Error: in-sufficient number of coordinates to render "%" SVG-command, data below:', command);
-              console.error(data);
+              window.console.error('SVG Parse Error: in-sufficient number of coordinates to render "%" SVG-command, data below:', command);
+              window.console.error(data);
               return false;
             }
             break;
@@ -305,8 +304,8 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
               }
             }
             else {
-              console.error('SVG Parse Error: in-sufficient number of coordinates to render "%" SVG-command; data below:', command);
-              console.error(data);
+              window.console.error('SVG Parse Error: in-sufficient number of coordinates to render "%" SVG-command; data below:', command);
+              window.console.error(data);
               return false;
             }
             break;
@@ -321,11 +320,11 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
            */
           //absolute horizontal lineto
           case 'H':
-            console.error('vaporware: Absolute "lineto"-command not yet implemented'); //@TODO: code this
+            window.console.error('vaporware: Absolute "lineto"-command not yet implemented'); //@TODO: code this
             break;
           //relative horizontal lineto
           case 'h':
-            console.error('vaporware: Relative "lineto"-command not yet implemented'); //@TODO: code this
+            window.console.error('vaporware: Relative "lineto"-command not yet implemented'); //@TODO: code this
             break;
 
           /**
@@ -338,11 +337,11 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
            */
           //absolute vertical lineto
           case 'V':
-            console.error('vaporware: Absolute "vertical lineto"-command not yet implemented'); //@TODO: code this
+            window.console.error('vaporware: Absolute "vertical lineto"-command not yet implemented'); //@TODO: code this
             break;
           //relative vertical lineto
           case 'v':
-            console.error('vaporware: Relative "vertical lineto"-command not yet implemented'); //@TODO: code this
+            window.console.error('vaporware: Relative "vertical lineto"-command not yet implemented'); //@TODO: code this
             break;
 
           /**
@@ -357,7 +356,7 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
            */
           //absolute curveto
           case 'C':
-            console.error('vaporware: Absolute "curveto"-command not yet implemented!'); //@TODO: code this
+            window.console.error('vaporware: Absolute "curveto"-command not yet implemented!'); //@TODO: code this
             break;
           //relative curveto
           case 'c':
@@ -395,8 +394,8 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
                */
             }
             else {
-              console.error('SVG Parse Error: in-sufficient number of coordinates to render "%" SVG-command; data below:', command);
-              console.error(data);
+              window.console.error('SVG Parse Error: in-sufficient number of coordinates to render "%" SVG-command; data below:', command);
+              window.console.error(data);
               return false;
             }
             break;
@@ -417,11 +416,11 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
            */
           //absolute shorthand/smooth curveto
           case 'S':
-            console.error('vaporware: Absolute "shorthand/smooth curveto"-command not yet implemented'); //@TODO: code this
+            window.console.error('vaporware: Absolute "shorthand/smooth curveto"-command not yet implemented'); //@TODO: code this
             break;
           //relative shorthand/smooth curveto
           case 's':
-            console.error('vaporware: Relative "shorthand/smooth curveto"-command not yet implemented'); //@TODO: code this
+            window.console.error('vaporware: Relative "shorthand/smooth curveto"-command not yet implemented'); //@TODO: code this
             break;
 
           /**
@@ -435,11 +434,11 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
            */
           //absolute quadratic Bézier curveto
           case 'Q':
-            console.error('vaporware: Absolute "quadtratic Bézier curveto"-command not yet implemented'); //@TODO: code this
+            window.console.error('vaporware: Absolute "quadtratic Bézier curveto"-command not yet implemented'); //@TODO: code this
             break;
           //relative quadratic Bézier curveto
           case 'q':
-            console.error('vaporware: Relative "quadtratic Bézier curveto"-command not yet implemented'); //@TODO: code this
+            window.console.error('vaporware: Relative "quadtratic Bézier curveto"-command not yet implemented'); //@TODO: code this
             break;
 
           /**
@@ -455,11 +454,11 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
            */
           //absolute Shorthand/smooth quadratic Bézier curveto
           case 'T':
-            console.error('vaporware: Absolute "Shorthand/smooth quadratic Bézier curveto"-command not yet implemented'); //@TODO: code this
+            window.console.error('vaporware: Absolute "Shorthand/smooth quadratic Bézier curveto"-command not yet implemented'); //@TODO: code this
             break;
           //relative Shorthand/smooth quadratic Bézier curveto
           case 't':
-            console.error('vaporware: Relative "Shorthand/smooth quadratic Bézier curveto"-command not yet implemented'); //@TODO: code this
+            window.console.error('vaporware: Relative "Shorthand/smooth quadratic Bézier curveto"-command not yet implemented'); //@TODO: code this
             break;
 
           /**
@@ -474,14 +473,14 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
            */
           //absolute elliptical arc
           case 'A':
-            console.error('vaporware: Absolute "elliptical arc"-command not yet implemented'); //@TODO: code this
+            window.console.error('vaporware: Absolute "elliptical arc"-command not yet implemented'); //@TODO: code this
             break;
           //relative elliptical arc
           case 'a':
-            console.error('vaporware: Relative "elliptical arc"-command not yet implemented'); //@TODO: code this
+            window.console.error('vaporware: Relative "elliptical arc"-command not yet implemented'); //@TODO: code this
             break;
         }
-      }
+      };
 
       //
       //run each SVG command provided
@@ -497,19 +496,24 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
     }
   };
 
+  var parseError = null;
+
   //
   //initialize style properties in canvas, as defined by svg
   //
-  var parseError = applyPath.styles(data.styles);
+  parseError = applyPath.styles(data.styles);
+  if (parseError !== null) {
+    window.console.error('SVG Parser: Pre-maturely ending render of path due to malformed SVG styles: %s.', parseError);
+  }
 
   //
   //run canvas APIs, as intneded by svg commands
   //
-  var parseError = applyPath.commands(data.commands);
+  parseError = applyPath.commands(data.commands);
   if (parseError !== null) {
-    console.error('SVG Parser: Pre-maturely ending render of path (at command #%d) due to malformed SVG data: %s.', parseError, dAttr);
+    window.console.error('SVG Parser: Pre-maturely ending render of path due to malformed SVG data: %s.', parseError);
   }
-}
+};
 
 /**
  * Actually break down a given svg path, based on possible SVG "commands" and
@@ -546,8 +550,8 @@ SvgToCanvas.prototype.compileSVGPath = function (dAttr, styles) {
   });
 
   //sanity check
-  if (data.length != flags.length) {
-    console.error('Length of flags in attribute not equal to length of data!');
+  if (data.length !== flags.length) {
+    window.console.error('Length of flags in attribute not equal to length of data!');
   }
 
   /**
@@ -556,7 +560,7 @@ SvgToCanvas.prototype.compileSVGPath = function (dAttr, styles) {
   var compileDAttr = function (keys, values) {
     var objectified = [], splitOn;
     for (var i in values) {
-      if (keys[i] == 'c') {
+      if (keys[i] === 'c') {
         splitOn = ' ';
       }
       else {
@@ -565,11 +569,11 @@ SvgToCanvas.prototype.compileSVGPath = function (dAttr, styles) {
 
       objectified.push({
         command: keys[i],
-        data: values[i].split(splitOn),
+        data: values[i].split(splitOn)
       });
     }
     return objectified;
-  }
+  };
 
   /**
    * Gather style attributes we want to use from <path>, into a useful
@@ -582,7 +586,7 @@ SvgToCanvas.prototype.compileSVGPath = function (dAttr, styles) {
       compilation[style[0]] = style[1];
     });
     return compilation;
-  }
+  };
 
   /**
    * Assume numeric element indexes match between the 'values' Array and the
@@ -590,7 +594,7 @@ SvgToCanvas.prototype.compileSVGPath = function (dAttr, styles) {
    */
   return {
     commands: compileDAttr(flags, data),
-    styles: compileStyles(styles),
+    styles: compileStyles(styles)
   };
-}
+};
 
