@@ -89,6 +89,18 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 * <cite>Mountaineering: The Freedom of the Hills</cite>
   <span class="attribution">by <b>The Mountaineers</b></span>
 
+* <cite>Wherever You Go, There You Are</cite>
+  <span class="attribution">by <b>Jon Kabat&ndash;Zinn</b></span>
+
+* <cite>The Satanic Verses</cite>
+  <span class="attribution">by <b>Salman Rushdie</b></span>
+
+* <cite>Slaughterhouse&ndash;Five</cite>
+  <span class="attribution">by <b>Kurt Vonnegut</b></span>
+
+* <cite>Care of the Soul</cite>
+  <span class="attribution">by <b>Thomas Moore</b></span>
+
 * <cite>Relativity</cite>
   <span class="attribution">by <b>Albert Einstein</b></span>
 
