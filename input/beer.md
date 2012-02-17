@@ -77,7 +77,7 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 * <del><cite>The Hitchhiker's Guide to the Galaxy</cite></del>
   <span class="attribution">by <b>Douglas Adams</b></span>
 
-* <cite>The Great Gatsby</cite>
+* <del><cite>The Great Gatsby</cite></del>
   <span class="attribution">by <b>F. Scott Fitzgerald</b></span>
 
 * <cite>A Brief History of Time</cite> (*currently reading*)
