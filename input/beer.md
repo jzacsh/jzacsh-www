@@ -80,6 +80,9 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 * <del><cite>The Great Gatsby</cite></del>
   <span class="attribution">by <b>F. Scott Fitzgerald</b></span>
 
+* <cite>Still the Mind</cite> (*currently reading*)
+  <span class="attribution">by <b>Alan W. Watts</b></span>
+
 * <cite>A Brief History of Time</cite> (*currently reading*)
   <span class="attribution">by <b>Stephen Hawking</b></span>
 
