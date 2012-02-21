@@ -80,10 +80,10 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 * <del><cite>The Great Gatsby</cite></del>
   <span class="attribution">by <b>F. Scott Fitzgerald</b></span>
 
-* <del><cite>Still the Mind</cite><del>
+* <del><cite>Still the Mind</cite></del>
   <span class="attribution">by <b>Alan W. Watts</b></span>
 
-* <del><cite>The Hunger Games</cite><del>
+* <del><cite>The Hunger Games</cite></del>
   <span class="attribution">by <b>Suzanne Collins</b></span>
 
 * <cite>Jane Eyre</cite>
