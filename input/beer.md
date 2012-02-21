@@ -86,7 +86,7 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 * <del><cite>The Hunger Games</cite></del>
   <span class="attribution">by <b>Suzanne Collins</b></span>
 
-* <cite>Jane Eyre</cite>
+* <cite>Jane Eyre</cite> (*currently reading*)
   <span class="attribution">by <b>Charlotte Brontë</b></span>
 
 * <cite>A Tale of Two Cities</cite>
