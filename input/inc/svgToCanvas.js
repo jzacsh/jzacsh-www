@@ -148,6 +148,8 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
   var data = this.compileSVGPath(pathNode.getAttribute('d'),
       pathNode.getAttribute('style'));
 
+  var parseError = null, i = 0;
+
   var map = this;
   /**
    * Actual "mapping" of our Mapper, calling utilizing corresponding Canvas
@@ -201,6 +203,7 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
       for (var i in styles) {
         apply(i, styles[i]);
       }
+      return null;
     },
 
     /**
@@ -209,294 +212,282 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
      * @param Array commands
      *   @see this.compileSVGPath().commands
      */
-    commands: function(commands) {
+    command: function(c) {
       //relativity, e = mc^2
       var emc = [0, 0]; // x, y
+
+      var command, data;
+      //@note: should be a single property object
+      for (var i in c) {
+        command = i;
+        data = c[i];
+      }
 
       /**
        * Call the correct Canvas API.
        */
-      var apply = function (command, data) {
-        if (!command.match(map.regex.commands)) {
-          window.console.warn('Unknown SVG command found in [d] attribute of svg node id="%s".\n',
-              map.svg.id);
-          return false;
-        }
-
-        switch (command) {
-          /**
-           * Start a new sub-path at the given (x,y) coordinate. M (uppercase)
-           * indicates that absolute coordinates will follow; m (lowercase)
-           * indicates that relative coordinates will follow. If a moveto is
-           * followed by multiple pairs of coordinates, the subsequent pairs are
-           * treated as implicit lineto commands. Hence, implicit lineto commands
-           * will be relative if the moveto is relative, and absolute if the
-           * moveto is absolute. If a relative moveto (m) appears as the first
-           * element of the path, then it is treated as a pair of absolute
-           * coordinates. In this case, subsequent pairs of coordinates are
-           * treated as relative even though the initial moveto is interpreted as
-           * an absolute moveto.
-           */
-          //absolute moveto
-          case 'M':
-            if (data.length > 1) {
-              emc = [0, 0];
-            }
-          //relative moveto
-          case 'm':
-            if (data.length > 1) {
-              map.context.moveTo(emc[0] + data[0], emc[1] + data[1]);
-
-              //remove the two we've used and simultaneously store our new
-              //relative location
-              emc[0] = data.shift();
-              emc[1] = data.shift();
-
-              if (data.length) {
-                //continue processing the cooridnate pairs provided.
-                apply(command, data);
-              }
-            }
-            else {
-              window.console.error('SVG Parse Error: in-sufficient number of coordinates to render "%" SVG-command, data below:', command);
-              window.console.error(data);
-              return false;
-            }
-            break;
-
-          /**
-           * Close the current subpath by drawing a straight line from the
-           * current point to current subpath's initial point. Since the Z and z
-           * commands take no parameters, they have an identical effect.
-           */
-          //closepath
-          case 'Z':
-          case 'z':
-            map.context.closePath();
-            break;
-
-          /**
-           * Draw a line from the current point to the given (x,y) coordinate
-           * which becomes the new current point. L (uppercase) indicates that
-           * absolute coordinates will follow; l (lowercase) indicates that
-           * relative coordinates will follow. A number of coordinates pairs may
-           * be specified to draw a polyline. At the end of the command, the new
-           * current point is set to the final set of coordinates provided.
-           */
-          //absolute lineto
-          case 'L':
-            if (data.length > 1) {
-              emc = [0, 0];
-            }
-          //relative lineto
-          case 'l':
-            if (data.length > 1) {
-              map.context.lineTo(emc[0] + data[0], emc[1] + data[1]);
-
-              //remove the two we've used and simultaneously store our new
-              //relative location
-              emc[0] = data.shift();
-              emc[1] = data.shift();
-
-              if (data.length) {
-                //continue processing the cooridnate pairs provided.
-                apply(command, data);
-              }
-            }
-            else {
-              window.console.error('SVG Parse Error: in-sufficient number of coordinates to render "%" SVG-command; data below:', command);
-              window.console.error(data);
-              return false;
-            }
-            break;
-
-          /**
-           * Draws a horizontal line from the current point (cpx, cpy) to (x,
-           * cpy). H (uppercase) indicates that absolute coordinates will follow;
-           * h (lowercase) indicates that relative coordinates will follow.
-           * Multiple x values can be provided (although usually this doesn't
-           * make sense). At the end of the command, the new current point
-           * becomes (x, cpy) for the final value of x.
-           */
-          //absolute horizontal lineto
-          case 'H':
-            window.console.error('vaporware: Absolute "lineto"-command not yet implemented'); //@TODO: code this
-            break;
-          //relative horizontal lineto
-          case 'h':
-            window.console.error('vaporware: Relative "lineto"-command not yet implemented'); //@TODO: code this
-            break;
-
-          /**
-           * Draws a vertical line from the current point (cpx, cpy) to (cpx, y).
-           * V (uppercase) indicates that absolute coordinates will follow; v
-           * (lowercase) indicates that relative coordinates will follow.
-           * Multiple y values can be provided (although usually this doesn't
-           * make sense). At the end of the command, the new current point
-           * becomes (cpx, y) for the final value of y.
-           */
-          //absolute vertical lineto
-          case 'V':
-            window.console.error('vaporware: Absolute "vertical lineto"-command not yet implemented'); //@TODO: code this
-            break;
-          //relative vertical lineto
-          case 'v':
-            window.console.error('vaporware: Relative "vertical lineto"-command not yet implemented'); //@TODO: code this
-            break;
-
-          /**
-           * Draws a cubic Bézier curve from the current point to (x,y) using
-           * (x1,y1) as the control point at the beginning of the curve and
-           * (x2,y2) as the control point at the end of the curve. C (uppercase)
-           * indicates that absolute coordinates will follow; c (lowercase)
-           * indicates that relative coordinates will follow. Multiple sets of
-           * coordinates may be specified to draw a polybézier. At the end of the
-           * command, the new current point becomes the final (x,y) coordinate
-           * pair used in the polybézier.
-           */
-          //absolute curveto
-          case 'C':
-            window.console.error('vaporware: Absolute "curveto"-command not yet implemented!'); //@TODO: code this
-            break;
-          //relative curveto
-          case 'c':
-            if (data.length > 2) {
-              var coords = (function (d) {
-                var c = [];
-                for (var i in d) {
-                  c.push(d[i].split(','));
-                }
-                return c;
-              })(data);
-
-              map.context.bezierCurveTo(coords[0], coords[1], coords[2], coords[3],
-                  coords[4], coords[5]);
-
-              /**
-               * //@TODO: figure out what to do withthis if you ever code
-               * "C"-command!
-               *
-               * //store our new relative location
-               * emc[4] = data[4];
-               * emc[5] = data[5];
-               *
-               * //remove the 6 we've used (2 pairs of "control points" and a
-               * //pair of "current point")
-               * for (var i = 0; i < 6; i++) {
-               *   emc[i] = data.shift();
-               * }
-               *
-               * if (data.length) {
-               *   //continue processing the cooridnate pairs provided.
-               *   apply(command, data);
-               * }
-               *
-               */
-            }
-            else {
-              window.console.error('SVG Parse Error: in-sufficient number of coordinates to render "%" SVG-command; data below:', command);
-              window.console.error(data);
-              return false;
-            }
-            break;
-
-          /**
-           * Draws a cubic Bézier curve from the current point to (x,y). The
-           * first control point is assumed to be the reflection of the second
-           * control point on the previous command relative to the current point.
-           * (If there is no previous command or if the previous command was not
-           * an C, c, S or s, assume the first control point is coincident with
-           * the current point.) (x2,y2) is the second control point (i.e., the
-           * control point at the end of the curve). S (uppercase) indicates that
-           * absolute coordinates will follow; s (lowercase) indicates that
-           * relative coordinates will follow. Multiple sets of coordinates may
-           * be specified to draw a polybézier. At the end of the command, the
-           * new current point becomes the final (x,y) coordinate pair used in
-           * the polybézier.
-           */
-          //absolute shorthand/smooth curveto
-          case 'S':
-            window.console.error('vaporware: Absolute "shorthand/smooth curveto"-command not yet implemented'); //@TODO: code this
-            break;
-          //relative shorthand/smooth curveto
-          case 's':
-            window.console.error('vaporware: Relative "shorthand/smooth curveto"-command not yet implemented'); //@TODO: code this
-            break;
-
-          /**
-           * Draws a quadratic Bézier curve from the current point to (x,y) using
-           * (x1,y1) as the control point. Q (uppercase) indicates that absolute
-           * coordinates will follow; q (lowercase) indicates that relative
-           * coordinates will follow. Multiple sets of coordinates may be
-           * specified to draw a polybézier. At the end of the command, the new
-           * current point becomes the final (x,y) coordinate pair used in the
-           * polybézier.
-           */
-          //absolute quadratic Bézier curveto
-          case 'Q':
-            window.console.error('vaporware: Absolute "quadtratic Bézier curveto"-command not yet implemented'); //@TODO: code this
-            break;
-          //relative quadratic Bézier curveto
-          case 'q':
-            window.console.error('vaporware: Relative "quadtratic Bézier curveto"-command not yet implemented'); //@TODO: code this
-            break;
-
-          /**
-           * Draws a quadratic Bézier curve from the current point to (x,y). The
-           * control point is assumed to be the reflection of the control point
-           * on the previous command relative to the current point. (If there is
-           * no previous command or if the previous command was not a Q, q, T or
-           * t, assume the control point is coincident with the current point.) T
-           * (uppercase) indicates that absolute coordinates will follow; t
-           * (lowercase) indicates that relative coordinates will follow. At the
-           * end of the command, the new current point becomes the final (x,y)
-           * coordinate pair used in the polybézier.
-           */
-          //absolute Shorthand/smooth quadratic Bézier curveto
-          case 'T':
-            window.console.error('vaporware: Absolute "Shorthand/smooth quadratic Bézier curveto"-command not yet implemented'); //@TODO: code this
-            break;
-          //relative Shorthand/smooth quadratic Bézier curveto
-          case 't':
-            window.console.error('vaporware: Relative "Shorthand/smooth quadratic Bézier curveto"-command not yet implemented'); //@TODO: code this
-            break;
-
-          /**
-           * Draws an elliptical arc from the current point to (x, y). The size
-           * and orientation of the ellipse are defined by two radii (rx, ry) and
-           * an x-axis-rotation, which indicates how the ellipse as a whole is
-           * rotated relative to the current coordinate system. The center (cx,
-           * cy) of the ellipse is calculated automatically to satisfy the
-           * constraints imposed by the other parameters. large-arc-flag and
-           * sweep-flag contribute to the automatic calculations and help
-           * determine how the arc is drawn.
-           */
-          //absolute elliptical arc
-          case 'A':
-            window.console.error('vaporware: Absolute "elliptical arc"-command not yet implemented'); //@TODO: code this
-            break;
-          //relative elliptical arc
-          case 'a':
-            window.console.error('vaporware: Relative "elliptical arc"-command not yet implemented'); //@TODO: code this
-            break;
-        }
-      };
-
-      //
-      //run each SVG command provided
-      //
-      var applied;
-      for (var i in commands) {
-        applied = apply(commands[i].command, commands[i].data);
-        if (applied === false) {
-          return i;
-        }
+      if (!command.match(map.regex.commands)) {
+        window.console.warn('Unknown SVG command found in [d] attribute of svg node id="%s".\n',
+            map.svg.id);
+        return false;
       }
+
+      switch (command) {
+        /**
+         * Start a new sub-path at the given (x,y) coordinate. M (uppercase)
+         * indicates that absolute coordinates will follow; m (lowercase)
+         * indicates that relative coordinates will follow. If a moveto is
+         * followed by multiple pairs of coordinates, the subsequent pairs are
+         * treated as implicit lineto commands. Hence, implicit lineto commands
+         * will be relative if the moveto is relative, and absolute if the
+         * moveto is absolute. If a relative moveto (m) appears as the first
+         * element of the path, then it is treated as a pair of absolute
+         * coordinates. In this case, subsequent pairs of coordinates are
+         * treated as relative even though the initial moveto is interpreted as
+         * an absolute moveto.
+         */
+        //absolute moveto
+        case 'M':
+          if (data.length > 1) {
+            emc = [0, 0];
+          }
+        //relative moveto
+        case 'm':
+          if (data.length > 1) {
+            map.context.moveTo(emc[0] + data[0], emc[1] + data[1]);
+
+            //remove the two we've used and simultaneously store our new
+            //relative location
+            emc[0] = data.shift();
+            emc[1] = data.shift();
+
+            if (data.length) {
+              //continue processing the cooridnate pairs provided.
+              apply(command, data);
+            }
+          }
+          else {
+            return 'SVG Parse Error: in-sufficient number of coordinates to render "' + command + '" SVG-command, data below\n' + data;
+          }
+          break;
+
+        /**
+         * Close the current subpath by drawing a straight line from the
+         * current point to current subpath's initial point. Since the Z and z
+         * commands take no parameters, they have an identical effect.
+         */
+        //closepath
+        case 'Z':
+        case 'z':
+          map.context.closePath();
+          break;
+
+        /**
+         * Draw a line from the current point to the given (x,y) coordinate
+         * which becomes the new current point. L (uppercase) indicates that
+         * absolute coordinates will follow; l (lowercase) indicates that
+         * relative coordinates will follow. A number of coordinates pairs may
+         * be specified to draw a polyline. At the end of the command, the new
+         * current point is set to the final set of coordinates provided.
+         */
+        //absolute lineto
+        case 'L':
+          if (data.length > 1) {
+            emc = [0, 0];
+          }
+        //relative lineto
+        case 'l':
+          if (data.length > 1) {
+            map.context.lineTo(emc[0] + data[0], emc[1] + data[1]);
+
+            //remove the two we've used and simultaneously store our new
+            //relative location
+            emc[0] = data.shift();
+            emc[1] = data.shift();
+
+            if (data.length) {
+              //continue processing the cooridnate pairs provided.
+              apply(command, data);
+            }
+          }
+          else {
+            return 'SVG Parse Error: in-sufficient number of coordinates to render "' + command + '" SVG-command; data below:\n' + data;
+            return false;
+          }
+          break;
+
+        /**
+         * Draws a horizontal line from the current point (cpx, cpy) to (x,
+         * cpy). H (uppercase) indicates that absolute coordinates will follow;
+         * h (lowercase) indicates that relative coordinates will follow.
+         * Multiple x values can be provided (although usually this doesn't
+         * make sense). At the end of the command, the new current point
+         * becomes (x, cpy) for the final value of x.
+         */
+        //absolute horizontal lineto
+        case 'H':
+          return 'vaporware: Absolute "lineto"-command not yet implemented'; //@TODO: code this
+          break;
+        //relative horizontal lineto
+        case 'h':
+          return 'vaporware: Relative "lineto"-command not yet implemented'; //@TODO: code this
+          break;
+
+        /**
+         * Draws a vertical line from the current point (cpx, cpy) to (cpx, y).
+         * V (uppercase) indicates that absolute coordinates will follow; v
+         * (lowercase) indicates that relative coordinates will follow.
+         * Multiple y values can be provided (although usually this doesn't
+         * make sense). At the end of the command, the new current point
+         * becomes (cpx, y) for the final value of y.
+         */
+        //absolute vertical lineto
+        case 'V':
+          return 'vaporware: Absolute "vertical lineto"-command not yet implemented'; //@TODO: code this
+          break;
+        //relative vertical lineto
+        case 'v':
+          return 'vaporware: Relative "vertical lineto"-command not yet implemented'; //@TODO: code this
+          break;
+
+        /**
+         * Draws a cubic Bézier curve from the current point to (x,y) using
+         * (x1,y1) as the control point at the beginning of the curve and
+         * (x2,y2) as the control point at the end of the curve. C (uppercase)
+         * indicates that absolute coordinates will follow; c (lowercase)
+         * indicates that relative coordinates will follow. Multiple sets of
+         * coordinates may be specified to draw a polybézier. At the end of the
+         * command, the new current point becomes the final (x,y) coordinate
+         * pair used in the polybézier.
+         */
+        //absolute curveto
+        case 'C':
+          return 'vaporware: Absolute "curveto"-command not yet implemented!'; //@TODO: code this
+          break;
+        //relative curveto
+        case 'c':
+          if (data.length > 2) {
+            var coords = (function (d) {
+              var c = [];
+              for (var i in d) {
+                c.push(d[i].split(','));
+              }
+              return c;
+            })(data);
+
+            map.context.bezierCurveTo(coords[0], coords[1], coords[2], coords[3],
+                coords[4], coords[5]);
+
+            /**
+             * //@TODO: figure out what to do withthis if you ever code
+             * "C"-command!
+             *
+             * //store our new relative location
+             * emc[4] = data[4];
+             * emc[5] = data[5];
+             *
+             * //remove the 6 we've used (2 pairs of "control points" and a
+             * //pair of "current point")
+             * for (var i = 0; i < 6; i++) {
+             *   emc[i] = data.shift();
+             * }
+             *
+             * if (data.length) {
+             *   //continue processing the cooridnate pairs provided.
+             *   apply(command, data);
+             * }
+             *
+             */
+          }
+          else {
+            return 'SVG Parse Error: in-sufficient number of coordinates to render "' + command + '" SVG-command; data below:\n' + data;
+          }
+          break;
+
+        /**
+         * Draws a cubic Bézier curve from the current point to (x,y). The
+         * first control point is assumed to be the reflection of the second
+         * control point on the previous command relative to the current point.
+         * (If there is no previous command or if the previous command was not
+         * an C, c, S or s, assume the first control point is coincident with
+         * the current point.) (x2,y2) is the second control point (i.e., the
+         * control point at the end of the curve). S (uppercase) indicates that
+         * absolute coordinates will follow; s (lowercase) indicates that
+         * relative coordinates will follow. Multiple sets of coordinates may
+         * be specified to draw a polybézier. At the end of the command, the
+         * new current point becomes the final (x,y) coordinate pair used in
+         * the polybézier.
+         */
+        //absolute shorthand/smooth curveto
+        case 'S':
+          return 'vaporware: Absolute "shorthand/smooth curveto"-command not yet implemented'; //@TODO: code this
+          break;
+        //relative shorthand/smooth curveto
+        case 's':
+          return 'vaporware: Relative "shorthand/smooth curveto"-command not yet implemented'; //@TODO: code this
+          break;
+
+        /**
+         * Draws a quadratic Bézier curve from the current point to (x,y) using
+         * (x1,y1) as the control point. Q (uppercase) indicates that absolute
+         * coordinates will follow; q (lowercase) indicates that relative
+         * coordinates will follow. Multiple sets of coordinates may be
+         * specified to draw a polybézier. At the end of the command, the new
+         * current point becomes the final (x,y) coordinate pair used in the
+         * polybézier.
+         */
+        //absolute quadratic Bézier curveto
+        case 'Q':
+          return 'vaporware: Absolute "quadtratic Bézier curveto"-command not yet implemented'; //@TODO: code this
+          break;
+        //relative quadratic Bézier curveto
+        case 'q':
+          return 'vaporware: Relative "quadtratic Bézier curveto"-command not yet implemented'; //@TODO: code this
+          break;
+
+        /**
+         * Draws a quadratic Bézier curve from the current point to (x,y). The
+         * control point is assumed to be the reflection of the control point
+         * on the previous command relative to the current point. (If there is
+         * no previous command or if the previous command was not a Q, q, T or
+         * t, assume the control point is coincident with the current point.) T
+         * (uppercase) indicates that absolute coordinates will follow; t
+         * (lowercase) indicates that relative coordinates will follow. At the
+         * end of the command, the new current point becomes the final (x,y)
+         * coordinate pair used in the polybézier.
+         */
+        //absolute Shorthand/smooth quadratic Bézier curveto
+        case 'T':
+          return 'vaporware: Absolute "Shorthand/smooth quadratic Bézier curveto"-command not yet implemented'; //@TODO: code this
+          break;
+        //relative Shorthand/smooth quadratic Bézier curveto
+        case 't':
+          return 'vaporware: Relative "Shorthand/smooth quadratic Bézier curveto"-command not yet implemented'; //@TODO: code this
+          break;
+
+        /**
+         * Draws an elliptical arc from the current point to (x, y). The size
+         * and orientation of the ellipse are defined by two radii (rx, ry) and
+         * an x-axis-rotation, which indicates how the ellipse as a whole is
+         * rotated relative to the current coordinate system. The center (cx,
+         * cy) of the ellipse is calculated automatically to satisfy the
+         * constraints imposed by the other parameters. large-arc-flag and
+         * sweep-flag contribute to the automatic calculations and help
+         * determine how the arc is drawn.
+         */
+        //absolute elliptical arc
+        case 'A':
+          return 'vaporware: Absolute "elliptical arc"-command not yet implemented'; //@TODO: code this
+          break;
+        //relative elliptical arc
+        case 'a':
+          return 'vaporware: Relative "elliptical arc"-command not yet implemented'; //@TODO: code this
+          break;
+      }
+
       return null;
     }
   };
-
-  var parseError = null;
 
   //
   //initialize style properties in canvas, as defined by svg
@@ -509,9 +500,12 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
   //
   //run canvas APIs, as intneded by svg commands
   //
-  parseError = applyPath.commands(data.commands);
-  if (parseError !== null) {
-    window.console.error('SVG Parser: Pre-maturely ending render of path due to malformed SVG data: %s.', parseError);
+  for (i = 0; i < data.commands.length; i++) {
+    parseError = null;
+    parseError = applyPath.command(data.commands[i]);
+    if (parseError !== null) {
+      window.console.error('SVG Parser: Pre-maturely ending render of path due to malformed SVG data: %s.', parseError);
+    }
   }
 };
 
@@ -558,8 +552,10 @@ SvgToCanvas.prototype.compileSVGPath = function (dAttr, styles) {
    * Compile our d-attribute data into an array in the order it was found.
    */
   var compileDAttr = function (keys, values) {
-    var objectified = [], splitOn;
-    for (var i in values) {
+    var objectified = [], command, splitOn;
+    for (var i = 0; i < values.length; i++) {
+      command = {};
+
       if (keys[i] === 'c') {
         splitOn = ' ';
       }
@@ -567,10 +563,8 @@ SvgToCanvas.prototype.compileSVGPath = function (dAttr, styles) {
         splitOn = ',';
       }
 
-      objectified.push({
-        command: keys[i],
-        data: values[i].split(splitOn)
-      });
+      command[keys[i]] = values[i].split(splitOn);
+      objectified.push(command);
     }
     return objectified;
   };
