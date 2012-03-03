@@ -494,7 +494,7 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
   //
   parseError = applyPath.styles(data.styles);
   if (parseError !== null) {
-    window.console.error('SVG Parser: Pre-maturely ending render of path due to malformed SVG styles: %s.', parseError);
+    window.console.error('SVG Parser: Pre-maturely ending render of path due to malformed SVG styles:\n%s.\n', parseError);
   }
 
   //
@@ -504,7 +504,7 @@ SvgToCanvas.prototype.renderPath = function (pathNode) {
     parseError = null;
     parseError = applyPath.command(data.commands[i]);
     if (parseError !== null) {
-      window.console.error('SVG Parser: Pre-maturely ending render of path due to malformed SVG data: %s.', parseError);
+      window.console.error('SVG Parser: Pre-maturely ending render of path due to malformed SVG data:\n%s\n.', parseError);
     }
   }
 };
