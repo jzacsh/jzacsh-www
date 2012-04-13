@@ -1,7 +1,5 @@
 /**
  * @file: slide-show and grid-display manager.
- *
- * @TODO: bug: click slide #2 on page 1, hit left-key, cannot transition to 1st slide.
  */
 
 (function() {
@@ -658,7 +656,7 @@
    */
   Slides.prototype.setCurrent = function (index) {
     var live = this.conf.current;
-    if (index && this.checkViewerBounds(index)) {
+    if ((index || index === 0) && this.checkViewerBounds(index)) {
       this.conf.current = parseInt(index, 10);
       document.location.hash = 'slide/' + (this.conf.current + 1);
     }
