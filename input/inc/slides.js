@@ -593,7 +593,8 @@
     disabled = (index == 0)? ' color: rgba(255, 255, 255, 0.7);' : '';
     dataMove = (index == 0)? '' : ' data-move="' + (index - 1) + '"';
     modal += '<span class="slide-change prev-slide"' + dataMove;
-    modal += ' style="float: left; cursor: pointer;' + disabled + '">&laquo;&nbsp;Previous</span>';
+    modal += ' style="float: left; cursor: pointer;' + disabled;
+    modal += '">&laquo;&nbsp;Previous</span>';
 
     //current toolbar content
     modal += '<a class="orig" style="color: inherit; margin-left: 3em;"';
@@ -603,9 +604,10 @@
 
     //next-slide button
     disabled = (index >= this.conf.images.length)? ' color: rgba(255, 255, 255, 0.7);' : '';
-    dataMove = (index >= this.conf.images.length)? '' : ' data-move="' + (index + 1) + '"';
+    dataMove = (index >= this.conf.images.length)? '' : (' data-move="' + (index + 1) + '"');
     modal += '<span class="slide-change next-slide"' + dataMove;
-    modal += ' style="float: right; cursor: pointer;' + disabled + '">Next&nbsp;&raquo;</span>';
+    modal += ' style="float: right; cursor: pointer;' + disabled;
+    modal += '">Next&nbsp;&raquo;</span>';
     modal += '</div>'; //close toolbar
 
     return modal;
