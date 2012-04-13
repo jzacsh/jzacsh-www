@@ -384,12 +384,14 @@ body.beerand .list.active {
 }
 
 .slider.disabled {
-  color: #dddddd;
+  color: #ffffff;
   cursor: default;
+  text-shadow: 1px 1px 1px #888888;
 }
 
 .slider.disabled:hover {
-  text-shadow: inherit;
+  text-shadow: 1px 1px 1px #000000;
+  border-color: #888888;
   opacity: 0.3;
 }
 
