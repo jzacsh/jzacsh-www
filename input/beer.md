@@ -104,6 +104,9 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 * <cite>Gender Trouble: Feminism and the Subversion of Identity</cite>
   <span class="attribution">by <b>Judith Butler</b></span>
 
+* <cite>Infinite Jest</cite>
+  <span class="attribution">by <b>David Foster Wallace</b></span>
+
 * <cite>A Tale of Two Cities</cite>
   <span class="attribution">by <b>Charles Dickens</b></span>
 
@@ -133,9 +136,6 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 
 * <cite>Relativity</cite>
   <span class="attribution">by <b>Albert Einstein</b></span>
-
-* <cite>Infinite Jest</cite>
-  <span class="attribution">by <b>David Foster Wallace</b></span>
 
 * <cite>Walden</cite>
   <span class="attribution">by <b>Henry David Thoreau</b></span>
