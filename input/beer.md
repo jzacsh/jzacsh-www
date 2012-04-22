@@ -86,8 +86,23 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 * <del><cite>The Hunger Games</cite></del>
   <span class="attribution">by <b>Suzanne Collins</b></span>
 
-* <cite>Jane Eyre</cite> (*currently reading*)
+* <del><cite>Jane Eyre</cite></del>
   <span class="attribution">by <b>Charlotte Brontë</b></span>
+
+* <del><cite>Pride &amp; Prejudice</cite></del>
+  <span class="attribution">by <b>Jane Austen</b></span>
+
+* <cite>The Book of Five Rings</cite>
+  <span class="attribution">by <b>Miyamoto Musashi</b></span>
+
+* <cite>Catching Fire</cite>
+  <span class="attribution">by <b>Suzanne Collins</b></span>
+
+* <cite>The Art of War</cite>
+  <span class="attribution">by <b>Sunzi</b></span>
+
+* <cite>Gender Trouble: Feminism and the Subversion of Identity</cite>
+  <span class="attribution">by <b>Judith Butler</b></span>
 
 * <cite>A Tale of Two Cities</cite>
   <span class="attribution">by <b>Charles Dickens</b></span>
