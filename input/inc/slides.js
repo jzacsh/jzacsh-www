@@ -4,7 +4,11 @@
 
 (function() {
   /**
-   * Constructor for 'config'-specific slides.
+   * Constructor.
+   *
+   * @param [Object] config
+   *   for 'config'-specific slides.
+   *   @see this.initConfig's definition of this.conf
    */
   window.Slides = function (config) {
     //some constants
