@@ -95,14 +95,17 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 * <del><cite>Pride &amp; Prejudice</cite></del>
   <span class="attribution">by <b>Jane Austen</b></span>
 
-* <cite>The Book of Five Rings</cite>
+* <del><cite>The Book of Five Rings</cite></del>
   <span class="attribution">by <b>Miyamoto Musashi</b></span>
 
-* <cite>Catching Fire</cite>
+* <del><cite>The Art of War</cite></del>
+  <span class="attribution">by <b>Sunzi</b></span>
+
+* <del><cite>Catching Fire</cite></del>
   <span class="attribution">by <b>Suzanne Collins</b></span>
 
-* <cite>The Art of War</cite>
-  <span class="attribution">by <b>Sunzi</b></span>
+* <cite>Mockingjay</cite>
+  <span class="attribution">by <b>Suzanne Collins</b></span>
 
 * <cite>Gender Trouble: Feminism and the Subversion of Identity</cite>
   <span class="attribution">by <b>Judith Butler</b></span>
