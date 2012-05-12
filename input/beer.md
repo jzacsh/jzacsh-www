@@ -104,8 +104,11 @@ wishlist][amazon_toread] (_hint, hint... feel like spending your money???_).
 * <del><cite>Catching Fire</cite></del>
   <span class="attribution">by <b>Suzanne Collins</b></span>
 
-* <cite>Mockingjay</cite>
+* <del><cite>Mockingjay</cite></del>
   <span class="attribution">by <b>Suzanne Collins</b></span>
+
+* <del><cite>Destructive Emotions: A Scientific Dialogue with the Dalai Lama</cite></del>
+  <span class="attribution">by <b>Daniel Goleman</b></span>
 
 * <cite>Gender Trouble: Feminism and the Subversion of Identity</cite>
   <span class="attribution">by <b>Judith Butler</b></span>
