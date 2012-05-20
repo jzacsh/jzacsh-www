@@ -400,11 +400,13 @@
         return self.conf.currentPage;
       })(),
       slideTag: self.conf.slideTag || 'span',
-      viewerID: self.conf.viewerID || 'viewer',
       filmStrip: self.conf.filmStrip || false,
       viewerToolbarMarkup: self.conf.viewerToolbarMarkup || null,
-      nextButton: self.conf.nextButton || null,
-      prevButton: self.conf.prevButton || null,
+      IDs: {
+        viewer: self.conf.viewerID || 'viewer',
+        next: self.conf.nextButton || null,
+        prev: self.conf.prevButton || null,
+      },
       slideClass: self.conf.slideClass || 'slide',
       jqc: self.conf.context || window.document,
       jq: self.conf.jq || (function () {
@@ -481,7 +483,7 @@
       $slide.appendTo(this.conf.slider);
     }
     this.conf.jq('<div class="clear"></div>').appendTo(this.conf.slider);
-    this.conf.jq('<div id="' + this.conf.viewerID + '"></div>').appendTo(window.document);
+    this.conf.jq('<div id="' + this.conf.IDs.viewer + '"></div>').appendTo(window.document);
 
     return this;
   }
@@ -503,10 +505,10 @@
     //
     //user clicks on "next/previous"-page buttons
     //
-    this.conf.jq(this.conf.nextButton).click(function () {
+    this.conf.jq(this.conf.IDs.next).click(function () {
       S.nextPage();
     });
-    this.conf.jq(this.conf.prevButton).click(function () {
+    this.conf.jq(this.conf.IDs.prev).click(function () {
       S.previousPage();
     });
 
@@ -518,7 +520,7 @@
     //
     if (!this.conf.viewerToolbarMarkup) {
       //user clicks main full-size image link
-      this.conf.jq(this.conf.jqc).on('click', '#' + this.conf.viewerID + ' a', function (e) {
+      this.conf.jq(this.conf.jqc).on('click', '#' + this.conf.IDs.viewer + ' a', function (e) {
         e.preventDefault();
         window.document.location = S.conf.jq(this).attr('href');
       });
@@ -534,9 +536,9 @@
         return false;
       };
       this.conf.jq(this.conf.jqc).on('click',
-          '#' + this.conf.viewerID + ' .prev-slide', slideChanger);
+          '#' + this.conf.IDs.viewer + ' .prev-slide', slideChanger);
       this.conf.jq(this.conf.jqc).on('click',
-          '#' + this.conf.viewerID + ' .next-slide', slideChanger);
+          '#' + this.conf.IDs.viewer + ' .next-slide', slideChanger);
     }
 
     //
@@ -721,12 +723,12 @@
     var S = this;
     //allow user to click their way out of viewer
     $viewer.click(function (e) {
-      if (S.conf.jq(e.target).is('#' + S.conf.viewerID)) {
+      if (S.conf.jq(e.target).is('#' + S.conf.IDs.viewer)) {
         S.destroyViewer();
       }
     });
     //user clicks on image, that doesn't count.
-    var $img = this.conf.jq('#' + this.conf.viewerID + ' .viewing img');
+    var $img = this.conf.jq('#' + this.conf.IDs.viewer + ' .viewing img');
     $img.click(function (e) {
       return false;
     });
@@ -740,7 +742,7 @@
     this.url.setPath('page', (this.conf.currentPage + 1));
 
     this.breakModalLock();
-    this.conf.jq('#' + this.conf.viewerID + '', this.conf.jqc).remove();
+    this.conf.jq('#' + this.conf.IDs.viewer + '', this.conf.jqc).remove();
   }
 
   /**
@@ -800,7 +802,7 @@
     //build the actual markup
     //
 
-    modal += '<div id="' + this.conf.viewerID + '" style="' + styles.viewer + '">';
+    modal += '<div id="' + this.conf.IDs.viewer + '" style="' + styles.viewer + '">';
 
     //toolbar customizable-contents
     modal += this.viewerToolbarMarkup(index, styles.toolbar);
@@ -945,7 +947,7 @@
       return this;
     }
 
-    var $viewing = this.conf.jq('#' + this.conf.viewerID + ' .viewing', this.conf.jqc),
+    var $viewing = this.conf.jq('#' + this.conf.IDs.viewer + ' .viewing', this.conf.jqc),
       styles = this.viewerStyles(index),
       $toolbar = $viewing.siblings('.toolbar'),
       $current = this.conf.jq('img', $viewing),
@@ -961,7 +963,7 @@
 
       //adjust for the new image
       var $viewer = $viewing.attr('style', styles.viewing)
-        .parent('#' + S.conf.viewerID)
+        .parent('#' + S.conf.IDs.viewer)
         .attr('style', styles.viewer);
 
       //remove and rebuild our toolbar
@@ -1067,7 +1069,7 @@
     warn = (typeof(warn) == 'undefined')? true : warn;
 
     if (index > (this.conf.images.length - 1) || index < 0) {
-      var $viewer = this.conf.jq('#' + this.conf.viewerID, this.conf.jqc);
+      var $viewer = this.conf.jq('#' + this.conf.IDs.viewer, this.conf.jqc);
 
       //warn our user
       if (warn) {
@@ -1113,14 +1115,14 @@
 
     //give some feedback if we're currently at our boudnaries
     if (this.conf.currentPage === 0) {
-      this.conf.jq(this.conf.prevButton, this.conf.jqc).addClass('disabled');
+      this.conf.jq(this.conf.IDs.prev, this.conf.jqc).addClass('disabled');
     }
     else if (this.conf.currentPage == lastPage) {
-      this.conf.jq(this.conf.nextButton, this.conf.jqc).addClass('disabled');
+      this.conf.jq(this.conf.IDs.next, this.conf.jqc).addClass('disabled');
     }
     else {
-      this.conf.jq(this.conf.prevButton, this.conf.jqc).removeClass('disabled');
-      this.conf.jq(this.conf.nextButton, this.conf.jqc).removeClass('disabled');
+      this.conf.jq(this.conf.IDs.prev, this.conf.jqc).removeClass('disabled');
+      this.conf.jq(this.conf.IDs.next, this.conf.jqc).removeClass('disabled');
     }
 
     return this;
