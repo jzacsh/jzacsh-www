@@ -4,8 +4,11 @@
 
 /**
  * Closure defining the following two classes:
- *   - PagingMeta: basic utility to manage all of the logic for paging
+ *   - Pager: basic utility to manage all of the logic for paging
  *   correctly in a single place.
+ *   - ClientURL: basic utility to manage and interface with
+ *   window.document.location.hash, keeping all the pass-traversing logic in a
+ *   single place.
  *   - Slides: the actual slide show utility, which builds its own
  *   grid-display. Slides is attached to global scope that's passed in.
  */
@@ -18,7 +21,7 @@
    *   The number of items that will be paged through.
    * @param {int} [chunkSize]
    *   The maximum preferred size of a chunk of the items being viewed.
-   * @return {PagingMeta}
+   * @return {Pager}
    *   - setSize: [setSize]
    *   - chunkSize: [chunkSize]
    *   - numOfChunks: number of chunks our set will be broken into
@@ -28,7 +31,7 @@
    *   array indexes from our set, that a given chunk will contain.
    * @constructor
    */
-  var PagingMeta = function (setSize, chunkSize) {
+  var Pager = function (setSize, chunkSize) {
     var self = this;
 
     this.setSize = setSize;
@@ -71,7 +74,7 @@
    *   which we'd like to know the containing chunk. False if [index] is not
    *   within this.setSize.
    */
-  PagingMeta.prototype.getContainingChunk = function (index) {
+  Pager.prototype.getContainingChunk = function (index) {
     var self = this;
     // sanity check:
     if (typeof index != 'number' || !(index >= 0 && index <= this.setSize)) {
@@ -85,7 +88,7 @@
       }
     }
 
-    console.error("Warning: bug found in PagingMeta.getContainingChunk," +
+    console.error("Warning: bug found in Pager.getContainingChunk," +
         " couldn't find chunk within this.chunks. Report: setSize=%d," +
         " chunkSize=%d, index=%d.\n", this.setSize, this.chunkSize, index);
   }
@@ -93,7 +96,7 @@
   /**
    * @return {bool}
    */
-  PagingMeta.prototype.isValidItem = function (item) {
+  Pager.prototype.isValidItem = function (item) {
     item = parseInt(item, 10);
     return (!isNaN(item) && item >= 0 && item < this.setSize);
   }
@@ -103,7 +106,7 @@
    *
    * @param {int} chunk
    */
-  PagingMeta.prototype.isValidChunk = function (chunk) {
+  Pager.prototype.isValidChunk = function (chunk) {
     chunk = parseInt(chunk, 10);
 
     if (!isNaN(chunk) && chunk >= 0 && chunk < this.chunks.length) {
@@ -118,7 +121,7 @@
    * @return {Array|bool} items
    *   False, if chunk is invalid.
    */
-  PagingMeta.prototype.getItemsInChunk = function (chunk) {
+  Pager.prototype.getItemsInChunk = function (chunk) {
     // sanity check
     if (!this.isValidChunk(chunk)) {
       return false;
@@ -376,7 +379,7 @@
     this.conf = config || {};
 
     // Load default configuration.
-    this.pager = new PagingMeta(self.conf.images.length, (self.conf.pageSize || 3));
+    this.pager = new Pager(self.conf.images.length, (self.conf.pageSize || 3));
     this.conf = {
       slider: self.conf.slider || null,
       images: self.conf.images || null,
@@ -1116,10 +1119,10 @@
 
 
   /**
-   * An asthetic wrapper around PagingMeta.isValidChunk, modifying our DOM if
+   * An asthetic wrapper around Pager.isValidChunk, modifying our DOM if
    * necessary.
    *
-   * @see PagingMeta.isValidChunk
+   * @see Pager.isValidChunk
    *
    * @param {int} [page]
    *   Zero-based index of the page number slides are requested for.
