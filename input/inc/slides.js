@@ -1,5 +1,14 @@
 /**
  * @file: Slide show and grid-display manager.
+ *
+ * @TODO(zacsh) emit events at critical points:
+ *   This will allow easy extension of many things (eg.: pulling the grid
+ *   management into a separate class, that simply inspects and accepts an
+ *   instantiated Slides object, or even allowing filmstrip feature to be
+ *   similarly developed externally to Slides).
+ * @TODO(zacsh) remove dependency on jQuery:
+ *   Refactor to rely on plain DOM manipulation, in place of jQuery being
+ *   passed in.
  */
 
 /**
@@ -69,31 +78,38 @@
   /**
    * Determine which chunk should contain a given item in our set.
    *
-   * @param {int|bool} [index]
+   * @param {int} [item]
    *   The numeric index of the item out of the set this.setSize represents, for
    *   which we'd like to know the containing chunk. False if [index] is not
    *   within this.setSize.
+   * @param {int|bool}
+   *   The numeric index representing which chunk will contain [item], or false
+   *   if this.isValidItem fails.
+   *   @see this.isValidItem
    */
-  Pager.prototype.getContainingChunk = function (index) {
+  Pager.prototype.getContainingChunk = function (item) {
     var self = this;
-    // sanity check:
-    if (typeof index != 'number' || !(index >= 0 && index <= this.setSize)) {
+    if (!this.isValidItem(item)) {
       return false;
     }
-    index = Math.floor(index);
+    item = Math.floor(item);
 
     for (var i = 0; i < this.chunks.length; i++) {
-      if (this.chunks[i].hasOwnProperty(index)) {
+      if (this.chunks[i].hasOwnProperty(item)) {
         return i;
       }
     }
 
     console.error("Warning: bug found in Pager.getContainingChunk," +
         " couldn't find chunk within this.chunks. Report: setSize=%d," +
-        " chunkSize=%d, index=%d.\n", this.setSize, this.chunkSize, index);
+        " chunkSize=%d, item=%d.\n", this.setSize, this.chunkSize, item);
   }
 
   /**
+   * Determine if the proposed numeric index, [item], representing an item
+   * within our paged set of items is possible.
+   *
+   * @param {int} [item]
    * @return {bool}
    */
   Pager.prototype.isValidItem = function (item) {
@@ -243,7 +259,11 @@
   }
 
   /**
-   * Get the current window.document.location.hash contents.
+   * Get the current window.document.location.hash contents, falling back
+   * safely on an empty string.
+   *
+   * @return {string}
+   *   window.document.location.hash if defined, or an empty string.
    */
   ClientURL.prototype.getHash = function () {
     return this.loc.hash || '';
@@ -255,15 +275,17 @@
    *
    * @note calling ClientURL.prototype.getCurrent().req is probably better
    * suited for most cases.
+   *
+   * @return {string}
+   *   The current contents of getHash(), with superfluous characters stripped
+   *   out.
+   *   @see this.getHash
    */
   ClientURL.prototype.getRawReq = function () {
-    var haveRequest = this.getHash.match(/^#(.*)$/);
-    if (haveRequest) {
-      return haveRequest[1];
-    }
-    else {
-      return this.getHash();
-    }
+    var rawHash = this.getHash();
+    var haveRequest = rawHash.match(/^#(.*)$/);
+
+    return haveRequest? haveRequest.pop() : rawHash;
   }
 
   /**
@@ -324,7 +346,8 @@
    *   with.
    * @param {int} [req]
    *   A valid request argument to [path].
-   * @return {ClientURL|bool} [this]
+   * @return {ClientURL|bool}
+   *   false if the requested setPath call would result in an invalid request.
    */
   ClientURL.prototype.setPath = function (path, req) {
     if (this.isValidReq(path, req)) {
@@ -343,11 +366,47 @@
    * @constructor
    *
    * @param {Object} [config]
-   *   for 'config'-specific slides.
-   *   @see this.initConfig's definition of this.conf
+   *   Configuration for Slides instance, requiring only a few items but taking
+   *   many options. Specifically:
+   *   - slider: Required. jQuery selection of the DOM node that our of slides
+   *     should be managed in.
+   *   - pageSize: the maximum number of slides that should show up on a given
+   *     page within our auto-managed grid.
+   *     @see Pager
+   *   - images: Required. Array of images that that will be used as slides,
+   *     each represented as an Object with the following contents:
+   *     - src: Required. absolute URL that should be used to render this
+   *       slide.
+   *     - name: Optional. Copy used to represent this image as a title.
+   *     // ...: N number of copies of the "src" key, each named for their
+   *        // intent (eg.: "medium", "small", "large").
+   *        // @note: currently only "medium" is implemented, and no way of
+   *        // extending this behavior for new keys has been thought of.
+   *   - currentPage: Optional. Defaults to the page containing the current
+   *     slide being viewed, or 0.
+   *     @note requests specified via document.location.hash URL take
+   *     precedence over this option.
+   *   - slideTag: Optional. The DOM nodeType that should be used to wrap each
+   *     slide image node. Defaults to 'span'.
+   *   - viewerToolbarMarkup: self.conf.viewerToolbarMarkup || null,
+   *   - viewerID: Optional. The css id that should be used when building
+   *     viewer for slides to be displayed in. Defaults to 'viewer'.
+   *   - nextButton: Optional. The jQuery selection of the DOM node for which
+   *     clicks should be listened when binding calls to Slides.nextPage and
+   *     Slides.previousPage. Defaults to null.
+   *   - prevButton Optional. @see [config].nextButton. Defaults to null.
+   *   - slideClass: Optional css class that should be used to mark up each
+   *     slide. Defaults to 'slide'.
+   *   - jq: Optional, as usually extracted from config.slider. If this won't
+   *     be possible, then jQuery should be passed here.
+   *   - jqc: Optional. The context parameter that should be used when calling
+   *     jQuery self.conf.context, defaults to window.document.
+   *   @see {Slides}.initConfig and {Slides} constructor
    */
   Slides = function (config) {
+    // initialize private utilities
     this.url = new ClientURL(['slide', 'page']);
+    this.pager = new Pager(config.images.length, (config.pageSize || 3));
 
     //intialize config
     this.initConfig(config);
@@ -373,12 +432,13 @@
     //
     // End-user's GET request takes highest priority
     //
-    config.current = this.url.getPath('slide') || config.current;
-    config.currentPage = (function(conf) {
-      var userSays = self.url.getPath('page');
-      return typeof userSays == 'number'? userSays : conf;
-
-    })(config.currentPage);
+    config.current = this.url.getPath('slide') || null;
+    if (!config.current) {
+      config.currentPage = (function(conf) {
+        var userSays = self.url.getPath('page');
+        return typeof userSays == 'number'? userSays : conf;
+      })(config.currentPage);
+    }
 
     //
     // Load API caller's configuration
@@ -388,19 +448,23 @@
     //
     // Load default configuration.
     //
-    this.pager = new Pager(self.conf.images.length, (self.conf.pageSize || 3));
     this.conf = {
       slider: self.conf.slider || null,
       images: self.conf.images || null,
       current: self.conf.current || null,
       currentPage: (function () {
-        if (!self.conf.currentPage && self.conf.currentPage !== 0) {
+        if (self.pager.isValidChunk(self.conf.currentPage)) {
+          return self.conf.currentPage;
+        }
+        else {
           return self.pager.getContainingChunk(self.conf.current || 0);
         }
-        return self.conf.currentPage;
       })(),
       slideTag: self.conf.slideTag || 'span',
+
+      //@TODO(zacsh) code, then document this feature on Slides doxygen:
       filmStrip: self.conf.filmStrip || false,
+
       viewerToolbarMarkup: self.conf.viewerToolbarMarkup || null,
       IDs: {
         viewer: self.conf.viewerID || 'viewer',
@@ -410,7 +474,8 @@
       slideClass: self.conf.slideClass || 'slide',
       jqc: self.conf.context || window.document,
       jq: self.conf.jq || (function () {
-        if ('slider' in self.conf && 'jquery' in self.conf.slider) {
+        if (self.conf.hasOwnProperty('slider') &&
+          typeof self.conf.slider.jquery != 'undefined') {
           return self.conf.slider.constructor;
         }
         else {
@@ -691,8 +756,6 @@
 
   /**
    * Build the correct markup for a slide at index.
-   *
-   * @TODO: this should be "protected/private".
    */
   Slides.prototype.getImgTag = function (index, version) {
     var slide = '';
@@ -940,7 +1003,12 @@
   }
 
   /**
-   * @TODO(zacsh) document this!
+   * Update our previously (@see this.initGrid) created DOM node with image
+   * index, [index].
+   *
+   * @param {int} [index]
+   *   The numeric 0-based index of the image that should  be placed in view.
+   * @return {Slides} [this]
    */
   Slides.prototype.view = function (index) {
     if (!this.setCurrent(index)) {
@@ -1093,6 +1161,8 @@
   /**
    * Modify the dom by adding a few classes to let our user know they've
    * reached out of their bounds in some way.
+   *
+   * @return {Slides} [this]
    */
   Slides.prototype.warnOutOfBounds = function (boundedBy, limit, warning) {
     warning = parseInt(warning, 10)? warning : 1500;
@@ -1111,6 +1181,8 @@
   /**
    * Modify the DOM by adding a few classes to let our user know they've
    * reached page boundaries.
+   *
+   * @return {Slides} [this]
    */
   Slides.prototype.warnBoundaryPage = function () {
     var lastPage = this.pageNumber(this.conf.images.length - 1);
@@ -1160,6 +1232,8 @@
 
   /**
    * Switch our current viewer to the next slide.
+   *
+   * @return {Slides} [this]
    */
   Slides.prototype.next = function () {
     this.view((this.conf.current * 1 /*current === null, we want zero*/) + 1);
@@ -1167,7 +1241,9 @@
   }
 
   /**
-   * @TODO: code this
+   * Switch our currently exposed section of the grid to the next page in line.
+   *
+   * @return {Slides} [this]
    */
   Slides.prototype.nextPage = function () {
     var current = parseInt(this.conf.currentPage, 10);
@@ -1177,6 +1253,8 @@
 
   /**
    * Switch our current viewer to the previous slide.
+   *
+   * @return {Slides} [this]
    */
   Slides.prototype.previous = function () {
     this.view((this.conf.current * 1 /*current === null, we want zero*/) - 1);
@@ -1184,7 +1262,9 @@
   }
 
   /**
-   * @TODO: code this
+   * Switch our currently exposed section of the grid to the previous page in line.
+   *
+   * @return {Slides} [this]
    */
   Slides.prototype.previousPage = function () {
     var current = parseInt(this.conf.currentPage, 10);
@@ -1194,6 +1274,8 @@
 
   /**
    * @TODO: code this
+   *
+   * @return {Slides} [this]
    */
   Slides.prototype.pausePlay = function () {
     return this;
