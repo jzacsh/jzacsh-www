@@ -46,9 +46,13 @@
         to = getTo();
 
         indexes[chunk] = { from: from, to: to };
-
-        for (var n = from; (n < to && n < self.setSize); n++) {
+        for (var n = from; (n <= to && n < self.setSize); n++) {
           indexes[chunk][n] = true;
+        }
+
+        if (!(to < self.setSize)) {
+          // the last chunk item set that was set:
+          indexes[chunk].to = n - 1;
         }
 
         ++chunk;
@@ -82,7 +86,6 @@
       }
     }
 
-    //@TODO(zacsh) fix me, this is actually returning!
     console.error("Warning: bug found in PagingMeta.getContainingChunk," +
         " couldn't find chunk within this.chunks. Report: setSize=%d," +
         " chunkSize=%d, index=%d.\n", this.setSize, this.chunkSize, index);
