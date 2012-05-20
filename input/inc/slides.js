@@ -375,7 +375,7 @@
     //
     config.current = this.url.getPath('slide') || config.current;
     config.currentPage = (function(conf) {
-      var userSays = this.url.getPath('page');
+      var userSays = self.url.getPath('page');
       return typeof userSays == 'number'? userSays : conf;
 
     })(config.currentPage);
@@ -385,7 +385,9 @@
     //
     this.conf = config || {};
 
+    //
     // Load default configuration.
+    //
     this.pager = new Pager(self.conf.images.length, (self.conf.pageSize || 3));
     this.conf = {
       slider: self.conf.slider || null,
@@ -415,7 +417,7 @@
       })(),
     }
 
-    //sanity check
+    // Sanity check
     if (this.conf.images == null || this.conf.slider == null) {
       var ConfigurationException, e;
       function ConfigurationException () {
@@ -427,7 +429,7 @@
       throw e;
     }
 
-    //check the user's requested-page number.
+    // Check the user's requested-page number.
     if (!this.checkPageBounds(this.conf.currentPage)) {
       var lastPage = this.pager.getContainingChunk(this.pager.setSize - 1);
 
@@ -444,7 +446,7 @@
       }
     }
 
-    //let user know if they're at one end or another
+    // Let user know if they've reached an outer limit.
     this.warnBoundaryPage();
   }
 
