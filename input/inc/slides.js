@@ -1160,7 +1160,7 @@
    * Switch our current viewer to the next slide.
    */
   Slides.prototype.next = function () {
-    this.view((this.conf.current * 1) + 1);
+    this.view((this.conf.current * 1 /*current === null, we want zero*/) + 1);
     return this;
   }
 
@@ -1177,7 +1177,7 @@
    * Switch our current viewer to the previous slide.
    */
   Slides.prototype.previous = function () {
-    this.view((this.conf.current * 1) - 1);
+    this.view((this.conf.current * 1 /*current === null, we want zero*/) - 1);
     return this;
   }
 
@@ -1194,7 +1194,6 @@
    * @TODO: code this
    */
   Slides.prototype.pausePlay = function () {
-
     return this;
   }
 })(this, window)
