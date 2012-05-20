@@ -470,7 +470,7 @@
     this.preLoadPage(this.conf.currentPage);
 
     //build the slides, configured for the correct page
-    for (var i in this.conf.images) {
+    for (var i = 0; i< this.conf.images.length; i++) {
       //get our slide markup
       $slide = this.conf.jq(this.getSlideMarkup(i));
 
