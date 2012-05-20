@@ -267,24 +267,27 @@
   }
 
   /**
+   * Determine if the current instantiation allows for path, [path].
+   *
+   * @param {string} [path]
    * @return {bool}
    */
   ClientURL.prototype.isValidPath = function (path) {
     return this.regex.hasOwnProperty(path);
   }
 
+  /**
+   * Determine if [path]/[req] is theoritically a possible request given the
+   * current instantiation.
+   *
+   * @param {string} [path]
+   * @param {string} [req]
+   * @return {bool}
+   */
   ClientURL.prototype.isValidReq = function (path, req) {
     if (this.isValidPath(path)) {
       var mockHash = '#' + path + '/' + req;
-      var valid = mockHash.match(this.regex[path]);
-      if (valid) {
-        if (valid.pop() != req) {
-          console.error("ClientURL Bug. Report this: proposal seemed valid," +
-              " but regex returned didn't match proposal (path:'%s'," +
-              " req:'%s').", path, req);
-        }
-        return true;
-      }
+      return mockHash.match(this.regex[path])? true : false;
     }
     return false;
   }
@@ -371,7 +374,11 @@
     // End-user's GET request takes highest priority
     //
     config.current = this.url.getPath('slide') || config.current;
-    config.currentPage = this.url.getPath('page') || config.current;
+    config.currentPage = (function(conf) {
+      var userSays = this.url.getPath('page');
+      return typeof userSays == 'number'? userSays : conf;
+
+    })(config.currentPage);
 
     //
     // Load API caller's configuration
