@@ -1059,7 +1059,9 @@
     this.warnBoundaryPage();
 
     //viewer is closed, appropriate to update #page/x
-    this.url.setPath('page', (this.conf.currentPage + 1));
+    if (this.conf.current === null) {
+      this.url.setPath('page', (this.conf.currentPage + 1));
+    }
   }
 
   /**
