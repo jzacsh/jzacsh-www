@@ -133,8 +133,8 @@
     //
     //end-user's GET request takes highest priority
     //
-    var current = document.location.hash.match(this.regex.slideHash),
-        page = document.location.hash.match(this.regex.pageHash);
+    var current = window.document.location.hash.match(this.regex.slideHash),
+        page = window.document.location.hash.match(this.regex.pageHash);
     if (current && 'length' in current && current.length > 1) {
       config.current = parseInt(current.pop(), 10) - 1;
     }
@@ -192,7 +192,7 @@
 
     //check the user's requested-page number.
     if (!this.checkPageBounds(this.conf.currentPage)) {
-      var pageReq = document.location.hash.match(this.regex.pageHash),
+      var pageReq = window.document.location.hash.match(this.regex.pageHash),
         lastPage = this.pageNumber(this.conf.images.length - 1);
 
       //user GET-requested a non-sensical page number
@@ -203,13 +203,13 @@
         this.conf.currentPage = lastPage;
 
         //user just made a request that was too high
-        document.location.hash = 'page/' + (lastPage + 1);
+        window.document.location.hash = 'page/' + (lastPage + 1);
       }
       else {
         this.conf.currentPage = 0;
 
         //the user *did* make a hash-page request and its no good
-        document.location.hash = '';
+        window.document.location.hash = '';
       }
     }
 
@@ -287,7 +287,7 @@
       //user clicks main full-size image link
       this.conf.jq(this.conf.jqc).on('click', '#' + this.conf.viewerID + ' a', function (e) {
         e.preventDefault();
-        document.location = S.conf.jq(this).attr('href');
+        window.document.location = S.conf.jq(this).attr('href');
       });
 
       //user clicks next/previous links
@@ -503,10 +503,10 @@
   Slides.prototype.destroyViewer = function () {
     this.conf.current = null;
     if (parseInt(this.conf.currentPage, 10) == NaN) {
-      document.location.hash = '';
+      window.document.location.hash = '';
     }
     else {
-      document.location.hash = 'page/' + (this.conf.currentPage + 1);
+      window.document.location.hash = 'page/' + (this.conf.currentPage + 1);
     }
 
     this.breakModalLock();
@@ -521,8 +521,8 @@
    */
   Slides.prototype.getModalLock = function () {
      var scrollPos = [
-       window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft,
-       window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+       window.pageXOffset || window.document.documentElement.scrollLeft || window.document.body.scrollLeft,
+       window.pageYOffset || window.document.documentElement.scrollTop || window.document.body.scrollTop
      ];
      var $html = this.conf.jq('html');
 
@@ -754,7 +754,7 @@
     var live = this.conf.current;
     if ((index || index === 0) && this.checkViewerBounds(index)) {
       this.conf.current = parseInt(index, 10);
-      document.location.hash = 'slide/' + (this.conf.current + 1);
+      window.document.location.hash = 'slide/' + (this.conf.current + 1);
     }
     else {
       return false;
@@ -830,7 +830,7 @@
     //
     if (this.conf.current == null) {
       //viewer is closed, appropriate to update #page/x
-      document.location.hash = 'page/' + (this.conf.currentPage + 1);
+      window.document.location.hash = 'page/' + (this.conf.currentPage + 1);
     }
   }
 
@@ -925,13 +925,17 @@
 
   /**
    * Determine if the proposed page index is within our bounds.
+   *
+   * @param {int} [page]
+   *   Zero-based index of the page number slides are requested for.
    */
   Slides.prototype.checkPageBounds = function (page, warn) {
+    // defaults
     page = parseInt(page, 10);
     warn = (typeof(warn) == 'undefined')? true : warn;
 
     var lastPage = this.pageNumber(this.conf.images.length - 1);
-    if (page == NaN || page < 0 || page > lastPage) {
+    if (isNaN(page) || page < 0 || page > lastPage) {
       if (warn) {
         var limit;
         if (page < 0) {
