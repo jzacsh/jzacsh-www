@@ -830,6 +830,8 @@
      };
 
      //lock our scroll
+     // @TODO(zacsh): fix scrollTo() call, doesn't seem to move you up when
+     // instantiating a slide.
      window.scrollTo(scrollPos[0], scrollPos[1]);
      $html.css('overflow', 'hidden');
   }
