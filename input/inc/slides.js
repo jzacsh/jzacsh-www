@@ -91,6 +91,39 @@
         " chunkSize=%d, index=%d.\n", this.setSize, this.chunkSize, index);
   }
 
+  /**
+   * Determine if [chunk] exists within our proposed set.
+   *
+   * @param {int} chunk
+   */
+  PagingMeta.prototype.isValidChunk = function (chunk) {
+    chunk = parseInt(chunk, 10);
+
+    if (!isNaN(chunk) && chunk >= 0 && chunk < this.chunks.length) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Return an Array of representing items a given chunk contains.
+   *
+   * @return {Array|bool} items
+   *   False, if chunk is invalid.
+   */
+  PagingMeta.prototype.getItemsInChunk = function (chunk) {
+    // sanity check
+    if (!this.isValidChunk(chunk)) {
+      return false;
+    }
+
+    var items = [];
+    for (var i = this.chunks[chunk].from; i <= this.chunks[chunk].to; i++) {
+      items.push(i);
+    }
+    return items;
+  }
+
 
   /////////////////////////////////////////////////////////////////////////////
 
@@ -381,7 +414,7 @@
     //
     //pre-load our current page's images.
     //
-    var currentSlides = this.slidesOnPage(this.conf.currentPage);
+    var currentSlides = this.paging.getItemsInChunk(this.conf.currentPage);
     for (i in currentSlides) {
       preLoad(currentSlides[i]);
     }
@@ -393,7 +426,7 @@
       //second most likely place for our user to go.
       var next = this.conf.currentPage + 1;
       if (this.checkPageBounds(next, false)) {
-        var nextSlides = this.slidesOnPage(next);
+        var nextSlides = this.paging.getItemsInChunk(next);
         for (i in nextSlides) {
           preLoad(nextSlides[i]);
         }
@@ -402,7 +435,7 @@
       //third most likely place for our user to go.
       var prev = this.conf.currentPage - 1;
       if (this.checkPageBounds(prev, false)) {
-        var prevSlides = this.slidesOnPage(prev);
+        var prevSlides = this.paging.getItemsInChunk(prev);
         for (i in prevSlides) {
           preLoad(prevSlides[i]);
         }
@@ -439,6 +472,8 @@
     if (!index && index !== 0) {
       return null;
     }
+
+;
 
     var page = Math.floor(index / this.conf.pageSize);
     if (index % this.conf.pageSize) {
@@ -502,7 +537,7 @@
    */
   Slides.prototype.destroyViewer = function () {
     this.conf.current = null;
-    if (parseInt(this.conf.currentPage, 10) == NaN) {
+    if (isNaN(parseInt(this.conf.currentPage, 10))) {
       window.document.location.hash = '';
     }
     else {
@@ -708,7 +743,7 @@
   }
 
   /**
-   *
+   * @TODO(zacsh) document this!
    */
   Slides.prototype.view = function (index) {
     if (!this.setCurrent(index)) {
@@ -794,8 +829,8 @@
     }
 
     var i = 0, $slide,
-        liveSlides = this.slidesOnPage(current),
-        newSlides = this.slidesOnPage(page);
+        liveSlides = this.paging.getItemsInChunk(current),
+        newSlides = this.paging.getItemsInChunk(page);
 
     //
     //hide currently live slide
@@ -832,26 +867,6 @@
       //viewer is closed, appropriate to update #page/x
       window.document.location.hash = 'page/' + (this.conf.currentPage + 1);
     }
-  }
-
-  /**
-   * Return an array of integers representing the index values of slides that we
-   * *should* theoritically find on a given page.
-   */
-  Slides.prototype.slidesOnPage = function (page) {
-    var slides = [], last, first;
-    page = (typeof(page) == 'undefined')? this.conf.current : page;
-    if (page == null) {
-      return slides;
-    }
-
-    last = (this.conf.pageSize * (page + 1));
-    first = last - this.conf.pageSize;
-    for (var i = first; i < last; i++) {
-      slides.push(i);
-    }
-
-    return slides;
   }
 
   /**
@@ -924,27 +939,26 @@
 
 
   /**
-   * Determine if the proposed page index is within our bounds.
+   * An asthetic wrapper around PagingMeta.isValidChunk, modifying our DOM if
+   * necessary.
+   *
+   * @see PagingMeta.isValidChunk
    *
    * @param {int} [page]
    *   Zero-based index of the page number slides are requested for.
+   * @param {null|bool} [warn=true]
+   *   Optionally indicate that we should go so far as to trigger warnings, if
+   *   [page] is out of bounds.
+   * @return {bool}
    */
   Slides.prototype.checkPageBounds = function (page, warn) {
     // defaults
-    page = parseInt(page, 10);
     warn = (typeof(warn) == 'undefined')? true : warn;
 
-    var lastPage = this.pageNumber(this.conf.images.length - 1);
-    if (isNaN(page) || page < 0 || page > lastPage) {
+    // only if input is sane
+    if (!this.paging.isValidChunk(page)) {
       if (warn) {
-        var limit;
-        if (page < 0) {
-          limit = 'low';
-        }
-        else {
-          limit = 'high';
-        }
-        this.warnOutOfBounds(this.conf.slider, limit);
+        this.warnOutOfBounds(this.conf.slider, ((page < 0)? 'low' : 'high'));
       }
       return false;
     }
