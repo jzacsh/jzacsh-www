@@ -14,8 +14,6 @@
    * Calculate basic Table of Contents for a set of items, where the two provided
    * knowns are the number of items and the size of chunk when viewing the items.
    *
-   * @constructor
-   *
    * @param {int} [setSize]
    *   The number of items that will be paged through.
    * @param {int} [chunkSize]
@@ -28,6 +26,7 @@
    *   - chunks: assuming [setSize] is the length of some array, this
    *   will be an array representing each chunk, in sequence, containing the
    *   array indexes from our set, that a given chunk will contain.
+   * @constructor
    */
   var PagingMeta = function (setSize, chunkSize) {
     var self = this;
@@ -92,6 +91,14 @@
   }
 
   /**
+   * @return {bool}
+   */
+  PagingMeta.prototype.isValidItem = function (item) {
+    item = parseInt(item, 10);
+    return (!isNaN(item) && item >= 0 && item < this.setSize);
+  }
+
+  /**
    * Determine if [chunk] exists within our proposed set.
    *
    * @param {int} chunk
@@ -124,6 +131,204 @@
     return items;
   }
 
+  /**
+   * Client-side URL management via hash on document.location.
+   *
+   * @note *very* basic, just to fulfill the needs of Slides.
+   *
+   * @param {Array} [paths]
+   *   Set of possible Possible strings expected for use as hash paths.
+   * @return {ClientURL} this
+   * @constructor
+   */
+  var ClientURL = function (paths) {
+    var self = this;
+    if (!(window.document.hasOwnProperty('location') &&
+          window.document.location.hasOwnProperty('hash'))) {
+      return false;
+    }
+
+    this.loc = window.document.location;
+
+    var pathRegex;
+    this.regex = {};
+    for (var i = 0; i < paths.length; i++) {
+      pathRegex = '/^#' + paths[i] + '\/(\d+)$/';
+      this.regex[paths[i]] = new RegExp(pathRegex);
+    }
+
+    // ensure getCurrent() runs correctly
+    this._lastRun = this.hash + '_neverRun';
+
+    return this;
+  }
+
+  /**
+   * Delete our client's current request.
+   *
+   * @return {ClientURL} this
+   */
+  ClientURL.prototype.clear = function (path) {
+    this.hash = '';
+    return this;
+  }
+
+  /**
+   * Get the current request being made via client-side GET request.
+   *
+   * @return {Object|false|null}
+   *   If there is no request in location.hash null, false if the user
+   *   requested something we're not configured to parse. Otherwise, an object
+   *   with the following contents:
+   *   - {string} [path]: the path the user is making a request on.
+   *   - {int} [req]: the actual argument the user is requesting from this path.
+   *   - {bool} [valid]: if the user's current request is valid according to
+   *   this ClientURL instantiation.
+   *   - {bool} [invalid]: opposite of valid
+   */
+  ClientURL.prototype.getCurrent = function () {
+    var self = this;
+
+    // check our cache, first
+    if (this._lastRun != this.hash) {
+      var current = {
+        invalid: false,
+        path: null,
+        req: null,
+      };
+
+      if (typeof this.loc.hash == 'undefined') {
+        // trim superfluous slashes
+        this.loc.hash = (function () {
+          var leading = self.hash.match(/^\/*(.+)/);
+          if (leading) {
+            self.hash = leading.pop();
+          }
+          var trailing = self.hash.match(/(.+)\/+$/);
+          if (trailing) {
+            self.hash = trailing.pop();
+          }
+        })();
+
+        if (this.getHash() != '') {
+          var pathArg;
+          for (var path in this.regex) {
+            current.req = (function () {
+              var found = self.getHash().match(self.regex[path]);
+              return (typeof found == 'null'? null : parseInt(found.pop(), 10));
+            })();
+
+            if (current.req) {
+              current.path = path;
+              break;
+            }
+          }
+
+          // user requested *something* that we don't understand
+          current.invalid = true;
+        }
+      }
+
+      // convenience
+      current.valid = !current.invalid;
+
+      // cache results
+      this._current = current;
+      this._lastRun = this.loc.hash;
+    }
+    return this._current;
+  }
+
+  /**
+   * Get the current window.document.location.hash contents.
+   */
+  ClientURL.prototype.getHash = function () {
+    return this.loc.hash || '';
+  }
+
+  /**
+   * Get the current request made via client-side GET request, regardless of
+   * valiidity.
+   *
+   * @note calling ClientURL.prototype.getCurrent().req is probably better
+   * suited for most cases.
+   */
+  ClientURL.prototype.getRawReq = function () {
+    var haveRequest = this.getHash.match(/^#(.*)$/);
+    if (haveRequest) {
+      return haveRequest[1];
+    }
+    else {
+      return this.getHash();
+    }
+  }
+
+  /**
+   * @return {bool}
+   */
+  ClientURL.prototype.isValidPath = function (path) {
+    return this.regex.hasOwnProperty(path);
+  }
+
+  ClientURL.prototype.isValidReq = function (path, req) {
+    if (this.isValidPath(path)) {
+      var mockHash = '#' + path + '/' + req;
+      var valid = mockHash.match(this.regex[path]);
+      if (valid) {
+        if (valid.pop() != req) {
+          console.error("ClientURL Bug. Report this: proposal seemed valid," +
+              " but regex returned didn't match proposal (path:'%s'," +
+              " req:'%s').", path, req);
+        }
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Get the current request made via client-side GET request.
+   *
+   * @param {string} [path]
+   *   The path for which you'd like to know the user's request.
+   * @return {int|null|false}
+   *   The argument passed via GET to [path]/. If [path] is not in our
+   *   configuration, false is returned to indicate this function was called
+   *   incorrectly. null, otherwise.
+   */
+  ClientURL.prototype.getPath = function (path) {
+    // sanity check
+    if (!this.regex.hasOwnProperty(path)) {
+      console.error('ClientURL config error: requesting path="%s", but never' +
+          ' instantiated with that path.', path);
+      return false;
+    }
+
+    if (this.getCurrent().valid && path == this.getCurrent().path) {
+      return this.getCurrent().req;
+    }
+    return null;
+  }
+
+  /**
+   * Update location.hash to [path]/[req].
+   *
+   * @param {string} [path]
+   *   A valid [path] that corresponds to something ClientURL was instantiated
+   *   with.
+   * @param {int} [req]
+   *   A valid request argument to [path].
+   * @return {ClientURL|bool} [this]
+   */
+  ClientURL.prototype.setPath = function (path, req) {
+    if (this.isValidReq(path, req)) {
+      this.hash = path + '/' + req;
+      // emit an event here?
+      return this;
+    }
+    return false;
+  }
+
 
   /////////////////////////////////////////////////////////////////////////////
 
@@ -136,11 +341,7 @@
    *   @see this.initConfig's definition of this.conf
    */
   global.Slides = function (config) {
-    //some constants
-    this.regex = {
-      slideHash: /^#slide\/(\d+)$/,
-      pageHash: /^#page\/(\d+)$/,
-    };
+    this.url = new ClientURL(['slide', 'page']);
 
     //intialize config
     this.initConfig(config);
@@ -164,34 +365,27 @@
     var self = this;
 
     //
-    //end-user's GET request takes highest priority
+    // End-user's GET request takes highest priority
     //
-    var current = window.document.location.hash.match(this.regex.slideHash),
-        page = window.document.location.hash.match(this.regex.pageHash);
-    if (current && 'length' in current && current.length > 1) {
-      config.current = parseInt(current.pop(), 10) - 1;
-    }
-    else if (page && 'length' in page && page.length > 0) {
-      config.currentPage = parseInt(page.pop(), 10) - 1;
-    }
-
+    config.current = this.url.getPath('slide') || config.current;
+    config.currentPage = this.url.getPath('page') || config.current;
 
     //
-    //default configuration
+    // Load API caller's configuration
     //
     this.conf = config || {};
+
+    // Load default configuration.
+    this.pager = new PagingMeta(self.conf.images.length, (self.conf.pageSize || 3));
     this.conf = {
       slider: self.conf.slider || null,
       images: self.conf.images || null,
-      pager: new PagingMeta(self.conf.images.length, (self.conf.pageSize || 3)),
       current: self.conf.current || null,
       currentPage: (function () {
         if (!self.conf.currentPage && self.conf.currentPage !== 0) {
-          return self.pageNumber(self.conf.current || 0);
+          return self.pager.getContainingChunk(self.conf.current || 0);
         }
-        else {
-          return self.conf.currentPage;
-        }
+        return self.conf.currentPage;
       })(),
       slideTag: self.conf.slideTag || 'span',
       viewerID: self.conf.viewerID || 'viewer',
@@ -225,24 +419,18 @@
 
     //check the user's requested-page number.
     if (!this.checkPageBounds(this.conf.currentPage)) {
-      var pageReq = window.document.location.hash.match(this.regex.pageHash),
-        lastPage = this.pageNumber(this.conf.images.length - 1);
+      var lastPage = this.pager.getContainingChunk(this.pager.setSize - 1);
 
-      //user GET-requested a non-sensical page number
-      if (!pageReq) {
+      if (this.url.getCurrent().invalid) {
+        // user GET-requested a non-sensical page number (eg.: negative, or not
+        // an int).
         this.conf.currentPage = 0;
+        this.url.clear();
       }
-      else if (parseInt(pageReq.pop(), 10) > lastPage) {
+      else if (this.url.getPath('page') > lastPage) {
+        // user request was too high, adjust it to maximum
         this.conf.currentPage = lastPage;
-
-        //user just made a request that was too high
-        window.document.location.hash = 'page/' + (lastPage + 1);
-      }
-      else {
-        this.conf.currentPage = 0;
-
-        //the user *did* make a hash-page request and its no good
-        window.document.location.hash = '';
+        this.url.setPath('page', (lastPage + 1));
       }
     }
 
@@ -414,7 +602,7 @@
     //
     //pre-load our current page's images.
     //
-    var currentSlides = this.paging.getItemsInChunk(this.conf.currentPage);
+    var currentSlides = this.pager.getItemsInChunk(this.conf.currentPage);
     for (i in currentSlides) {
       preLoad(currentSlides[i]);
     }
@@ -426,7 +614,7 @@
       //second most likely place for our user to go.
       var next = this.conf.currentPage + 1;
       if (this.checkPageBounds(next, false)) {
-        var nextSlides = this.paging.getItemsInChunk(next);
+        var nextSlides = this.pager.getItemsInChunk(next);
         for (i in nextSlides) {
           preLoad(nextSlides[i]);
         }
@@ -435,7 +623,7 @@
       //third most likely place for our user to go.
       var prev = this.conf.currentPage - 1;
       if (this.checkPageBounds(prev, false)) {
-        var prevSlides = this.paging.getItemsInChunk(prev);
+        var prevSlides = this.pager.getItemsInChunk(prev);
         for (i in prevSlides) {
           preLoad(prevSlides[i]);
         }
@@ -448,7 +636,7 @@
    */
   Slides.prototype.getSlideMarkup = function (index, preload) {
     var slide = '';
-    var page = this.conf.pager.getContainingChunk(index);
+    var page = this.pager.getContainingChunk(index);
 
     //build our markup
     slide += '<' + this.conf.slideTag;
@@ -537,12 +725,7 @@
    */
   Slides.prototype.destroyViewer = function () {
     this.conf.current = null;
-    if (isNaN(parseInt(this.conf.currentPage, 10))) {
-      window.document.location.hash = '';
-    }
-    else {
-      window.document.location.hash = 'page/' + (this.conf.currentPage + 1);
-    }
+    this.url.setPath('page', (this.conf.currentPage + 1));
 
     this.breakModalLock();
     this.conf.jq('#' + this.conf.viewerID + '', this.conf.jqc).remove();
@@ -786,10 +969,11 @@
    * Update the this.conf.current to a new index.
    */
   Slides.prototype.setCurrent = function (index) {
+    index = parseInt(index, 10)
     var live = this.conf.current;
-    if ((index || index === 0) && this.checkViewerBounds(index)) {
-      this.conf.current = parseInt(index, 10);
-      window.document.location.hash = 'slide/' + (this.conf.current + 1);
+    if (this.pager.isValidItem(index) && this.checkViewerBounds(index)) {
+      this.conf.current = index;
+      this.url.setPath('slide', (this.conf.current + 1));
     }
     else {
       return false;
@@ -798,9 +982,9 @@
     //
     //update our page if necessary
     //
-    var shouldBePage = this.pageNumber(this.conf.current);
+    var shouldBePage = this.pager.getContainingChunk(this.conf.current);
     if (shouldBePage != this.conf.currentPage) {
-      this.setPage(shouldBePage, this.pageNumber(live));
+      this.setPage(shouldBePage, this.pager.getContainingChunk(live));
     }
 
     return true;
@@ -815,11 +999,11 @@
    *   Optional page number currently being viewed, if not the same page as
    *   this.conf.current (which may have been updated already to something else,
    *   before this method was called). Defaults to
-   *   this.pageNumber(this.conf.current)
+   *   this.pager.getContainingChunk(this.conf.current)
    *   @see this.setCurrent for example use-case.
    */
   Slides.prototype.setPage = function (page, current) {
-    current = (typeof(current) == 'undefined')? this.pageNumber(this.conf.current) : current;
+    current = (typeof(current) == 'undefined')? this.pager.getContainingChunk(this.conf.current) : current;
     if (this.checkPageBounds(page)) {
       //keep track of the new page
       this.conf.currentPage = page;
@@ -829,13 +1013,13 @@
     }
 
     var i = 0, $slide,
-        liveSlides = this.paging.getItemsInChunk(current),
-        newSlides = this.paging.getItemsInChunk(page);
+        liveSlides = this.pager.getItemsInChunk(current) || [],
+        newSlides = this.pager.getItemsInChunk(page) || [];
 
     //
     //hide currently live slide
     //
-    for (i in liveSlides) {
+    for (i = 0; i < liveSlides.length; i++) {
       this.conf.jq('[data-slide="' + liveSlides[i] + '"]',
           this.conf.slider).hide();
     }
@@ -847,7 +1031,7 @@
     //load slides onto grid
     //
     i = 0;
-    for (i in newSlides) {
+    for (i = 0; i< newSlides.length; i++) {
       $slide = this.conf.jq('[data-slide="' + newSlides[i] + '"]',
           this.conf.slider);
 
@@ -860,13 +1044,8 @@
     //let user know they're at one end or another
     this.warnBoundaryPage();
 
-    //
-    //update hash for our user
-    //
-    if (this.conf.current == null) {
-      //viewer is closed, appropriate to update #page/x
-      window.document.location.hash = 'page/' + (this.conf.currentPage + 1);
-    }
+    //viewer is closed, appropriate to update #page/x
+    this.url.setPath('page', (this.conf.currentPage + 1));
   }
 
   /**
@@ -921,13 +1100,11 @@
     var lastPage = this.pageNumber(this.conf.images.length - 1);
 
     //give some feedback if we're currently at our boudnaries
-    if (this.conf.currentPage == lastPage || this.conf.currentPage == 0) {
-      if (this.conf.currentPage == 0) {
-        this.conf.jq(this.conf.prevButton, this.conf.jqc).addClass('disabled');
-      }
-      else {
-        this.conf.jq(this.conf.nextButton, this.conf.jqc).addClass('disabled');
-      }
+    if (this.conf.currentPage === 0) {
+      this.conf.jq(this.conf.prevButton, this.conf.jqc).addClass('disabled');
+    }
+    else if (this.conf.currentPage == lastPage) {
+      this.conf.jq(this.conf.nextButton, this.conf.jqc).addClass('disabled');
     }
     else {
       this.conf.jq(this.conf.prevButton, this.conf.jqc).removeClass('disabled');
@@ -956,7 +1133,7 @@
     warn = (typeof(warn) == 'undefined')? true : warn;
 
     // only if input is sane
-    if (!this.paging.isValidChunk(page)) {
+    if (!this.pager.isValidChunk(page)) {
       if (warn) {
         this.warnOutOfBounds(this.conf.slider, ((page < 0)? 'low' : 'high'));
       }
