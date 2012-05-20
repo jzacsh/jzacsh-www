@@ -156,7 +156,7 @@
     var pathRegex;
     this.regex = {};
     for (var i = 0; i < paths.length; i++) {
-      pathRegex = '/^#' + paths[i] + '\/(\d+)$/';
+      pathRegex = '^#' + paths[i] + '\/(\d+)$';
       this.regex[paths[i]] = new RegExp(pathRegex);
     }
 
@@ -346,7 +346,7 @@
    *   for 'config'-specific slides.
    *   @see this.initConfig's definition of this.conf
    */
-  global.Slides = function (config) {
+  Slides = function (config) {
     this.url = new ClientURL(['slide', 'page']);
 
     //intialize config
