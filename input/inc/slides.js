@@ -1,16 +1,105 @@
 /**
- * @file: slide-show and grid-display manager.
+ * @file: Slide show and grid-display manager.
  */
 
-(function() {
+/**
+ * Closure defining the following two classes:
+ *   - PagingMeta: basic utility to manage all of the logic for paging
+ *   correctly in a single place.
+ *   - Slides: the actual slide show utility, which builds its own
+ *   grid-display. Slides is attached to global scope that's passed in.
+ */
+(function(global, window) {
   /**
-   * Constructor.
+   * Calculate basic Table of Contents for a set of items, where the two provided
+   * knowns are the number of items and the size of chunk when viewing the items.
    *
-   * @param [Object] config
+   * @constructor
+   *
+   * @param {int} [setSize]
+   *   The number of items that will be paged through.
+   * @param {int} [chunkSize]
+   *   The maximum preferred size of a chunk of the items being viewed.
+   * @return {PagingMeta}
+   *   - setSize: [setSize]
+   *   - chunkSize: [chunkSize]
+   *   - numOfChunks: number of chunks our set will be broken into
+   *   - lastChunkSize: number of items that will apprea in the last chunk
+   *   - chunks: assuming [setSize] is the length of some array, this
+   *   will be an array representing each chunk, in sequence, containing the
+   *   array indexes from our set, that a given chunk will contain.
+   */
+  var PagingMeta = function (setSize, chunkSize) {
+    var self = this;
+
+    this.setSize = setSize;
+    this.chunkSize = chunkSize;
+    this.numOfChunks = Math.ceil(setSize / chunkSize);
+    this.lastChunkSize = setSize % chunkSize || chunkSize;
+    this.chunks = (function () {
+      var indexes = [];
+
+      var from = 0,
+          chunk = 0,
+          getTo = function() { return from + self.chunkSize - 1; };
+      for (from = 0; from < self.setSize; from += (self.chunkSize)) {
+        to = getTo();
+
+        indexes[chunk] = { from: from, to: to };
+
+        for (var n = from; (n < to && n < self.setSize); n++) {
+          indexes[chunk][n] = true;
+        }
+
+        ++chunk;
+      }
+
+      return indexes;
+    })();
+
+    return this;
+  }
+
+  /**
+   * Determine which chunk should contain a given item in our set.
+   *
+   * @param {int|bool} [index]
+   *   The numeric index of the item out of the set this.setSize represents, for
+   *   which we'd like to know the containing chunk. False if [index] is not
+   *   within this.setSize.
+   */
+  PagingMeta.prototype.getContainingChunk = function (index) {
+    var self = this;
+    // sanity check:
+    if (typeof index != 'number' || !(index >= 0 && index <= this.setSize)) {
+      return false;
+    }
+    index = Math.floor(index);
+
+    for (var i = 0; i < this.chunks.length; i++) {
+      if (this.chunks[i].hasOwnProperty(index)) {
+        return i;
+      }
+    }
+
+    //@TODO(zacsh) fix me, this is actually returning!
+    console.error("Warning: bug found in PagingMeta.getContainingChunk," +
+        " couldn't find chunk within this.chunks. Report: setSize=%d," +
+        " chunkSize=%d, index=%d.\n", this.setSize, this.chunkSize, index);
+  }
+
+
+  /////////////////////////////////////////////////////////////////////////////
+
+
+  /**
+   * @constructor
+   *
+   * @param {Object} [config]
    *   for 'config'-specific slides.
    *   @see this.initConfig's definition of this.conf
    */
-  window.Slides = function (config) {
+  global.Slides = function (config) {
     //some constants
     this.regex = {
       slideHash: /^#slide\/(\d+)$/,
@@ -58,7 +147,7 @@
     this.conf = {
       slider: self.conf.slider || null,
       images: self.conf.images || null,
-      pageSize: self.conf.pageSize || 3,
+      pager: new PagingMeta(self.conf.images.length, (self.conf.pageSize || 3)),
       current: self.conf.current || null,
       currentPage: (function () {
         if (!self.conf.currentPage && self.conf.currentPage !== 0) {
@@ -323,7 +412,7 @@
    */
   Slides.prototype.getSlideMarkup = function (index, preload) {
     var slide = '';
-    var page = this.pageNumber(index);
+    var page = this.conf.pager.getContainingChunk(index);
 
     //build our markup
     slide += '<' + this.conf.slideTag;
@@ -341,7 +430,7 @@
   }
 
   /**
-   * Get the page number for the proposed index.
+   * Get the page number for a given image index.
    */
   Slides.prototype.pageNumber = function (index) {
     if (!index && index !== 0) {
@@ -896,5 +985,5 @@
 
     return this;
   }
-})()
+})(this, window)
 
