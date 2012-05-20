@@ -156,12 +156,12 @@
     var pathRegex;
     this.regex = {};
     for (var i = 0; i < paths.length; i++) {
-      pathRegex = '^#' + paths[i] + '\/(\d+)$';
+      pathRegex = '^#' + paths[i] + '\\/(\\d+)$';
       this.regex[paths[i]] = new RegExp(pathRegex);
     }
 
     // ensure getCurrent() runs correctly
-    this._lastRun = this.hash + '_neverRun';
+    this._lastRun = this.loc.hash + '_neverRun';
 
     return this;
   }
@@ -172,7 +172,7 @@
    * @return {ClientURL} this
    */
   ClientURL.prototype.clear = function (path) {
-    this.hash = '';
+    this.loch.hash = '';
     return this;
   }
 
@@ -193,7 +193,7 @@
     var self = this;
 
     // check our cache, first
-    if (this._lastRun != this.hash) {
+    if (this._lastRun != this.loc.hash) {
       var current = {
         invalid: false,
         path: null,
@@ -328,7 +328,7 @@
    */
   ClientURL.prototype.setPath = function (path, req) {
     if (this.isValidReq(path, req)) {
-      this.hash = path + '/' + req;
+      this.loc.hash = path + '/' + req;
       // emit an event here?
       return this;
     }
