@@ -1,6 +1,13 @@
 /**
  * @file: Slide show and grid-display manager.
  *
+ * @TODO(zacsh) refactor, abstract conf.current and conf.currentPage:
+ *   Currently ClientURL and conf.current{,Page} are separate entities, they
+ *   should be managed via a single API that keeps both conf.pager and
+ *   conf.current* up to date in a reliable manner.
+ * @TODO(zacsh) fix initialization of slide/# page/# on load:
+ *   Once the above TODO is done, address this one, making sure initial load
+ *   of the correct slide/page is correctly executed.
  * @TODO(zacsh) emit events at critical points:
  *   This will allow easy extension of many things (eg.: pulling the grid
  *   management into a separate class, that simply inspects and accepts an
