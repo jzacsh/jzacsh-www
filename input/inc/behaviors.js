@@ -201,7 +201,7 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
       slider: $sliderjs,
       images: compileSlides(json),
       context: c,
-      pageSize: 6,
+      pageSize: 9,
       filmStrip: '#filmstrip',
       nextButton: '#next-page',
       prevButton: '#prev-page'
