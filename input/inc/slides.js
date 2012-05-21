@@ -229,13 +229,13 @@
       if (typeof this.loc.hash == 'undefined') {
         // trim superfluous slashes
         this.loc.hash = (function () {
-          var leading = self.hash.match(/^\/*(.+)/);
+          var leading = self.loc.hash.match(/^\/*(.+)/);
           if (leading) {
-            self.hash = leading.pop();
+            self.loc.hash = leading.pop();
           }
-          var trailing = self.hash.match(/(.+)\/+$/);
+          var trailing = self.loc.hash.match(/(.+)\/+$/);
           if (trailing) {
-            self.hash = trailing.pop();
+            self.loc.hash = trailing.pop();
           }
         })();
 
