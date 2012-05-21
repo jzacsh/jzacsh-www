@@ -12,14 +12,14 @@
  */
 
 /**
- * Closure defining the following two classes:
- *   - Pager: basic utility to manage all of the logic for paging
- *   correctly in a single place.
- *   - ClientURL: basic utility to manage and interface with
- *   window.document.location.hash, keeping all the pass-traversing logic in a
- *   single place.
- *   - Slides: the actual slide show utility, which builds its own
- *   grid-display. Slides is attached to global scope that's passed in.
+ * Closure defining Slides for global use and private classes for internal use.
+ *   - Slides: Public class for Slide shows, which builds its own grid-display.
+ *     Slides is attached to global scope that's passed in.
+ *   - Pager: Private class to manage all of the logic for paging correctly in
+ *     a single place.
+ *   - ClientURL: Private class to manage and interface with
+ *     window.document.location.hash, keeping all the pass-traversing logic in
+ *     a single place.
  */
 (function(global, window) {
   /**
