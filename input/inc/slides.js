@@ -7,7 +7,10 @@
  *   conf.current* up to date in a reliable manner.
  * @TODO(zacsh) fix initialization of slide/# page/# on load:
  *   Once the above TODO is done, address this one, making sure initial load
- *   of the correct slide/page is correctly executed.
+ *   of the correct slide/page is correctly executed. Specifically, I'm not
+ *   sure that management of 0-based to 1-based indexing (to interface with
+ *   user requests) was ever considered during refactor in Paging_Refactor
+ *   branch.
  * @TODO(zacsh) emit events at critical points:
  *   This will allow easy extension of many things (eg.: pulling the grid
  *   management into a separate class, that simply inspects and accepts an
