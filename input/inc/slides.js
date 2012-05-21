@@ -368,12 +368,11 @@
     return false;
   }
 
-
-  /////////////////////////////////////////////////////////////////////////////
-
-
   /**
-   * @constructor
+   * Slides. For a given set of images as defined in [config]: grid management,
+   * slide viewing modals, "paging" UI to navigate, DOM modification, and
+   * sufficient abstraction to allow for things to be built/executed very
+   * differently.
    *
    * @param {Object} [config]
    *   Configuration for Slides instance, requiring only a few items but taking
@@ -412,6 +411,7 @@
    *   - jqc: Optional. The context parameter that should be used when calling
    *     jQuery self.conf.context, defaults to window.document.
    *   @see {Slides}.initConfig and {Slides} constructor
+   * @constructor
    */
   Slides = function (config) {
     // initialize private utilities
