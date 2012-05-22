@@ -161,8 +161,8 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
         for (var n in dex.files[i][listing]) {
           imgPath = dex.files[i][listing][n];
           imgName = $.trim(imgPath
-            //get just the file name //@TODO: fix this regex \.
-            .replace(/^\/.*\/.*\/(.*).[pn|jpe?|sv]g$/i,
+            //get just the file name
+            .replace(/^\/.*\/.*\/(.*)\.[pn|jpe?|sv]+g$/i,
               "$1")
             //strip out file-name conventions
             .replace(/[_-]/g, ' ')
