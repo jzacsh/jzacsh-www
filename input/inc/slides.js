@@ -36,9 +36,9 @@
    * Calculate basic Table of Contents for a set of items, where the two provided
    * knowns are the number of items and the size of chunk when viewing the items.
    *
-   * @param {int} [setSize]
+   * @param {number} [setSize]
    *   The number of items that will be paged through.
-   * @param {int} [chunkSize]
+   * @param {number} [chunkSize]
    *   The maximum preferred size of a chunk of the items being viewed.
    * @return {Pager}
    *   - setSize: [setSize]
@@ -88,11 +88,11 @@
   /**
    * Determine which chunk should contain a given item in our set.
    *
-   * @param {int} [item]
+   * @param {number} [item]
    *   The numeric index of the item out of the set this.setSize represents, for
    *   which we'd like to know the containing chunk. False if [index] is not
    *   within this.setSize.
-   * @param {int|bool}
+   * @param {int|boolean}
    *   The numeric index representing which chunk will contain [item], or false
    *   if this.isValidItem fails.
    *   @see this.isValidItem
@@ -119,8 +119,8 @@
    * Determine if the proposed numeric index, [item], representing an item
    * within our paged set of items is possible.
    *
-   * @param {int} [item]
-   * @return {bool}
+   * @param {number} [item]
+   * @return {boolean}
    */
   Pager.prototype.isValidItem = function (item) {
     item = parseInt(item, 10);
@@ -130,7 +130,7 @@
   /**
    * Determine if [chunk] exists within our proposed set.
    *
-   * @param {int} chunk
+   * @param {number} chunk
    */
   Pager.prototype.isValidChunk = function (chunk) {
     chunk = parseInt(chunk, 10);
@@ -144,7 +144,7 @@
   /**
    * Return an Array of representing items a given chunk contains.
    *
-   * @return {Array|bool} items
+   * @return {Array|boolean} items
    *   False, if chunk is invalid.
    */
   Pager.prototype.getItemsInChunk = function (chunk) {
@@ -210,10 +210,10 @@
    *   requested something we're not configured to parse. Otherwise, an object
    *   with the following contents:
    *   - {string} [path]: the path the user is making a request on.
-   *   - {int} [req]: the actual argument the user is requesting from this path.
-   *   - {bool} [valid]: if the user's current request is valid according to
+   *   - {number} [req]: the actual argument the user is requesting from this path.
+   *   - {boolean} [valid]: if the user's current request is valid according to
    *   this ClientURL instantiation.
-   *   - {bool} [invalid]: opposite of valid
+   *   - {boolean} [invalid]: opposite of valid
    */
   ClientURL.prototype.getCurrent = function () {
     var self = this;
@@ -302,7 +302,7 @@
    * Determine if the current instantiation allows for path, [path].
    *
    * @param {string} [path]
-   * @return {bool}
+   * @return {boolean}
    */
   ClientURL.prototype.isValidPath = function (path) {
     return this.regex.hasOwnProperty(path);
@@ -314,7 +314,7 @@
    *
    * @param {string} [path]
    * @param {string} [req]
-   * @return {bool}
+   * @return {boolean}
    */
   ClientURL.prototype.isValidReq = function (path, req) {
     if (this.isValidPath(path)) {
@@ -354,9 +354,9 @@
    * @param {string} [path]
    *   A valid [path] that corresponds to something ClientURL was instantiated
    *   with.
-   * @param {int} [req]
+   * @param {number} [req]
    *   A valid request argument to [path].
-   * @return {ClientURL|bool}
+   * @return {ClientURL|boolean}
    *   false if the requested setPath call would result in an invalid request.
    */
   ClientURL.prototype.setPath = function (path, req) {
@@ -663,9 +663,9 @@
    *
    * @see this.viewerStyles().
    *
-   * @param <int> page
+   * @param {number} page
    *   Numeric index of the page of slides to be pre-loaded.
-   * @param <boolean> buffer
+   * @param {boolean} buffer
    *   Indicates if immediately surrounding pages should be pre-loaded as well.
    *   This is recommended, so transitions to new pages do not result in
    *   dimension-less placement of an image in its view. Defaults to true.
@@ -969,9 +969,9 @@
    *
    * @see this.conf
    *
-   * @param <int> index
+   * @param {number} index
    *   The slide index for which markup should be built.
-   * @param <string> styles
+   * @param {string} styles
    *   Optional [style] attribute markup that should be used for the toolbar's
    *   outter-most div.
    */
@@ -1018,7 +1018,7 @@
    * Update our previously (@see this.initGrid) created DOM node with image
    * index, [index].
    *
-   * @param {int} [index]
+   * @param {number} [index]
    *   The numeric 0-based index of the image that should  be placed in view.
    * @return {Slides} [this]
    */
@@ -1221,12 +1221,12 @@
    *
    * @see Pager.isValidChunk
    *
-   * @param {int} [page]
+   * @param {number} [page]
    *   Zero-based index of the page number slides are requested for.
-   * @param {null|bool} [warn=true]
+   * @param {null|boolean} [warn=true]
    *   Optionally indicate that we should go so far as to trigger warnings, if
    *   [page] is out of bounds.
-   * @return {bool}
+   * @return {boolean}
    */
   Slides.prototype.checkPageBounds = function (page, warn) {
     // defaults
