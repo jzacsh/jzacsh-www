@@ -750,8 +750,6 @@
       return null;
     }
 
-;
-
     var page = Math.floor(index / this.conf.pageSize);
     if (index % this.conf.pageSize) {
       ++page;
