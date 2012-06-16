@@ -1162,7 +1162,7 @@
    * Determine if the proposed slide index is within our bounds.
    */
   Slides.prototype.checkViewerBounds = function (index, warn) {
-    warn = (typeof(warn) == 'undefined')? true : warn;
+    warn = warn === undefined? true : warn;
 
     if (index > (this.conf.images.length - 1) || index < 0) {
       var $viewer = this.conf.jq('#' + this.conf.IDs.viewer, this.conf.jqc);
@@ -1188,10 +1188,18 @@
    * Modify the dom by adding a few classes to let our user know they've
    * reached out of their bounds in some way.
    *
+   * @param {Object} [boundedBy]
+   *   jQuery selection of the node to call .addClass on and allow front-end
+   *   inidication of an out-of-bounds error.
+   * @param {number} [limit]
+   *   The numeric bound that was reached.
+   * @param {number} [warnIn]
+   *   Optional timeout in milliseconds to show warning for. Defaults to 1500.
+   *   @see window.setTimeout
    * @return {Slides} [this]
    */
-  Slides.prototype.warnOutOfBounds = function (boundedBy, limit, warning) {
-    warning = (warning = parseInt(warning, 10)) == NaN? 1500 : warning;
+  Slides.prototype.warnOutOfBounds = function (boundedBy, limit, warnIn) {
+    warnIn = (warnIn = parseInt(warnIn, 10)) == NaN? 1500 : warnIn;
 
     boundedBy.addClass('reach');
     boundedBy.addClass('reached-' + limit);
@@ -1199,7 +1207,7 @@
         boundedBy
           .removeClass('reach')
           .removeClass('reached-' + limit);
-    }, warning);
+    }, warnIn);
 
     return this;
   }
