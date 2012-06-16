@@ -1099,51 +1099,62 @@
    *   before this method was called). Defaults to
    *   this.pager.getContainingChunk(this.conf.current)
    *   @see this.setCurrent for example use-case.
+   * @return {boolean}
+   *   Success.
    */
   Slides.prototype.setPage = function (page, current) {
-    current = (typeof(current) == 'undefined')?
+    current = current === undefined?
       this.pager.getContainingChunk(this.conf.current) : current;
-    if (this.checkPageBounds(page)) {
-    }
-    else {
+    if (!this.checkPageBounds(page)) {
       return false;
     }
 
-    var i = 0, $slide,
-        liveSlides = this.pager.getItemsInChunk(current) || [],
-        newSlides = this.pager.getItemsInChunk(page) || [];
+    // Hide currently live slide
+    this.unLoadGridForPage(current);
 
-    //
-    //hide currently live slide
-    //
-    for (i = 0; i < liveSlides.length; i++) {
-      this.conf.jq('[data-slide="' + liveSlides[i] + '"]',
-          this.conf.slider).hide();
-    }
-
-    //preload our new page of slides
+    // Preload our new page of slides
     this.preLoadPage(page);
 
-    //
-    //load slides onto grid
-    //
-    i = 0;
-    for (i = 0; i< newSlides.length; i++) {
-      $slide = this.conf.jq('[data-slide="' + newSlides[i] + '"]',
-          this.conf.slider);
-
-      if (!$slide.children('img').length) {
-        $slide.append(this.getImgTag(newSlides[i]));
-      }
-      $slide.show();
-    }
-
-    //let user know they're at one end or another
-    this.warnBoundaryPage();
+    // Load slides onto grid
+    this.loadGridForPage(page);
 
     //viewer is closed, appropriate to update #page/x
     if (this.conf.current === null) {
       this.url.setPath('page', (this.pager.getContainingChunk(this.conf.current) + 1));
+    }
+
+    return true;
+  }
+
+  /**
+   * Load slides onto grid for a given page number, [page].
+   *
+   * @param {number} [page]
+   */
+  Slides.prototype.loadGridForPage = function (page) {
+    var slides = this.pager.getItemsInChunk(page),
+        $slideNode;
+    for (var i = 0; i < slides.length; i++) {
+      $slideNode = this.conf.jq('[data-slide="' + slides[i] + '"]',
+          this.conf.slider);
+
+      if (!$slideNode.children('img').length) {
+        $slideNode.append(this.getImgTag(slides[i]));
+      }
+      $slideNode.show();
+    }
+  }
+
+  /**
+   * Un load slides from grid for a given page number, [page].
+   *
+   * @param {number} [page]
+   */
+  Slides.prototype.unLoadGridForPage = function (page) {
+    var slides = this.pager.getItemsInChunk(page);
+    for (var i = 0; i < slides.length; i++) {
+      this.conf.jq('[data-slide="' + slides[i] + '"]',
+          this.conf.slider).hide();
     }
   }
 
