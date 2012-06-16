@@ -1180,7 +1180,7 @@
    * @return {Slides} [this]
    */
   Slides.prototype.warnOutOfBounds = function (boundedBy, limit, warning) {
-    warning = parseInt(warning, 10)? warning : 1500;
+    warning = (warning = parseInt(warning, 10)) == NaN? 1500 : warning;
 
     boundedBy.addClass('reach');
     boundedBy.addClass('reached-' + limit);
@@ -1233,8 +1233,7 @@
    * @return {boolean}
    */
   Slides.prototype.checkPageBounds = function (page, warn) {
-    // defaults
-    warn = (typeof(warn) == 'undefined')? true : warn;
+    warn = warn !== false;
 
     // only if input is sane
     if (!this.pager.isValidChunk(page)) {
@@ -1252,7 +1251,7 @@
    * @return {Slides} [this]
    */
   Slides.prototype.next = function () {
-    this.view((this.conf.current * 1 /*current === null, we want zero*/) + 1);
+    this.view(this.conf.current + 1);
     return this;
   }
 
@@ -1273,7 +1272,7 @@
    * @return {Slides} [this]
    */
   Slides.prototype.previous = function () {
-    this.view((this.conf.current * 1 /*current === null, we want zero*/) - 1);
+    this.view(this.conf.current - 1);
     return this;
   }
 
