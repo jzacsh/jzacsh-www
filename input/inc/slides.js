@@ -36,6 +36,11 @@
    * Calculate basic Table of Contents for a set of items, where the two provided
    * knowns are the number of items and the size of chunk when viewing the items.
    *
+   * @note Certain methods are noted as having their response cached
+   * internally. This is to allow a high number of calls to the method and
+   * avoid extenal buggy caching of results. Specifically, you should try
+   * always to infer your results from the data you're calling with.
+   *
    * @param {number} [setSize]
    *   The number of items that will be paged through.
    * @param {number} [chunkSize]
@@ -88,6 +93,8 @@
   /**
    * Determine which chunk should contain a given item in our set.
    *
+   * @note Response is cached.
+   *
    * @param {number} [item]
    *   The numeric index of the item out of the set this.setSize represents, for
    *   which we'd like to know the containing chunk. False if [index] is not
@@ -96,23 +103,34 @@
    *   The numeric index representing which chunk will contain [item], or false
    *   if this.isValidItem fails.
    *   @see this.isValidItem
+   * @param {boolean=false} [bypassCache]
+   *   Optional flag to bypass internal caching. Defaults to false.
    */
-  Pager.prototype.getContainingChunk = function (item) {
-    var self = this;
-    if (!this.isValidItem(item)) {
-      return false;
-    }
-    item = Math.floor(item);
+  Pager.prototype.getContainingChunk = function (item, bypassCache) {
+    bypassCache = bypassCache === true;
+    this._cacheContainingChunk = this._cacheContainingChunk || [];
 
-    for (var i = 0; i < this.chunks.length; i++) {
-      if (this.chunks[i].hasOwnProperty(item)) {
-        return i;
+    if (bypassCache || typeof this._cacheContainingChunk[item] != 'number') {
+      if (this.isValidItem(item)) {
+        item = Math.floor(item);
+
+        for (var i = 0; i < this.chunks.length; i++) {
+          if (this.chunks[i].hasOwnProperty(item)) {
+            this._cacheContainingChunk[item] = i;
+          }
+        }
+      } else {
+        this._cacheContainingChunk[item] = false;
       }
     }
 
-    console.error("Warning: bug found in Pager.getContainingChunk," +
-        " couldn't find chunk within this.chunks. Report: setSize=%d," +
-        " chunkSize=%d, item=%d.\n", this.setSize, this.chunkSize, item);
+    if (this._cacheContainingChunk[item] === undefined) {
+      console.error("Warning: bug found in Pager.getContainingChunk," +
+          " couldn't find chunk within this.chunks. Report: setSize=%d," +
+          " chunkSize=%d, item=%d.\n", this.setSize, this.chunkSize, item);
+    }
+
+    return this._cacheContainingChunk[item];
   }
 
   /**
@@ -144,20 +162,29 @@
   /**
    * Return an Array of representing items a given chunk contains.
    *
+   * @note Response is cached.
+   *
    * @return {Array|boolean} items
    *   False, if chunk is invalid.
+   * @param {boolean=false} [bypassCache]
+   *   Optional flag to bypass internal caching. Defaults to false.
    */
-  Pager.prototype.getItemsInChunk = function (chunk) {
-    // sanity check
-    if (!this.isValidChunk(chunk)) {
-      return false;
+  Pager.prototype.getItemsInChunk = function (chunk, bypassCache) {
+    bypassCache = bypassCache === true;
+    this._cachedItemsInChunk = this._cachedItemsInChunk || [];
+    if (bypassCache || this._cachedItemsInChunk[chunk] === undefined) {
+      // sanity check
+      if (this.isValidChunk(chunk)) {
+        var items = [];
+        for (var i = this.chunks[chunk].from; i <= this.chunks[chunk].to; i++) {
+          items.push(i);
+        }
+        this._cachedItemsInChunk[chunk] = items;
+      } else {
+        this._cachedItemsInChunk[chunk] = false;
+      }
     }
-
-    var items = [];
-    for (var i = this.chunks[chunk].from; i <= this.chunks[chunk].to; i++) {
-      items.push(i);
-    }
-    return items;
+    return this._cachedItemsInChunk[chunk];
   }
 
   /**
@@ -391,10 +418,11 @@
    *        // intent (eg.: "medium", "small", "large").
    *        // @note: currently only "medium" is implemented, and no way of
    *        // extending this behavior for new keys has been thought of.
-   *   - currentPage: Optional. Defaults to the page containing the current
-   *     slide being viewed, or 0.
-   *     @note requests specified via document.location.hash URL take
+   *   - current: Optional object to specify the initial slide to load.
+   *     @note Requests specified via document.location.hash URL take
    *     precedence over this option.
+   *   - page: Optional. Defaults naturally to the page of the `current` slide.
+   *     @note If specified, the `current` option takes precedence.
    *   - slideTag: Optional. The DOM nodeType that should be used to wrap each
    *     slide image node. Defaults to 'span'.
    *   - viewerToolbarMarkup: self.conf.viewerToolbarMarkup || null,
@@ -440,17 +468,6 @@
     var self = this;
 
     //
-    // End-user's GET request takes highest priority
-    //
-    config.current = this.url.getPath('slide') || null;
-    if (!config.current) {
-      config.currentPage = (function(conf) {
-        var userSays = self.url.getPath('page');
-        return typeof userSays == 'number'? userSays : conf;
-      })(config.currentPage);
-    }
-
-    //
     // Load API caller's configuration
     //
     this.conf = config || {};
@@ -461,18 +478,37 @@
     this.conf = {
       slider: self.conf.slider || null,
       images: self.conf.images || null,
-      current: self.conf.current || null,
-      currentPage: (function () {
-        if (self.pager.isValidChunk(self.conf.currentPage)) {
-          return self.conf.currentPage;
+
+      /* (Non-JsDoc)
+       * End-user's GET requests take highest priority, then config. Within
+       * those, slide-specific settings take highest priority, then
+       * page-specific.
+       */
+      current: (function () {
+        var _current = self.conf.current,
+            _GETslide = self.url.getPath('slide'),
+            _GETpage = self.url.getPath('page');
+        if (typeof _GETslide == 'number') {
+          _current = _GETslide;
         }
-        else {
-          return self.pager.getContainingChunk(self.conf.current || 0);
+        else if (typeof _GETpage == 'number') {
+          _current = self.pager.getItemsInChunk(_GETpage).shift();
         }
+        else if (typeof config.current != 'number' &&
+          typeof self.conf.page == 'number') {
+          _current = self.pager.getItemsInChunk(self.conf.page).shift();
+        }
+
+        // We don't actually keep track of this internally, we always infer our
+        // page via our slide-number.
+        delete self.conf.page;
+
+        // Default to the first slide
+        return _current === undefined? 0 : _current;
       })(),
       slideTag: self.conf.slideTag || 'span',
 
-      //@TODO(zacsh) code, then document this feature on Slides doxygen:
+      //@TODO(zacsh) code, then document this feature on Slides jsdoc:
       filmStrip: self.conf.filmStrip || false,
 
       viewerToolbarMarkup: self.conf.viewerToolbarMarkup || null,
@@ -506,23 +542,6 @@
       throw e;
     }
 
-    // Check the user's requested-page number.
-    if (!this.checkPageBounds(this.conf.currentPage)) {
-      var lastPage = this.pager.getContainingChunk(this.pager.setSize - 1);
-
-      if (this.url.getCurrent().invalid) {
-        // user GET-requested a non-sensical page number (eg.: negative, or not
-        // an int).
-        this.conf.currentPage = 0;
-        this.url.clear();
-      }
-      else if (this.url.getPath('page') > lastPage) {
-        // user request was too high, adjust it to maximum
-        this.conf.currentPage = lastPage;
-        this.url.setPath('page', (lastPage + 1));
-      }
-    }
-
     // Let user know if they've reached an outer limit.
     this.warnBoundaryPage();
   }
@@ -541,16 +560,17 @@
       return this;
     }
 
-    //pre load images to enable dimension-based placement in the browser
-    this.preLoadPage(this.conf.currentPage);
+    // Pre-load images to enable dimension-based placement in the browser
+    this.preLoadPage(this.pager.getContainingChunk(this.conf.current));
 
     //build the slides, configured for the correct page
-    for (var i = 0; i< this.conf.images.length; i++) {
+    for (var i = 0; i < this.conf.images.length; i++) {
       //get our slide markup
       $slide = this.conf.jq(this.getSlideMarkup(i));
 
       //hide it if it's out of view
-      if ($slide.attr('data-page') != this.conf.currentPage) {
+      if ($slide.attr('data-page') !=
+          this.pager.getContainingChunk(this.conf.current)) {
         $slide.hide();
       }
 
@@ -671,18 +691,18 @@
    *   dimension-less placement of an image in its view. Defaults to true.
    */
   Slides.prototype.preLoadPage = function (page, buffer) {
-    buffer = (typeof(buffer) == 'undefined')? true : buffer;
+    buffer = buffer === undefined? true : buffer;
     page = parseInt(page, 10);
 
     //store all pre-loaded images in this.pre
-    this.pre = this.pre || (new Array(this.conf.images.length));
+    this.pre = this.pre || new Array(this.conf.images.length);
 
     var self = this, i;
     /**
      * Preload a given slide number.
      */
     var preLoad = function (index) {
-      if (typeof(self.pre[index]) == 'undefined') {
+      if (self.pre[index] === undefined) {
         var $img = self.conf.jq(self.getImgTag(index, 'medium'));
         self.pre[index] = $img.get(0);
       }
@@ -691,7 +711,7 @@
     //
     //pre-load our current page's images.
     //
-    var currentSlides = this.pager.getItemsInChunk(this.conf.currentPage);
+    var currentSlides = this.pager.getItemsInChunk(this.pager.getContainingChunk(this.conf.current));
     for (i in currentSlides) {
       preLoad(currentSlides[i]);
     }
@@ -701,7 +721,7 @@
     //
     if (buffer) {
       //second most likely place for our user to go.
-      var next = this.conf.currentPage + 1;
+      var next = this.pager.getContainingChunk(this.conf.current) + 1;
       if (this.checkPageBounds(next, false)) {
         var nextSlides = this.pager.getItemsInChunk(next);
         for (i in nextSlides) {
@@ -710,7 +730,7 @@
       }
 
       //third most likely place for our user to go.
-      var prev = this.conf.currentPage - 1;
+      var prev = this.pager.getContainingChunk(this.conf.current) - 1;
       if (this.checkPageBounds(prev, false)) {
         var prevSlides = this.pager.getItemsInChunk(prev);
         for (i in prevSlides) {
@@ -734,7 +754,7 @@
     slide += ' data-slide="' + index + '"';
     slide += ' title="' + this.conf.images[index].name + '"';
     slide += '>';
-    if (page == this.conf.currentPage) {
+    if (page == this.pager.getContainingChunk(this.conf.current)) {
       slide += this.getImgTag(index);
     }
     slide += '</' + this.conf.slideTag + '>'
@@ -810,7 +830,8 @@
    */
   Slides.prototype.destroyViewer = function () {
     this.conf.current = null;
-    this.url.setPath('page', (this.conf.currentPage + 1));
+    this.url.setPath('page',
+        (this.pager.getContainingChunk(this.conf.current) + 1));
 
     this.breakModalLock();
     this.conf.jq('#' + this.conf.IDs.viewer + '', this.conf.jqc).remove();
@@ -897,8 +918,10 @@
 
     //calculate some image-dependent dimensions
     if (this.pre[index]) {
-      //@note this depends on this.preLoadPage() having run for
-      //this.conf.currentPage
+      /* (Non-JsDoc)
+       * @note this depends on this.preLoadPage() having run for the current
+       * page
+       */
       top = (this.conf.jq(window).height() - this.pre[index].naturalHeight) / 2;
       left = this.pre[index].naturalWidth / 2;
     }
@@ -1073,8 +1096,8 @@
     //update our page if necessary
     //
     var shouldBePage = this.pager.getContainingChunk(this.conf.current);
-    if (shouldBePage != this.conf.currentPage) {
-      this.setPage(shouldBePage, this.pager.getContainingChunk(live));
+    if (shouldBePage != this.pager.getContainingChunk(live)) {
+      this.setPage(shouldBePage, live);
     }
 
     return true;
@@ -1093,10 +1116,9 @@
    *   @see this.setCurrent for example use-case.
    */
   Slides.prototype.setPage = function (page, current) {
-    current = (typeof(current) == 'undefined')? this.pager.getContainingChunk(this.conf.current) : current;
+    current = (typeof(current) == 'undefined')?
+      this.pager.getContainingChunk(this.conf.current) : current;
     if (this.checkPageBounds(page)) {
-      //keep track of the new page
-      this.conf.currentPage = page;
     }
     else {
       return false;
@@ -1136,7 +1158,7 @@
 
     //viewer is closed, appropriate to update #page/x
     if (this.conf.current === null) {
-      this.url.setPath('page', (this.conf.currentPage + 1));
+      this.url.setPath('page', (this.pager.getContainingChunk(this.conf.current) + 1));
     }
   }
 
@@ -1196,10 +1218,11 @@
     var lastPage = this.pageNumber(this.conf.images.length - 1);
 
     //give some feedback if we're currently at our boudnaries
-    if (this.conf.currentPage === 0) {
+    var _livePage = this.pager.getContainingChunk(this.conf.current);
+    if (_livePage === 0) {
       this.conf.jq(this.conf.IDs.prev, this.conf.jqc).addClass('disabled');
     }
-    else if (this.conf.currentPage == lastPage) {
+    else if (_livePage == lastPage) {
       this.conf.jq(this.conf.IDs.next, this.conf.jqc).addClass('disabled');
     }
     else {
@@ -1254,8 +1277,8 @@
    * @return {Slides} [this]
    */
   Slides.prototype.nextPage = function () {
-    var current = parseInt(this.conf.currentPage, 10);
-    this.setPage(current + 1, current);
+    var _current = this.pager.getContainingChunk(this.conf.current);
+    this.setPage(_current + 1, _current);
     return this;
   }
 
@@ -1275,8 +1298,8 @@
    * @return {Slides} [this]
    */
   Slides.prototype.previousPage = function () {
-    var current = parseInt(this.conf.currentPage, 10);
-    this.setPage(current - 1, current);
+    var _current = this.pager.getContainingChunk(this.conf.current);
+    this.setPage(_current - 1, _current);
     return this;
   }
 
