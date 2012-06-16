@@ -1059,13 +1059,18 @@
   }
 
   /**
-   * Update the this.conf.current to a new index.
+   * Update the this.conf.current to a new index, [newIndex].
+   *
+   * @see this.setPage
+   * @param {number} [newIndex]
+   * @return {boolean}
+   *   Success.
    */
-  Slides.prototype.setCurrent = function (index) {
-    index = parseInt(index, 10)
+  Slides.prototype.setCurrent = function (newIndex) {
+    newIndex = parseInt(newIndex, 10)
     var live = this.conf.current;
-    if (this.pager.isValidItem(index) && this.checkViewerBounds(index)) {
-      this.conf.current = index;
+    if (this.pager.isValidItem(newIndex) && this.checkViewerBounds(newIndex)) {
+      this.conf.current = newIndex;
       this.url.setPath('slide', (this.conf.current + 1));
     }
     else {
