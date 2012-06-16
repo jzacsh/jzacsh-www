@@ -763,26 +763,6 @@
   }
 
   /**
-   * Get the page number for a given image index.
-   */
-  Slides.prototype.pageNumber = function (index) {
-    if (!index && index !== 0) {
-      return null;
-    }
-
-    var page = Math.floor(index / this.conf.pageSize);
-    if (index % this.conf.pageSize) {
-      ++page;
-
-      if (page != 0) {
-        page -= 1;
-      }
-    }
-
-    return page;
-  }
-
-  /**
    * Build the correct markup for a slide at index.
    */
   Slides.prototype.getImgTag = function (index, version) {
@@ -1215,7 +1195,7 @@
    * @return {Slides} [this]
    */
   Slides.prototype.warnBoundaryPage = function () {
-    var lastPage = this.pageNumber(this.conf.images.length - 1);
+    var lastPage = this.pager.getContainingChunk(this.conf.images.length - 1);
 
     //give some feedback if we're currently at our boudnaries
     var _livePage = this.pager.getContainingChunk(this.conf.current);
