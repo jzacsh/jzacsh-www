@@ -10,7 +10,7 @@ Secondarily, I want to become familiar with both Canvas and SVG, so I haven't
 bothered looking for any libraries that to this for me. I want to have all the
 fun to myself :)
 
-[code]: /inc/svgToCanvas.js
+[code]: /static/js/svgToCanvas.js
 
 ## <code>&lt;Canvas&gt;</code> where re-rendering will take place
 
@@ -28,7 +28,7 @@ Below the <code>[jzacsh.behaviors.svgRender][svgRender]()</code> script is actua
 attempting to slowly show/hide our embedded SVG data, to see what is possible
 without turning to the Canvas APIs.
 
-[svgRender]: /inc/behaviors.js
+[svgRender]: /static/js/behaviors.js
 
 <div class="avoid-markdown">
   <svg
