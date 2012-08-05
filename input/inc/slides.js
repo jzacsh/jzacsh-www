@@ -547,6 +547,13 @@
   }
 
   /**
+   * Only keep track of current slide or current page but never both at the
+   * same time.
+   */
+  Slides.prototype.initGrid = function () {
+  }
+
+  /**
    * Create necessary grid, DOM elements, and initialize event bindings as
    * necessary.
    */
@@ -1067,7 +1074,7 @@
    *   Success.
    */
   Slides.prototype.setCurrent = function (newIndex) {
-    newIndex = parseInt(newIndex, 10)
+    newIndex = parseInt(newIndex, 10);
     var live = this.conf.current;
     if (this.pager.isValidItem(newIndex) && this.checkViewerBounds(newIndex)) {
       this.conf.current = newIndex;
@@ -1080,9 +1087,10 @@
     //
     //update our page if necessary
     //
-    var shouldBePage = this.pager.getContainingChunk(this.conf.current);
-    if (shouldBePage != this.pager.getContainingChunk(live)) {
-      this.setPage(shouldBePage, live);
+    var shouldBePage = this.pager.getContainingChunk(this.conf.current),
+        livePage = this.pager.getContainingChunk(live);
+    if (shouldBePage != livePage) {
+      this.setPage(shouldBePage, livePage);
     }
 
     return true;
@@ -1152,6 +1160,7 @@
    */
   Slides.prototype.unLoadGridForPage = function (page) {
     var slides = this.pager.getItemsInChunk(page);
+    console.info(arguments, slides); //@TODO: remove me!!    
     for (var i = 0; i < slides.length; i++) {
       this.conf.jq('[data-slide="' + slides[i] + '"]',
           this.conf.slider).hide();
