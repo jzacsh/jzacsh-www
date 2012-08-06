@@ -9,7 +9,7 @@
  */
 
 jzacsh.data = jzacsh.data || {};
-jzacsh.content = 'http://content.jzacsh.com';
+jzacsh.content = 'http://art-cdn.jzacsh.com';
 
 /**
  * All behaviors should be defined here, or in other javascript files.
@@ -131,7 +131,7 @@ jzacsh.behaviors.svgRender = function (c) {
 }
 
 /**
- * Render SVG drawings from content.jzacsh.com/drawings via slider.js
+ * Render SVG drawings from art-cdn.jzacsh.com/ via slider.js
  */
 jzacsh.behaviors.sliderjsDrawings = function (c) {
   var $sliderjs = $('#sliderjs', c);
@@ -140,7 +140,7 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
   }
 
   var validListings = ['tablet', 'paper'],
-    uri = '/drawings/imagedex.json';
+    uri = '/imagedex.json';
 
   var compileSlides = function (dex) {
     var listing, imgPath, imgName, current, src, images = [];
@@ -183,12 +183,12 @@ jzacsh.behaviors.sliderjsDrawings = function (c) {
           src = current.src.replace(/svg$/i, 'png');
 
           //path to small images
-          images[images.length - 1].thumb = src.replace(/\/drawings\//,
-              '/scaled/drawings/small/');
+          images[images.length - 1].thumb = src.replace(/jzacsh\.com\//,
+              'jzacsh.com/scaled/small/');
 
           //path to medium images
-          images[images.length - 1].medium = src.replace(/\/drawings\//,
-              '/scaled/drawings/medium/');
+          images[images.length - 1].medium = src.replace(/jzacsh\.com\//,
+              'jzacsh.com/scaled/medium/');
         }
       }
     }
