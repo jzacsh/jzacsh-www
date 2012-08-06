@@ -8,66 +8,11 @@
  * I'm already doing with "bodyClass".
  */
 
+var jzacsh = jzacsh || {};
+jzacsh.behaviors = jzacsh.behaviors || {};
+
 jzacsh.data = jzacsh.data || {};
 jzacsh.content = 'http://art-cdn.jzacsh.com';
-
-/**
- * All behaviors should be defined here, or in other javascript files.
- */
-jzacsh.behaviors.beerAndTabbed = function (context) {
-  if (! $('body').hasClass('beerand')) {
-    return;
-  }
-
-  var $lists = $('body.beerand .list', context);
-
-  //create tabs
-  var $listing = $('#listing', context);
-  $lists.each(function () {
-    var list = $(this).attr('data-list');
-    var tab = '<span class="tab clickable" data-tab="'+ list +'">';
-    tab += list + '</span>';
-
-    $listing.append(tab);
-  });
-
-  //pick a default tab to show, based on possible hash tag
-  var defaultTab = (function () {
-    var legit = /^#([a-z]+)$/i;
-    if (document.location.hash.match(legit)) {
-      var proposed = document.location.hash.match(legit).pop(),
-        list = $('[data-list="' + proposed + '"]', context),
-        tab = $('[data-tab="' + proposed + '"]', context);
-      if ('length' in list && list.length > 0 &&
-        'length' in tab && tab.length > 0) {
-        return proposed;
-      }
-    }
-    return undefined;
-  })() || 'beer';
-
-  //bind to new tabs
-  $('.tab', $listing).click(function () {
-    var $this = $(this),
-      category = $this.attr('data-tab'),
-      requested = '[data-list="' + category + '"]';
-
-    //the tab
-    $this.addClass('active');
-    $('#listing .tab').not('[data-tab="'+ category +'"]')
-      .removeClass('active');
-
-    //the content
-    $lists.not(requested).removeClass('active');
-    $(requested).addClass('active');
-
-    //the url
-    document.location.hash = category;
-  });
-
-  $('body.beerand .list[data-list="' + defaultTab + '"]').addClass('active');
-  $('body.beerand #listing [data-tab="' + defaultTab + '"]').addClass('active');
-}
 
 /**
  * Read SVG data and re-render via canvas APIs.

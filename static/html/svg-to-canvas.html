@@ -1,18 +1,17 @@
-title: SVG=>Canvas
----
+<h1>SVG to Canvas Library</h1>
 
-# SVG to Canvas Library
+<p>
+  Playing with possibilities of re-rendering SVG via canvas API. See <a
+    href="/static/js/svgToCanvas.js">inline documentation</a> for reasoning and
+  thoughts behind the study. Primarily, this is out of a personal wish to
+  control the speed with which SVG files are rendered.  Secondarily, I want to
+  become familiar with both Canvas and SVG, so I haven't bothered looking for
+  any libraries that to this for me. I want to have all the fun to myself :)
+</p>
 
-Playing with possibilities of re-rendering SVG via canvas API. See [inline
-documentation][code] for reasoning and thoughts behind the study. Primarily, this is
-out of a personal wish to control the speed with which SVG files are rendered.
-Secondarily, I want to become familiar with both Canvas and SVG, so I haven't
-bothered looking for any libraries that to this for me. I want to have all the
-fun to myself :)
+[code]: 
 
-[code]: /static/js/svgToCanvas.js
-
-## <code>&lt;Canvas&gt;</code> where re-rendering will take place
+<h2><code>&lt;Canvas&gt;</code> where re-rendering will take place</h2>
 
 <div class="avoid-markdown">
   <canvas id="airspace" class="dev" width="500px" height="300px">
@@ -22,13 +21,14 @@ fun to myself :)
   </canvas>
 </div><!--//.avoid-markdown-->
 
-## Original <code>&lt;SVG&gt;</code> Image
+<h2>Original <code>&lt;SVG&gt;</code> Image</h2>
 
-Below the <code>[jzacsh.behaviors.svgRender][svgRender]()</code> script is actually
-attempting to slowly show/hide our embedded SVG data, to see what is possible
-without turning to the Canvas APIs.
-
-[svgRender]: /static/js/behaviors.js
+<p>
+  Below the <code><a
+      href="/static/js/behaviors.js">jzacsh.behaviors.svgRender</a></code> script
+  is actually attempting to slowly show/hide our embedded SVG data, to see what
+  is possible without turning to the Canvas APIs.
+</p>
 
 <div class="avoid-markdown">
   <svg

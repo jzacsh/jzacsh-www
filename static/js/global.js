@@ -15,14 +15,16 @@ jzacsh.jsEnabled = document.getElementsByTagName &&
  *
  * @note: I <3 Drupal
  */
-$(document).ready(function () {
-  var context = context || document;
+jzacsh.legacyCode = function() {
+  $(document).ready(function () {
+    var context = context || document;
+    jzacsh.behaviors = jzacsh.behaviors || {};
 
-  if (jzacsh.jsEnabled) {
-    // Execute all of them.
-    jQuery.each(jzacsh.behaviors, function() {
-      this(context);
-    });
-  }
-});
-
+    if (jzacsh.jsEnabled) {
+      // Execute all of them.
+      jQuery.each(jzacsh.behaviors, function() {
+        this(context);
+      });
+    }
+  });
+};

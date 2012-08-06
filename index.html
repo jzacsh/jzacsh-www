@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng:app>
+<html lang="en" ng:app="jzacshCom">
 <head>
   <meta charset="utf-8" />
   <meta name="description" content="Jonathan Zacsh's home page." />
@@ -17,10 +17,15 @@
 
   <title>Jonathan Zacsh</title>
 
+  <script type="text/javascript" src="/static/data/beer.js"></script>
+
+  <!-- @TODO(zacsh) remove this legacy code once fully ported to angular: -->
+  <script type="text/javascript" src="/static/js/behaviors.js"></script>
+  <script type="text/javascript" src="/static/js/global.js"></script>
+
   <!-- custom js -->
   <script type="text/javascript" src="/static/js/controllers.js"></script>
-  <script type="text/javascript" src="/static/js/global.js"></script>
-  <script type="text/javascript" src="/static/js/behaviors.js"></script>
+  <script type="text/javascript" src="/static/js/jzacsh.js"></script>
 
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -34,35 +39,12 @@
   </script>
 </head>
 
-<body ng:controller="jzacsh.MainPageCtrl">
-  <section>
-    <div id="banner">
-      <header>
-        <h1><abbr title="Jonathan Zacsh">jzacsh</abbr></h1>
-      </header>
+<body ng:controller="MainCtrl">
+  <hgroup id="banner" ng:include="partials.banner"></hgroup>
 
-      <nav id="menu" ng:repeat="page in subpages">
-        <a href="{{ page.url }}">{{ page.title }}</a>
-      </nav>
-    </div>
+  <!-- load partial templates, based on route -->
+  <section><ng:view></ng:view></section>
 
-    <ng:view></ng:view>
-  </section>
-
-  <footer>
-    <div class="elsewhere">
-      <span class="title"><span class="implied">Find me</span> elsewhere:</span>
-      <ul ng:repeat="ref in elsewhere">
-        <li ng:class="{ first: !$index, last: $index == (elsewhere.length - 1)}"
-            id="social-{{ref.name}}">
-          <a href="{{ref.url}}">{{ref.title}}</a>
-        </li>
-      </ul>
-    </div>
-
-    <p class="built-with">
-      Built using <a href="http://angularjs.org/">angular.js</a>
-    </p>
-  </footer>
+  <footer ng:include="partials.footer"></footer>
 </body>
 </html>

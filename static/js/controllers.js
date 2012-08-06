@@ -4,26 +4,52 @@
  */
 var jzacsh = jzacsh || {};
 
-jzacsh.MainPageCtrl = function($scope) {
+/* ng:include Banner */
+jzacsh.BannerCtrl = function($scope) {
   $scope.subpages = [
     { url: '/about', title: 'About'},
     { url: '/drawings', title: 'Drawings'}
   ];
 };
 
-//@TODO(zacsh): ng:include? ng:template? how should we approach footer?
-var _footer = function($scope) {
-  var elseLinks = function(name, url, title) {
-    return {
-      name: name,
-      url: url,
-      title: title? title : name,
+/* ng:include Footer */
+jzacsh.FooterCtrl = function($scope) {
+  $scope.elsewhere = (function() {
+    var elseLinks = function(name, url, title) {
+      return {
+        name: name,
+        url: url,
+        title: title? title : name,
+      };
     };
+    return [
+      elseLinks('google', 'http://profiles.google.com/jzacsh/about', 'google+'),
+      elseLinks('twitter', 'http://www.twitter.com/jzacsh/'),
+      elseLinks('github', 'http://www.github.com/jzacsh/'),
+    ];
+  })();
+};
+
+/* about.html controller */
+jzacsh.AboutPageCtrl = function($scope) {
+  console.info('boop from AboutPageCtrl'); //@TODO: stub
+};
+
+/* drawings.html controller */
+jzacsh.DrawingsPageCtrl = function($scope) {
+  $scope.nerdUrls = {
+    inotify: 'https://github.com/rvoicilas/inotify-tools/wiki/',
+    imagedex: 'https://github.com/jzacsh/imagedex',
+    imageMagick: 'https://github.com/jzacsh/bin/blob/master/share/prep_images',
+    jsondrawings: 'http://art-cdn.jzacsh.com/imagedex.json',
+    bash4: 'http://wiki.bash-hackers.org/bash4',
+    prepimg: 'https://github.com/jzacsh/bin/blob/master/share/prep_images',
+    apidrawings: 'https://github.com/jzacsh/bin/blob/master/share/api_drawings',
   };
-  $scope.elsewhere = [
-    elsewheres('google', 'http://profiles.google.com/jzacsh/about', 'google+'),
-    elsewheres('twitter', 'http://www.twitter.com/jzacsh/'),
-    elsewheres('github', 'http://www.github.com/jzacsh/'),
-    elsewheres(),
-  ];
+};
+
+/* beer.html controller */
+jzacsh.BeerPageCtrl = function($scope) {
+  console.info('boop from BeerPageCtrl'); //@TODO: stub
+  $scope.beer = jzacsh.data.beer;
 };
