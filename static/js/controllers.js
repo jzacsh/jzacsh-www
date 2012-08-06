@@ -31,9 +31,7 @@ jzacsh.FooterCtrl = function($scope) {
 };
 
 /* about.html controller */
-jzacsh.AboutPageCtrl = function($scope) {
-  console.info('boop from AboutPageCtrl'); //@TODO: stub
-};
+jzacsh.AboutPageCtrl = function($scope) {};
 
 /* drawings.html controller */
 jzacsh.DrawingsPageCtrl = function($scope) {
@@ -50,6 +48,5 @@ jzacsh.DrawingsPageCtrl = function($scope) {
 
 /* beer.html controller */
 jzacsh.BeerPageCtrl = function($scope) {
-  console.info('boop from BeerPageCtrl'); //@TODO: stub
   $scope.beer = jzacsh.data.beer;
 };
