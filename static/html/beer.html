@@ -1,0 +1,35 @@
+<h1>Beer Log and Other Checklists</h1>
+
+<h3>Beers I want to remember are delicious.</h3>
+<ul class="list" data-list="beer">
+  <li ng:repeat="brew in beer.beer">
+    <a ng:href="brew.url">{{brew.co}}</a>
+    <ul>
+      <li ng:show="brew.origin">origin: {{ brew.origin }}</li>
+      <li ng:repeat="note in brew.notes">{{ note }}</li>
+    </ul>
+  </li>
+</ul><!--//[beer]-->
+
+<h3>Movies I haven't seen</h3>
+<p>These are famous (<em>good or bad</em>) movies that seem to be a big deal
+and I feel obligated to see. Also movies that might not be famous but I've
+heard good things about.</p>
+<ul class="list" data-list="movies">
+  <li ng:repeat="movie in beer.movies">
+    <cite>{{ movie.title }}</cite>
+    <em ng:show="movie.note">{{ movie.note }}</em>
+  </li>
+</ul><!--//[movies]-->
+
+<h3>Books I feel the need to read</h3>
+<a href="http://amzn.com/w/21LWOXBICKV4W">to-read</a>
+<ul class="list" data-list="books">
+  <li ng:repeat="book in beer.books">
+    <del ng:show="book.read"><cite>{{ book.title }}</cite></del>
+    <cite ng:hide="book.read">{{ book.title }}</cite>
+
+    <span ng:show="book.note">(<em>{{ book.note }}</em>)</span>
+    <span ng:show="book.author" class="attribution">by <b>{{ book.author }}</b></span>
+  </li>
+</ul><!--//[books]-->

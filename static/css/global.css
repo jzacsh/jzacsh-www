@@ -1,0 +1,409 @@
+/**
+ * Styles that apply mainly to static pages.
+ */
+
+header, footer, nav, article {
+  /* for older browsers */
+  display: block;
+}
+
+del {
+  text-decoration: line-through;
+}
+
+body {
+  font-family: sans-serif;
+  width: 600px;
+  margin: 1em auto;
+  font-size: 12px;
+  color: #2e3436;
+}
+
+.clear {
+  clear: both;
+  width: 100%;
+  height: 1px;
+  visibility: hidden;
+}
+
+.dev {
+  outline: 1px dotted #ffc0cb;
+}
+
+a,
+.clickable,
+.button {
+  color: #7A63FF;
+  color: #BC7134;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover, .clickable:hover {
+  text-decoration: underline;
+}
+
+.button {
+  text-decoration: none;
+  color: inherit;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #eeeeee;
+  border: 1px solid #bbbbbb;
+}
+
+.button:hover {
+  text-decoration: none;
+  background-color: #dddddd;
+}
+
+a:active, .clickable:active, .button:active {
+  outline: none;
+}
+
+abbr, acronym {
+  border-bottom: none;
+}
+
+nav, section#content, footer {
+  padding: 1em;
+}
+
+article {
+  padding-top: 1.5em;
+  padding-left: 15px;
+  width: 500px;
+}
+
+article h1,
+article h2 {
+  color: #999999;
+  margin-bottom: 2em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-left: -1ex;
+  margin-top: 3ex;
+  margin-bottom: 0.5ex;
+}
+
+header h1 {
+  text-align: right;
+/*color: #555753; */
+  color: rgba(125, 125, 125, 1);
+  line-height: 0.4em;
+  font-size: 3.15em;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  right: -1px;
+  text-shadow: 0 0 1px #000000;
+}
+
+#banner:hover header h1,
+header h1:hover {
+  color: #ffffff;
+  text-shadow: 0 0 10px #000000;
+}
+
+nav {
+  background-color: #2e3436;
+  padding: 0.6em 0 0.6em 0;
+  height: 1.5em;
+  line-height: 1.5em;
+  margin: 0;
+  padding: 0;
+}
+
+nav a:hover,
+nav .current {
+  background-color: #555753;
+  text-decoration: none;
+}
+
+nav a {
+  color: #fefefc;
+  height: 100%;
+  float: left;
+  padding: 0 3em;
+  display: block;
+}
+
+.code-tldr p:first-line {
+  font-size: 1.5em;
+  font-style: italic;
+  margin-bottom: 4ex;
+  color: #555753;
+}
+
+.projects ul {
+  list-style: none;
+}
+
+.projects li {
+  margin-top: 2em;
+}
+
+.projects li > p {
+  margin-left: 5em;
+  margin-bottom: 1em;
+}
+
+.projects li > p a {
+  position: relative;
+  left: -5em;
+}
+
+.projects .fork {
+  text-align: right;
+  display: block;
+  font-style: italic;
+  padding-top: .5ex;
+  margin-top: .5ex;
+  border-bottom: 1px dotted #cccccc;
+  border-right: 1px dotted #cccccc;
+  padding-bottom: .5ex;
+  padding-right: .75ex;
+}
+
+.projects .fork input {
+  /**
+   * @TODO: I can haz rounded corners?
+   */
+  color: #000000;
+  background-color: transparent;
+
+  font-weight: normal;
+  font-size: normal;
+  padding: 1px 2px 1px 2px;
+  margin-left: 1ex;
+  border: 0;
+  outline: 1px solid #dddddd;
+  line-height: inherit;
+  font-family: monospace;
+
+  width: 30em;
+  text-align: right;
+}
+
+.projects .fork input:focus {
+  color: #333333;
+}
+
+footer {
+  border-top: 1px solid #333333;
+  padding: 0.5ex 1ex 0.5ex 1ex;
+  margin-top: 2ex;
+  color: #ffffff;
+  background-color: rgba(92, 85, 78, .45);
+  background-color: rgba(125, 125, 125, .85);
+  position: fixed;
+  width: inherit;
+  bottom: 0;
+  box-shadow: 1px -1px 8ex #666666;
+}
+
+/* because of our footer */
+body {
+  padding-bottom: 2em;
+}
+
+footer:hover {
+  background-color: rgba(92, 85, 78, 1);
+  background-color: rgba(125, 125, 125, .9);
+  box-shadow: 1px -1px 6ex #888888;
+}
+
+footer * {
+  background-color: none;
+}
+
+footer a {
+  text-decoration: none;
+  color: #eeeeee;
+  color: #000000;
+}
+
+footer a:hover {
+  color: #7A63FF;
+  color: #ffffff;
+}
+
+
+footer .elsewhere > * {
+  float: left;
+}
+
+footer .elsewhere .implied {
+  display: none;
+}
+
+footer .elsewhere ul {
+  list-style-type: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+footer .elsewhere li {
+  float: left;
+  display: inline;
+  margin-left: .5em;
+  padding-left: .5em;
+  border-left: 1px solid #888888;
+  border-left: 1px solid #383838;
+}
+
+footer .elsewhere li.first {
+  border-left: 0;
+}
+
+footer .built-with {
+  float: right;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-style: italic;
+}
+
+pre {
+  border: dotted #000000 1px;
+  background: #eeeeec;
+  font-size: small;
+  padding: 1em;
+}
+
+/**
+ * start: beer.md-specific styling
+ */
+
+body.beerand .attribution {
+  display: block;
+}
+
+body.beerand b {
+  color: #444444;
+}
+
+body.beerand #listing {
+  border-bottom: 1px dotted #666666;
+  height: 2em;
+}
+
+body.beerand #listing .tab {
+  line-height: 2em;
+  height: 100%;
+  display: block;
+  float: left;
+  padding-left: 1ex;
+  padding-right: 1ex;
+}
+
+body.beerand #listing .tab.active {
+  font-weight: bold;
+}
+
+body.beerand .list {
+  display: none;
+}
+
+body.beerand .list.active {
+  display: block;
+}
+
+.beerand h1, .beerand h2, .beerand h3, .beerand h4, .beerand h5, .beerand h6 {
+  margin-left: inherit;
+}
+
+/**
+ * end: beer.md-specific styling
+ */
+
+/**
+ * start: drawings.md-specific styling
+ */
+
+#sliderjs {
+  width: 100%;
+  clear: both;
+}
+
+#sliderjs.reached-low {
+  border-left: 1px solid #ffc0cb;
+}
+
+#sliderjs.reached-high {
+  border-right: 1px solid #ffc0cb;
+}
+
+.slide {
+  cursor: pointer;
+  width: 160px;
+  height: 160px;
+  margin: 3px;
+  margin-top: 0;
+  display: block;
+  float: left;
+}
+
+.slide img {
+  outline: 1px solid #cccccc;
+  display: block;
+  margin: 0 auto 0 auto;
+}
+
+#viewer.reached-low img {
+  border-left: 1px solid #ffc0cb;
+}
+
+#viewer.reached-high img {
+  border-right: 1px solid #ffc0cb;
+}
+
+#slide-nav {
+  width: 100%;
+  height: 30px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  margin-bottom: 1em;
+}
+
+.slider {
+  width: 40px;
+  line-height: 28px;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  height: 100%;
+  position: relative;
+  border-color: #dddddd;
+}
+
+.slider:hover {
+  text-shadow: 2px 2px 1px #ffffff;
+}
+
+.slider.disabled {
+  color: #ffffff;
+  cursor: default;
+  text-shadow: 1px 1px 1px #888888;
+}
+
+.slider.disabled:hover {
+  text-shadow: 1px 1px 1px #000000;
+  border-color: #888888;
+  opacity: 0.3;
+}
+
+#prev-page {
+  float: left;
+}
+
+#next-page {
+  float: right;
+}
+
+/**
+ * end: drawings.md-specific styling
+ */
+
