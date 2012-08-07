@@ -24,7 +24,7 @@ jzacsh.app.config(['$routeProvider', '$locationProvider', function($routeProvide
       .otherwise({ redirectTo: '/about' });
 
   // Deep linking
-  $locationProvider.html5Mode(true);
+  // $locationProvider.html5Mode(true);
 }]);
 
 jzacsh.app.controller('MainCtrl', function($scope) {
