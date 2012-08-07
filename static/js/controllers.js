@@ -7,8 +7,8 @@ var jzacsh = jzacsh || {};
 /* ng:include Banner */
 jzacsh.BannerCtrl = function($scope) {
   $scope.subpages = [
-    { url: '/about', title: 'About'},
-    { url: '/drawings', title: 'Drawings'}
+    { url: '#/about', title: 'About'},
+    { url: '#/drawings', title: 'Drawings'}
   ];
 };
 
