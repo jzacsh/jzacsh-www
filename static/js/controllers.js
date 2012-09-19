@@ -3,9 +3,10 @@
  * @author Jonathan Zacsh <jzacsh@gmail.com>
  */
 var jzacsh = jzacsh || {};
+jzacsh.controllers = jzacsh.controllers || {};
 
 /* ng:include Banner */
-jzacsh.BannerCtrl = function($scope) {
+jzacsh.controllers.BannerCtrl = function($scope) {
   $scope.subpages = [
     { url: '#/about', title: 'About'},
     { url: '#/drawings', title: 'Drawings'}
@@ -13,7 +14,7 @@ jzacsh.BannerCtrl = function($scope) {
 };
 
 /* ng:include Footer */
-jzacsh.FooterCtrl = function($scope) {
+jzacsh.controllers.FooterCtrl = function($scope) {
   $scope.elsewhere = (function() {
     var elseLinks = function(name, url, title) {
       return {
@@ -31,10 +32,10 @@ jzacsh.FooterCtrl = function($scope) {
 };
 
 /* about.html controller */
-jzacsh.AboutPageCtrl = function($scope) {};
+jzacsh.controllers.AboutPageCtrl = function($scope) {};
 
 /* drawings.html controller */
-jzacsh.DrawingsPageCtrl = function($scope) {
+jzacsh.controllers.DrawingsPageCtrl = function($scope, Slides) {
   $scope.nerdUrls = {
     inotify: 'https://github.com/rvoicilas/inotify-tools/wiki/',
     imagedex: 'https://github.com/jzacsh/imagedex',
@@ -44,9 +45,29 @@ jzacsh.DrawingsPageCtrl = function($scope) {
     prepimg: 'https://github.com/jzacsh/bin/blob/master/share/prep_images',
     apidrawings: 'https://github.com/jzacsh/bin/blob/master/share/api_drawings',
   };
+
+  console.info('injected `Slides`:', Slides); //@TODO: remove me!!    
+  $scope.slides = Slides.get();
+
+  /**
+   * Setup binding and unbinding management for user-events specific to the
+   * slide that is about to be viewed.
+   *
+   * @param {Object.<string,string>} slide
+   *   An object containing URLs and basic user-facing metadata about a given
+   *   slide.
+   * @return {string}
+   *   The "medium" property as found on the [slide] object, containing the URL
+   *   for current "medium"-scaled version of [slide].
+   */
+  $scope.prepCurrentSlide = function(slide) {
+    // @TODO(zacsh)!!
+
+    return slide.medium;
+  };
 };
 
 /* beer.html controller */
-jzacsh.BeerPageCtrl = function($scope) {
+jzacsh.controllers.BeerPageCtrl = function($scope) {
   $scope.beer = jzacsh.data.beer;
 };
