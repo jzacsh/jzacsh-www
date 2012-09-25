@@ -11,8 +11,15 @@ jzacsh.services = jzacsh.services || {};
  * @para {Object} $resource
  *   AngularJS' injected ngResource.
  */
-jzacsh.services.Slides = function($resource) {
-  // @TODO(zacsh) determine what's needed... JSONp?
-  // return $resource('http://art-cdn.jzacsh.com/imagedex.json', {}, {});
-  return $resource('http://art-cdn.jzacsh.com/imagedex_plain.json', {}, {});
+jzacsh.services.Slides = function($window, $http, $resource) {
+  var imagedexUrl = 'http://art-cdn.jzacsh.com/imagedex.json';
+
+  $http.defaults.useXDomain = true;
+  $window.drawings = function(data) {
+    // @TODO STUB! correct way to do this?
+    //   not wrapped in function call: http://art-cdn.jzacsh.com/imagedex_plain.json
+    //   CORS is enabled on this server!
+    $window.jonDrawings = data;
+  };
+  return $http.jsonp(imagedexUrl);
 };

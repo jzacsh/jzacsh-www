@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="/static/css/drawings.css" />
 <h1>Drawings</h1>
 
 <aside>Sorry, this pages is broken and probably won't be fixed anytime soon
@@ -9,13 +10,74 @@
 </p>
 
 <div id="filmstrip"></div><!--//#filmstrip-->
-<div id="slide-nav">
-  <div id="prev-page" class="button slider"
-    title="Previous Page of Slides">Prev</div>
-  <div id="next-page" class="button slider"
-    title="Next Page of Slides">Next</div>
+
+<div id="config">
+  <label for="art-page">
+    Page: <input type="number"
+           min="1" max="{{getNumberOfPages(settings.ART_MEDIUM)}}"
+           name="art-page"
+           ng:model="ART_PAGE" />
+           of {{getNumberOfPages(settings.ART_MEDIUM)}}.
+  </label>
+
+  <label for="grid-size">
+    Slides at a time <span class="set-to" data-role="grid-size">{{ART_GRID}}</span> slides
+    <!--//@TODO(zacsh) how do i get input below to re-evaluate? -->
+    <input type="range" min="6" step="3"
+           max="{{maxGridSize(18, settings.ART_MEDIUM)}}"
+           name="grid-size"
+           ng:model="ART_GRID" />
+  </label>
+
+  <label for="medium">
+    Slides
+    <span ng:show="slidePaths[settings.ART_MEDIUM].length">
+      {{slidesOnPage(settings.ART_MEDIUM).from}} to
+      {{slidesOnPage(settings.ART_MEDIUM).to}}
+      (of {{slidePaths[settings.ART_MEDIUM].length}})</span>
+    <span class="set-to" data-role="art-medium">{{settings.ART_MEDIUM}}</span>
+    slides.
+
+    <div>
+      Switch to:
+      <label ng:repeat="medium in ART_MEDIUMS">
+        <input name="medium"
+               type="radio"
+               value="{{medium}}"
+               ng:change="mediumSwitched();"
+               ng:model="settings.ART_MEDIUM" />
+        {{medium}}
+      </label>
+    </div>
+  </label>
 </div>
-<div id="sliderjs"></div><!--//#sliderjs-->
+
+<div id="slide-nav">
+  <button id="prev-page" class="slider"
+    title="Previous Page of Slides"
+    ng:disabled="(ART_PAGE - 1) < 1"
+    ng:click="addToPage(-1)">Previous</button>
+  <button id="next-page" class="button slider"
+    title="Next Page of Slides"
+    ng:disabled="(ART_PAGE + 1) > getNumberOfPages(settings.ART_MEDIUM)"
+    ng:click="addToPage(1)">Next</button>
+</div>
+
+<img id="current" ng:src="{{currentSlide.medium}}" title="{{currentSlide.name}}" />
+
+<ul id="grid">
+  <li ng:repeat="slide in getPageOfSlides(ART_PAGE, ART_GRID, settings.ART_MEDIUM)"
+      ng:show="slide.visible">
+    <span class="caption">
+      <a class="full-size" target="_blank" title="full size"
+         href="{{ slide.src }}">{{ slide.name }}</a>
+    </span>
+
+    <a class="slide-launch" ng:click="currentSlide = slide;">
+      <img ng:src="{{ slide.thumb }}" />
+    </a>
+  </li>
+</ul><!--//#grid-->
 
 <hgroup>
   <h2>Nerd Info</h2>

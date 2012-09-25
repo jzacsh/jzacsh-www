@@ -1,1 +1,1 @@
-angular.min.js
+angular.dev.js

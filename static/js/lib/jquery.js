@@ -1,1 +1,1 @@
-jquery.min.js
+jquery.dev.js

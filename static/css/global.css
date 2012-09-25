@@ -43,19 +43,27 @@ a:hover, .clickable:hover {
   text-decoration: underline;
 }
 
-.button {
+.button,
+button {
   text-decoration: none;
   color: inherit;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  background-color: #eeeeee;
-  border: 1px solid #bbbbbb;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  background-color: #eee;
+  border: 1px solid #bbb;
+  font-weight: bold;
 }
 
-.button:hover {
+.button:hover,
+button:hover {
   text-decoration: none;
   background-color: #dddddd;
+}
+
+.button[disabled="disabled"],
+button[disabled="disabled"] {
+  opacity: 0.7;
 }
 
 a:active, .clickable:active, .button:active {
@@ -318,92 +326,3 @@ body.beerand .list.active {
 /**
  * end: beer.md-specific styling
  */
-
-/**
- * start: drawings.md-specific styling
- */
-
-#sliderjs {
-  width: 100%;
-  clear: both;
-}
-
-#sliderjs.reached-low {
-  border-left: 1px solid #ffc0cb;
-}
-
-#sliderjs.reached-high {
-  border-right: 1px solid #ffc0cb;
-}
-
-.slide {
-  cursor: pointer;
-  width: 160px;
-  height: 160px;
-  margin: 3px;
-  margin-top: 0;
-  display: block;
-  float: left;
-}
-
-.slide img {
-  outline: 1px solid #cccccc;
-  display: block;
-  margin: 0 auto 0 auto;
-}
-
-#viewer.reached-low img {
-  border-left: 1px solid #ffc0cb;
-}
-
-#viewer.reached-high img {
-  border-right: 1px solid #ffc0cb;
-}
-
-#slide-nav {
-  width: 100%;
-  height: 30px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  margin-bottom: 1em;
-}
-
-.slider {
-  width: 40px;
-  line-height: 28px;
-  text-transform: uppercase;
-  font-weight: bold;
-  text-align: center;
-  height: 100%;
-  position: relative;
-  border-color: #dddddd;
-}
-
-.slider:hover {
-  text-shadow: 2px 2px 1px #ffffff;
-}
-
-.slider.disabled {
-  color: #ffffff;
-  cursor: default;
-  text-shadow: 1px 1px 1px #888888;
-}
-
-.slider.disabled:hover {
-  text-shadow: 1px 1px 1px #000000;
-  border-color: #888888;
-  opacity: 0.3;
-}
-
-#prev-page {
-  float: left;
-}
-
-#next-page {
-  float: right;
-}
-
-/**
- * end: drawings.md-specific styling
- */
-

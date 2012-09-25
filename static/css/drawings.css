@@ -1,0 +1,60 @@
+/**
+ * Slideshow styles.
+ */
+
+#current {
+}
+
+button {
+  font-variant: small-caps;
+}
+
+ul#grid {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+#grid li {
+  display: inline-block;
+  padding: 1ex;
+  text-align: center;
+
+  /* Approximately Third */
+  width: 25%;
+}
+
+#grid li a.slide-launch {
+  display: inline-block;
+}
+
+.caption {
+  clear: both;
+  display: block;
+}
+
+.caption a {
+  font-size: small;
+}
+
+#config {
+  background-color: #efefef;
+  padding: 1ex;
+}
+
+#config > label {
+  display: block;
+}
+
+#config .set-to {
+  font-style: italic;
+}
+
+[data-role="grid-size"] {
+  padding-right: 2em;
+  font-weight: bold;
+  text-align: center;
+  min-width: 2.5ex;
+  display: inline-block;
+}
+
