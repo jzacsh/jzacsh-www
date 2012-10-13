@@ -42,7 +42,7 @@
   </script>
 </head>
 
-<body ng:controller="MainCtrl">
+<body ng:controller="MainCtrl" ng:class="{ lock: lockScroll.get() }">
   <hgroup id="banner" ng:include="partials.banner"></hgroup>
 
   <!-- load partial templates, based on route -->

@@ -1,6 +1,14 @@
 /**
  * Slideshow styles.
  */
+
+/**
+ * Modify page behavior to reflect {jzacsh.services.LockScroll} service.
+ */
+body.lock {
+  overflow-y: hidden;
+}
+
 #lightbox,
 #current {
   background-color: rgba(0, 0, 0, 0.5);

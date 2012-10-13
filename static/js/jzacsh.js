@@ -6,7 +6,8 @@
 var jzacsh = jzacsh || {};
 
 jzacsh.app = angular.module('jzacshCom', ['ngResource'])
-    .factory('Slides', jzacsh.services.Slides);
+    .factory('Slides', jzacsh.services.Slides)
+    .factory('LockScroll', jzacsh.services.LockScroll);
 
 jzacsh.app.directive('zacshBox', jzacsh.directives.zacshBox);
 
@@ -36,7 +37,9 @@ jzacsh.app.config(['$routeProvider', '$locationProvider',
 
 // Controller Declerations ////////////////////////////
 
-jzacsh.app.controller('MainCtrl', function($scope) {
+jzacsh.app.controller('MainCtrl', function($scope, LockScroll) {
+  $scope.lockScroll = LockScroll;
+
   $scope.partials = {
     banner: '/static/html/banner.html',
     footer: '/static/html/footer.html',

@@ -26,6 +26,22 @@ jzacsh.services.Slides = function($window, $http, $resource) {
 };
 
 /**
+ * Shared "lock" state to determine if user should be able to scroll on the
+ * page.
+ */
+jzacsh.services.LockScroll = function() {
+  var lockScroll = false;
+  return {
+    set: function(lock) {
+      lockScroll = !!lock;
+    },
+    get: function() {
+      return !!lockScroll;
+    }
+  };
+};
+
+/**
  * Display a {jzacsh.imagedex.Slide} slide object as a lightbox, specifically
  * catered to the needs of this jzacsh.com gallery.
  *
