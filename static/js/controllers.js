@@ -39,7 +39,7 @@ jzacsh.controllers.AboutPageCtrl = function($scope) {};
  *
  * @TODO(zacsh) pull all XHR/imagedex related code into a pretty service.
  */
-jzacsh.controllers.DrawingsPageCtrl = function($scope, $window, $timeout, Slides, LockScroll) {
+jzacsh.controllers.DrawingsPageCtrl = function($scope, $window, $timeout, Slides) {
   /**
    * Slides of artwork, keyed by the particular medium they're created in.
    * @type {Object.<string,Array.<jzacsh.imagedex.Slide>>}
@@ -74,17 +74,6 @@ jzacsh.controllers.DrawingsPageCtrl = function($scope, $window, $timeout, Slides
   $scope.mediumSwitched = function() {
     $scope.ART_PAGE = 1;
     $scope.settings.currentSlide = false;
-  };
-
-  /**
-   * Setter for the current {jzacsh.imagedex.Slide} slide being viewed.
-   *
-   * @param {jzacsh.imagedex.Slide} slide
-   *   The slide that should be currently viewed.
-   */
-  $scope.setCurrentSlide = function(slide) {
-    LockScroll.set(!!slide);
-    $scope.settings.currentSlide = slide;
   };
 
   /**

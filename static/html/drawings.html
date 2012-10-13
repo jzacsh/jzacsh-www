@@ -73,7 +73,7 @@
          href="{{ slide.src }}">{{ slide.name }}</a>
     </span>
 
-    <a class="slide-launch" ng:click="setCurrentSlide(slide);">
+    <a class="slide-launch" ng:click="settings.currentSlide = slide;">
       <img ng:src="{{ slide.thumb }}" />
     </a>
   </li>

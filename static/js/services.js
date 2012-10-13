@@ -48,7 +48,7 @@ jzacsh.services.LockScroll = function() {
  * @return {Object}
  *   Factory method to build directive.
  */
-jzacsh.directives.zacshBox = function($window) {
+jzacsh.directives.zacshBox = function($window, LockScroll) {
   return {
     restrict: 'E',
 
@@ -92,11 +92,15 @@ jzacsh.directives.zacshBox = function($window) {
        *   If lightbox should be on or off.
        */
       var toggleLightbox = function(lightbox) {
+        lightbox = !!lightbox;
+
         // Flag to keep UI-specific DOM nodes on/off
-        scope.lightboxBuilt = !!lightbox;
+        scope.lightboxBuilt = lightbox;
 
         // Unset the "current slide" if necessary
         scope.zacshSlide = lightbox ? scope.zacshSlide : null;
+
+        LockScroll.set(lightbox);
 
         // Bindings to allow user to escape DOM nodes without AngularJS's help
         var addOrRemoveListener = lightbox ? 'addEventListener' : 'removeEventListener';
