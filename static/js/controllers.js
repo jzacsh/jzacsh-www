@@ -34,7 +34,11 @@ jzacsh.controllers.FooterCtrl = function($scope) {
 /* about.html controller */
 jzacsh.controllers.AboutPageCtrl = function($scope) {};
 
-/* drawings.html controller */
+/**
+ * drawings.html controller
+ *
+ * @TODO(zacsh) pull all XHR/imagedex related code into a pretty service.
+ */
 jzacsh.controllers.DrawingsPageCtrl = function($scope, $window, $timeout, Slides, LockScroll) {
   /**
    * Slides of artwork, keyed by the particular medium they're created in.
@@ -276,10 +280,17 @@ jzacsh.controllers.DrawingsPageCtrl = function($scope, $window, $timeout, Slides
             // Initialize the first page of the first medium to be shown
             if ($scope.ART_MEDIUMS[n] == $scope.settings.ART_MEDIUM) {
               $scope.loadPaneOfSlides(
+                  // Local storage for this particular medium
                   $scope.slides[$scope.settings.ART_MEDIUM],
+
+                  // Raw XHR API data from CDN for this particular medium
                   imagedexjson[i][$scope.settings.ART_MEDIUM],
-                  0, // start on slide 0
-                  $scope.ART_GRID); // number of slides
+
+                  // start on slide 0
+                  0,
+
+                  // number of slides
+                  $scope.ART_GRID);
             }
           }
         }
