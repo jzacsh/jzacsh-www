@@ -69,6 +69,7 @@ jzacsh.controllers.DrawingsPageCtrl = function($scope, $window, $timeout, Slides
    */
   $scope.mediumSwitched = function() {
     $scope.ART_PAGE = 1;
+    $scope.settings.currentSlide = false;
   };
 
   /**
@@ -131,7 +132,12 @@ jzacsh.controllers.DrawingsPageCtrl = function($scope, $window, $timeout, Slides
    */
   $scope.settings = {
     // Initial medium of artwork to show
-    ART_MEDIUM: $scope.ART_MEDIUMS[0]
+    ART_MEDIUM: $scope.ART_MEDIUMS[0],
+
+    // @type {jzacsh.imagedex.Slide}
+    // The slide currently being viewed on the lightbox. False by default, not
+    // showing a slide.
+    currentSlide: false
   };
 
   $scope.nerdUrls = {
