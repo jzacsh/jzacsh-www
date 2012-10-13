@@ -31,7 +31,11 @@ body.lock {
   box-shadow: 0 0 1em #000;
 }
 
-button {
+.utils a {
+  text-transform: capitalize;
+}
+
+.utils button {
   font-variant: small-caps;
 }
 
