@@ -1,9 +1,6 @@
 <link rel="stylesheet" type="text/css" href="/static/css/drawings.css" />
 <h1>Drawings</h1>
 
-<aside>Sorry, this pages is broken and probably won't be fixed anytime soon
-<strong class="smiley">:-\</strong></aside>
-
 <p>
   Drawings from various past sketchbooks and some recent work of the same style,
   done in Inkscape with a computer tablet.
@@ -88,25 +85,25 @@
 </hgroup>
 
 <p>
-This page is built and kept up to date automatically with the help of:
+  This page is built and kept up to date automatically with the help of:
+  <ul>
+    <li><a ng:href="{{ nerdUrls.angularjs }}">AngularJS</a>: HTML enhanced for web apps.</li>
+    <li><a ng:href="{{ nerdUrls.inotify }}">inotify tools</a>: simple interface to the Linux kernel's filesystem-monitoring API that avoids polling.</li>
+    <li><a ng:href="{{ nerdUrls.imagedex }}">imagedex</a>: Basic <a ng:href="{{
+      nerdUrls.jsondrawings }}">file system listing</a> for JSON consumers.</li>
+    <li><a ng:href="{{ nerdUrls.imageMagick }}">ImageMagick</a>: from Wikipedia, "<strong>an open source software
+    suite for displaying, converting, and editing raster image files.</strong>"</li>
+    <li><a ng:href="{{ nerdUrls.prepimg }}">Prep Images</a> and <a ng:href="{{
+      nerdUrls.apidrawings }}">api_drawings</a>: Glue between the above tools! This is a <a
+      hg:href="{{ nerdUrls.bash4 }}">Bash 4</a> script run on inotify events
+    when my artwork is updated; manipulates (<strong>resizes, copies,
+      etc.</strong>) using ImageMagick and generates a new imagedex JSON file for
+    this page's consumption.</li>
+    <li><em>slides.js</em>: (<strong>coming soon</strong>) open sourced
+    slideshow/grid-management I wrote being used on this page.</strong></li>
+    <li><em>svgToCanvas</em>: (<strong>coming soon</strong>) open sourced SVG
+    rendering library using Canvas APIs. I wrote this specifically to allow
+    fine-grained control of the render-process for SVG files (<strong>sometimes
+      visually noticable over a slow network connection</strong>).</li>
+  </ul>
 </p>
-
-<ul>
-  <li><a ng:href="{{ nerdUrls.inotify }}">inotify tools</a>: simple interface to the Linux kernel's filesystem-monitoring API that avoids polling.</li>
-  <li><a ng:href="{{ nerdUrls.imagedex }}">imagedex</a>: Basic <a ng:href="{{
-    nerdUrls.jsondrawings }}">file system listing</a> for JSON consumers.</li>
-  <li><a ng:href="{{ nerdUrls.imageMagick }}">ImageMagick</a>: from Wikipedia, "<strong>an open source software
-  suite for displaying, converting, and editing raster image files.</strong>"</li>
-  <li><a ng:href="{{ nerdUrls.prepimg }}">Prep Images</a> and <a ng:href="{{
-    nerdUrls.apidrawings }}">api_drawings</a>: Glue between the above tools! This is a <a
-    hg:href="{{ nerdUrls.bash4 }}">Bash 4</a> script run on inotify events
-  when my artwork is updated; manipulates (<strong>resizes, copies,
-    etc.</strong>) using ImageMagick and generates a new imagedex JSON file for
-  this page's consumption.</li>
-  <li><em>slides.js</em>: (<strong>coming soon</strong>) open sourced
-  slideshow/grid-management I wrote being used on this page.</strong></li>
-  <li><em>svgToCanvas</em>: (<strong>coming soon</strong>) open sourced SVG
-  rendering library using Canvas APIs. I wrote this specifically to allow
-  fine-grained control of the render-process for SVG files (<strong>sometimes
-    visually noticable over a slow network connection</strong>).</li>
-</ul>

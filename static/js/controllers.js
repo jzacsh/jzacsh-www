@@ -145,6 +145,7 @@ jzacsh.controllers.DrawingsPageCtrl = function($scope, $window, $timeout, Slides
   };
 
   $scope.nerdUrls = {
+    angularjs: 'http://angularjs.org/',
     inotify: 'https://github.com/rvoicilas/inotify-tools/wiki/',
     imagedex: 'https://github.com/jzacsh/imagedex',
     imageMagick: 'https://github.com/jzacsh/bin/blob/master/share/prep_images',
