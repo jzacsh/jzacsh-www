@@ -8,6 +8,7 @@ var jzacsh = jzacsh || {};
 jzacsh.app = angular.module('jzacshCom', ['ngResource'])
     .factory('Slides', jzacsh.services.Slides);
 
+jzacsh.app.directive('zacshBox', jzacsh.directives.zacshBox);
 
 // App Config /////////////////////////////////////////
 

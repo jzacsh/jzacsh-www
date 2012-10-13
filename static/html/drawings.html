@@ -63,7 +63,7 @@
     ng:click="addToPage(1)">Next</button>
 </div>
 
-<img id="current" ng:src="{{currentSlide.medium}}" title="{{currentSlide.name}}" />
+<zacsh-box zacsh-slide="settings.currentSlide"></zacsh-box>
 
 <ul id="grid">
   <li ng:repeat="slide in getPageOfSlides(ART_PAGE, ART_GRID, settings.ART_MEDIUM)"
