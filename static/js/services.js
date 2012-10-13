@@ -87,6 +87,9 @@ jzacsh.directives.zacshBox = function($window, LockScroll) {
         }
       };
 
+      // $window coordinates of poor user before i started futzing
+      scope.coords_ = { x: 0, y: 0 };
+
       /**
        * @param {boolean} lightbox
        *   If lightbox should be on or off.
@@ -100,6 +103,18 @@ jzacsh.directives.zacshBox = function($window, LockScroll) {
         // Unset the "current slide" if necessary
         scope.zacshSlide = lightbox ? scope.zacshSlide : null;
 
+        // Scroll user to top of screen, or put them back where they were
+        if (lightbox) {
+          // @TODO(zacsh) this is disorienting, maybe fade into this, or just
+          // fix the lightbox properly?
+          scope.coords_.x = $window.scrollX;
+          scope.coords_.y = $window.scrollY;
+          $window.scrollTo();
+        } else {
+          $window.scrollTo(scope.coords_.x, scope.coords_.y);
+        }
+
+        // Lock the screen so lightbox is all that's visible
         LockScroll.set(lightbox);
 
         // Bindings to allow user to escape DOM nodes without AngularJS's help
