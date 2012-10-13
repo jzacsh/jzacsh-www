@@ -16,6 +16,11 @@
 
 #current {
   text-align: center;
+  padding-top: 2em;
+}
+
+#current img {
+  box-shadow: 0 0 1em #000;
 }
 
 button {
