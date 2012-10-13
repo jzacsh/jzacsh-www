@@ -1,9 +1,10 @@
 /**
- * @fileoverview Custom AngularJS Services.
+ * @fileoverview Custom AngularJS Services and Directives.
  * @author Jonathan Zacsh <jzacsh@gmail.com>
  */
 var jzacsh = jzacsh || {};
 jzacsh.services = jzacsh.services || {};
+jzacsh.directives = jzacsh.directives || {};
 
 /**
  * Fetch imagedex.json data on Slides to be displayed from CDN.
