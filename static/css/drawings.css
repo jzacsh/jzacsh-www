@@ -32,11 +32,15 @@ body.lock {
   max-height: 80%;
 }
 
-.utils a {
+#lightbox ul.utils {
+  padding-left: 0;
+}
+
+#lightbox .utils a {
   text-transform: capitalize;
 }
 
-.utils button {
+#lightbox .utils button {
   font-variant: small-caps;
 }
 
