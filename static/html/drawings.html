@@ -11,9 +11,9 @@
 <div id="config">
   <label for="art-page">
     Page: <input type="number"
-           min="1" max="{{getNumberOfPages(settings.ART_MEDIUM)}}"
-           name="art-page"
-           ng:model="ART_PAGE" />
+                 min="1" max="{{getNumberOfPages(settings.ART_MEDIUM)}}"
+                 name="art-page"
+                 ng:model="ART_PAGE" />
            of {{getNumberOfPages(settings.ART_MEDIUM)}}.
   </label>
 
@@ -47,7 +47,7 @@
       </label>
     </div>
   </label>
-</div>
+</div><!--//#config-->
 
 <div id="slide-nav">
   <button id="prev-page" class="slider"
