@@ -44,6 +44,37 @@ body.lock {
   font-variant: small-caps;
 }
 
+#config  input[type="range"][name="grid-size"] {
+  cursor: ew-resize;
+}
+
+#config .medium-selection {
+  text-align: center;
+}
+
+#config .medium-selection label input {
+  /* we're pretending these are navigation links */
+  display: none;
+}
+
+#config .medium-selection label {
+  display: inline-block;
+  width: 40%;
+  background-color: rgba(200, 200, 200, 1);
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+#config .medium-selection label.current,
+#config .medium-selection label:hover {
+  background-color: rgba(200, 200, 200, 0.5);
+  font-weight: bold;
+}
+
+#config .medium-selection label.current:hover {
+  cursor: inherit;
+}
+
 ul#grid {
   margin: 0;
   padding: 0;
@@ -61,6 +92,18 @@ ul#grid {
 
 #grid li a.slide-launch {
   display: inline-block;
+}
+
+#slide-nav {
+  text-align: center;
+}
+
+#slide-nav button {
+  margin-left: 1ex;
+}
+
+#slide-nav button:first-child {
+  margin-left: 0;
 }
 
 .caption {

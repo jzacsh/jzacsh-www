@@ -9,6 +9,17 @@
 <div id="filmstrip"></div><!--//#filmstrip-->
 
 <div id="config">
+  <div class="medium-selection">
+    <label ng:repeat="medium in ART_MEDIUMS"
+           ng:class="{ current: settings.ART_MEDIUM == medium }">
+      <input type="radio"
+             value="{{medium}}"
+             ng:change="mediumSwitched();"
+             ng:model="settings.ART_MEDIUM" />
+      {{medium}}
+    </label>
+  </div>
+
   <label for="art-page">
     Page: <input type="number"
                  min="1" max="{{getNumberOfPages(settings.ART_MEDIUM)}}"
@@ -26,7 +37,7 @@
            ng:model="ART_GRID" />
   </label>
 
-  <label for="medium">
+  <label>
     Slides
     <span ng:show="slidePaths[settings.ART_MEDIUM].length">
       {{slidesOnPage(settings.ART_MEDIUM).from}} to
@@ -35,17 +46,6 @@
     <span class="set-to" data-role="art-medium">{{settings.ART_MEDIUM}}</span>
     slides.
 
-    <div>
-      Switch to:
-      <label ng:repeat="medium in ART_MEDIUMS">
-        <input name="medium"
-               type="radio"
-               value="{{medium}}"
-               ng:change="mediumSwitched();"
-               ng:model="settings.ART_MEDIUM" />
-        {{medium}}
-      </label>
-    </div>
   </label>
 </div><!--//#config-->
 
