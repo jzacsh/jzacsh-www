@@ -30,7 +30,11 @@ jzacsh.services.Slides = function($window, $http, $resource) {
  * page.
  */
 jzacsh.services.LockScroll = function() {
+  /**
+   * @type {boolean} current "lock" state of the page's scroll.
+   */
   var lockScroll = false;
+
   return {
     set: function(lock) {
       lockScroll = !!lock;
