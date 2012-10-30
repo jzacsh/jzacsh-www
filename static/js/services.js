@@ -69,6 +69,17 @@ jzacsh.directives.zacshBox = function($window, LockScroll) {
       scope.lightboxBuilt = false;
 
       /**
+       * @param {Object} clickTarget
+       *   The target property of the click {@link Event}.
+       * @return {boolean}
+       *   If [clickedNode] is somewhere within this directive's tools.
+       */
+      var targetIsLightbox = function(clickTarget) {
+        var clickedNode = angular.element(clickTarget)[0];
+        return clickedNode === document.getElementById('current');
+      };
+
+      /**
        * Event handler for CLICK and KEYUP events on document.body. Will try to
        * let user out when it seems they're trying to escape.
        *
@@ -77,15 +88,14 @@ jzacsh.directives.zacshBox = function($window, LockScroll) {
        */
       var userTryingToEscape = function(event) {
         // User click elsewhere (on the glass on our lightbox).
-        var alcatraz =
-          (event.type == 'click' && clickedTargetWasLightbox(angular.element(event.target)[0]));
-        if (!alcatraz && event.type == 'keyup' && (event.keyCode == 27 || event.char == 'esc')) {
+        var clickedOnLightbox = (event.type == 'click' && targetIsLightbox(event.target));
+        if (!clickedOnLightbox && event.type == 'keyup' && (event.keyCode == 27 || event.char == 'esc')) {
           // User hit "ESCAPE" key
-          alcatraz = true;
+          clickedOnLightbox = true;
         }
 
         // Only react if user is trying to escape and we're actually visible
-        if (scope.lightboxBuilt && alcatraz) {
+        if (scope.lightboxBuilt && clickedOnLightbox) {
           toggleLightbox(false /* close */);
           scope.$apply();
         }
@@ -125,16 +135,6 @@ jzacsh.directives.zacshBox = function($window, LockScroll) {
         var addOrRemoveListener = lightbox ? 'addEventListener' : 'removeEventListener';
         $window.document.body[addOrRemoveListener]('click', userTryingToEscape);
         $window.document.body[addOrRemoveListener]('keyup', userTryingToEscape);
-      };
-
-      /**
-       * @param {Element} clickedNode
-       *   The DOM node that was clicked.
-       * @return {boolean}
-       *   If [clickedNode] is somewhere within this directive's tools.
-       */
-      var clickedTargetWasLightbox = function(clickedNode) {
-        return clickedNode === document.getElementById('current');
       };
 
       scope.$watch('zacshSlide', function(slide) {
