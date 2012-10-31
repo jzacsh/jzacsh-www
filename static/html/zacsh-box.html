@@ -1,13 +1,13 @@
 <div id="lightbox" ng:show="lightboxBuilt">
   <div id="current">
-    <img src="{{zacshSlide.medium}}"
-         title="{{zacshSlide.name}}" />
     <ul class="utils">
       <li><a target="_blank" href="{{zacshSlide.src}}">
         View Full Size</a></li>
       <li>
-        <button ng:click="zacshSlide = false;">Close</button>
+        <button class="close" ng:click="zacshSlide = false;">Close</button>
       </li>
     </ul>
+    <img src="{{zacshSlide.medium}}"
+         title="{{zacshSlide.name}}" />
   </div><!--//#current-->
 </div>

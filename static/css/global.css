@@ -66,6 +66,19 @@ button[disabled="disabled"] {
   opacity: 0.7;
 }
 
+button.close {
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-image: url('/static/img/gnome-window-close.png');
+  font-size: 0;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+
+  /* TODO: find a white version of this image */
+  background-color: #fff;
+}
+
 a:active, .clickable:active, .button:active {
   outline: none;
 }

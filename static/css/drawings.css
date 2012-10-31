@@ -27,6 +27,11 @@ body.lock {
   padding-top: 2em;
 }
 
+#current > * {
+  max-width: 50%;
+  margin: 0 auto;
+}
+
 #current img {
   box-shadow: 0 0 1em #000;
   max-height: 80%;
@@ -36,12 +41,22 @@ body.lock {
   padding-left: 0;
 }
 
+#lightbox .utils li {
+  list-style-type: none;
+  display: inline;
+}
+
 #lightbox .utils a {
   text-transform: capitalize;
 }
 
 #lightbox .utils button {
   font-variant: small-caps;
+}
+
+#lightbox .utils button.close {
+  position: relative;
+  left: 20%;
 }
 
 #config  input[type="range"][name="grid-size"] {
