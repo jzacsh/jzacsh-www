@@ -69,14 +69,39 @@ jzacsh.directives.zacshBox = function($window, LockScroll) {
       scope.lightboxBuilt = false;
 
       /**
+       * Tracking transition between states because when lightbox opens and
+       * event is binded, the handler *always* runs once _once_
+       *
+       * @TODO(zacsh) figure out why above explanation is the case - seems very
+       * strange.
+       *
+       * @type {boolean}
+       */
+      scope.lightboxProgress = false;
+
+      /**
        * @param {Object} clickTarget
        *   The target property of the click {@link Event}.
        * @return {boolean}
-       *   If [clickedNode] is somewhere within this directive's tools.
+       *   If [clickTarget] is somewhere within this directive's tools.
        */
       var targetIsLightbox = function(clickTarget) {
         var clickedNode = angular.element(clickTarget)[0];
         return clickedNode === document.getElementById('current');
+      };
+
+      /**
+       * @param {boolean} rawEvent
+       *   If this transition is taking place outside of Angular's $digest
+       *   cycle (eg.: in a raw DOM event).
+       */
+      var completeLightboxTransition = function(rawEvent) {
+        // Flag to keep UI-specific DOM nodes on/off
+        scope.lightboxBuilt = !!scope.lightboxProgress;
+        scope.lightboxProgress = false;
+        if (rawEvent) {
+          scope.$apply();
+        }
       };
 
       /**
@@ -87,17 +112,22 @@ jzacsh.directives.zacshBox = function($window, LockScroll) {
        *   The raw DOM event that occured.
        */
       var userTryingToEscape = function(event) {
-        // User click elsewhere (on the glass on our lightbox).
-        var clickedOnLightbox = (event.type == 'click' && targetIsLightbox(event.target));
-        if (!clickedOnLightbox && event.type == 'keyup' && (event.keyCode == 27 || event.char == 'esc')) {
-          // User hit "ESCAPE" key
-          clickedOnLightbox = true;
+        // Only react if we're actually visible
+        if (scope.lightboxProgress || !scope.lightboxBuilt) {
+          completeLightboxTransition(
+              true /* outside of angular $digest cycle */);
+          return;
         }
 
-        // Only react if user is trying to escape and we're actually visible
-        if (scope.lightboxBuilt && clickedOnLightbox) {
-          toggleLightbox(false /* close */);
-          scope.$apply();
+        // Make sense of the `event` triggered.
+        var clickedOutsideLightbox = (event.type == 'click' && targetIsLightbox(event.target));
+        var escKeyPressed = (event.type == 'keyup' && (event.keyCode == 27 || event.char == 'esc'));
+
+        // escape attempted
+        if (clickedOutsideLightbox || escKeyPressed) {
+          buildLightbox(false /* close lightbox */);
+          completeLightboxTransition(
+              true /* outside of angular $digest cycle */);
         }
       };
 
@@ -106,16 +136,10 @@ jzacsh.directives.zacshBox = function($window, LockScroll) {
 
       /**
        * @param {boolean} lightbox
-       *   If lightbox should be on or off.
+       *   New on/off state that the lightbox is transitioning to
        */
-      var toggleLightbox = function(lightbox) {
+      var updateLightboxSettings = function(lightbox) {
         lightbox = !!lightbox;
-
-        // Flag to keep UI-specific DOM nodes on/off
-        scope.lightboxBuilt = lightbox;
-
-        // Unset the "current slide" if necessary
-        scope.zacshSlide = lightbox ? scope.zacshSlide : null;
 
         // Scroll user to top of screen, or put them back where they were
         if (lightbox) {
@@ -131,15 +155,34 @@ jzacsh.directives.zacshBox = function($window, LockScroll) {
         // Lock the screen so lightbox is all that's visible
         LockScroll.set(lightbox);
 
-        // Bindings to allow user to escape DOM nodes without AngularJS's help
+        // Bindings to allow user to escape DOM nodes, once they've been built
         var addOrRemoveListener = lightbox ? 'addEventListener' : 'removeEventListener';
         $window.document.body[addOrRemoveListener]('click', userTryingToEscape);
         $window.document.body[addOrRemoveListener]('keyup', userTryingToEscape);
+
+        // @see scope.lightboxProgress state explanation
+        if (!lightbox) {
+          completeLightboxTransition();
+        }
       };
 
-      scope.$watch('zacshSlide', function(slide) {
-        toggleLightbox(!scope.lightboxBuilt && slide);
-      });
+      /**
+       * Turn on and build the lightbox based on a newly requested slide.
+       *
+       * @param {jzacsh.imagedex.Slide} slide
+       *   The slide that should be displayed on the lightbox.
+       */
+      var buildLightbox = function(slide) {
+        // Requested state
+        scope.lightboxProgress = !!(!scope.lightboxBuilt && slide);
+
+        // Manage Event listeners, scroll lock, etc.
+        updateLightboxSettings(scope.lightboxProgress);
+
+        // Unset the "current slide" if necessary
+        scope.zacshSlide = scope.lightboxProgress ? scope.zacshSlide : null;
+      };
+      scope.$watch('zacshSlide', buildLightbox);
     }
   };
 };
