@@ -29,18 +29,34 @@ jzacsh.services.Slides = function($window, $http, $resource) {
  * Shared "lock" state to determine if user should be able to scroll on the
  * page.
  */
-jzacsh.services.LockScroll = function() {
-  /**
-   * @type {boolean} current "lock" state of the page's scroll.
-   */
-  var lockScroll = false;
-
+jzacsh.services.LockScroll = function($window) {
   return {
-    set: function(lock) {
-      lockScroll = !!lock;
+    coords_: false,
+
+    /**
+     * @param {boolean}
+     *   If the screen is currently locked.
+     */
+    isLocked: function() {
+      return !!this.coords_;
     },
-    get: function() {
-      return !!lockScroll;
+    /**
+     * Scroll user to top of screen, or put them back where they were before
+     * scroll, based on [lock].
+     *
+     * @param {boolean} lockScroll
+     *   If lock should be enabled or disabled.
+     */
+    lock: function(lockScroll) {
+      if (lockScroll) {
+        // @TODO(zacsh) this is disorienting, maybe fade into this, or just
+        // fix the lightbox properly?
+        this.coords_ = { x: $window.scrollX, y: $window.scrollY };
+        $window.scrollTo();
+      } else if (this.isLocked()) {
+        $window.scrollTo(this.coords_.x, this.coords_.y);
+        this.coords_ = false;
+      }
     }
   };
 };
@@ -131,9 +147,6 @@ jzacsh.directives.zacshBox = function($window, LockScroll) {
         }
       };
 
-      // $window coordinates of poor user before i started futzing
-      scope.coords_ = { x: 0, y: 0 };
-
       /**
        * @param {boolean} lightbox
        *   New on/off state that the lightbox is transitioning to
@@ -141,19 +154,8 @@ jzacsh.directives.zacshBox = function($window, LockScroll) {
       var updateLightboxSettings = function(lightbox) {
         lightbox = !!lightbox;
 
-        // Scroll user to top of screen, or put them back where they were
-        if (lightbox) {
-          // @TODO(zacsh) this is disorienting, maybe fade into this, or just
-          // fix the lightbox properly?
-          scope.coords_.x = $window.scrollX;
-          scope.coords_.y = $window.scrollY;
-          $window.scrollTo();
-        } else {
-          $window.scrollTo(scope.coords_.x, scope.coords_.y);
-        }
-
         // Lock the screen so lightbox is all that's visible
-        LockScroll.set(lightbox);
+        LockScroll.lock(lightbox);
 
         // Bindings to allow user to escape DOM nodes, once they've been built
         var addOrRemoveListener = lightbox ? 'addEventListener' : 'removeEventListener';
