@@ -28,6 +28,10 @@ jzacsh.app.config(['$routeProvider', '$locationProvider',
         templateUrl: '/static/html/beer.html',
         controller: jzacsh.controllers.BeerPageCtrl,
       })
+      .when('/running', {
+        templateUrl: '/static/html/running.html',
+        controller: jzacsh.controllers.RunningPageCtrl,
+      })
       .otherwise({ redirectTo: '/about' });
 
   // Deep linking

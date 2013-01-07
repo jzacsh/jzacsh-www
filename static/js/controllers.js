@@ -34,6 +34,9 @@ jzacsh.controllers.FooterCtrl = function($scope) {
 /* about.html controller */
 jzacsh.controllers.AboutPageCtrl = function($scope) {};
 
+/* running.html controller */
+jzacsh.controllers.RunningPageCtrl = function($scope) {};
+
 /**
  * drawings.html controller
  *
