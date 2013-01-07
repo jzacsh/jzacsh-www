@@ -9,7 +9,8 @@ jzacsh.controllers = jzacsh.controllers || {};
 jzacsh.controllers.BannerCtrl = function($scope) {
   $scope.subpages = [
     { url: '#/about', title: 'About'},
-    { url: '#/drawings', title: 'Drawings'}
+    { url: '#/drawings', title: 'Drawings'},
+    { url: '#/running', title: 'Running'}
   ];
 };
 
