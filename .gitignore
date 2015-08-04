@@ -1,5 +1,6 @@
 *.swp
 *.swo
 *.pyc
-poole.log
-static/js/lib/*.dev.js
+tmp
+node_modules
+npm-debug.log
