@@ -11,7 +11,7 @@
   "scripts": {
     "setupbuild": "mkdir -p $npm_package_config_tmpsrv/",
     "compile": "susi $npm_package_config_source/ $npm_package_config_tmpsrv/ $npm_package_config_layouts/",
-    "version": "git show-ref --hash heads/master | tee | cut -c 1-10",
+    "version": "git show-ref --hash heads/$(git symbolic-ref --short HEAD) | tee | cut -c 1-10",
     "versionurl": "echo \"$npm_package_homepage/tree/$(npm run -s version)\"",
     "versiondate": "git show -s --format='%cd' \"$(npm run -s version)\"",
 
