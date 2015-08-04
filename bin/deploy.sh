@@ -94,6 +94,8 @@ git checkout "$popdBranch"
 buildTarBall="$(mktemp -t "${mkTmpTemplate}.XXXXXXX.tgz")"
 npm install > /dev/null # too noisy
 npm run clean
+echo DEBUGGING: $(git show -s --format='%cd' "$(npm run -s version)")
+exit 99
 npm run build || exit 89
 cd "$buildDir"
 tar -zcvf "$buildTarBall" ./*
@@ -102,7 +104,7 @@ cd "$tempRepo"
 
 # unpack assets to top-level dir ./
 git checkout "$targetBranch"
-gitRmRepoContents  # clean house
+gitRmRepoContents > /dev/null  # clean house
 tar -xvf "$buildTarBall"
 git add .
 isRepoDirty || {
