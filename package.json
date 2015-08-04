@@ -12,18 +12,16 @@
     "setupbuild": "mkdir -p $npm_package_config_tmpsrv/",
     "compile": "susi $npm_package_config_source/ $npm_package_config_tmpsrv/ $npm_package_config_layouts/",
     "version": "git show-ref --hash heads/master | tee | cut -c 1-10",
-    "versionurl": "echo \"$npm_package_homepage/tree/$(npm run -s version)\"",
+    "treeurl": "echo \"$npm_package_homepage/tree/$(npm run -s version)\"",
 
-    "tagtarget": "echo \"$npm_package_config_tmpsrv/index.html\"",
-    "tagversion": "sed -i \"s|$npm_package_config_tagver|`npm run -s version`|\" $(npm run -s tagtarget)",
-    "tagversionurl": "sed -i \"s|$npm_package_config_tagbug|`npm run -s versionurl`|\" $(npm run -s tagtarget)",
-    "tagapp": "sed -i \"s|$npm_package_config_tagapp|$npm_package_config_appurl|\" $(npm run -s tagtarget)",
-    "tagbuild": "npm run tagversion && npm run tagversionurl && npm run tagapp",
+    "tagtarget": "echo \"$npm_package_config_tmpsrv/*.html\"",
+    "tagverhash": "sed -i \"s|$npm_package_config_taghash|`npm run -s version`|\" $(npm run -s tagtarget)",
+    "tagtreeurl": "sed -i \"s|$npm_package_config_tagtree|`npm run -s treeurl`|\" $(npm run -s tagtarget)",
+    "tagbuild": "npm run tagverhash && npm run tagtreeurl",
 
     "clean": "npm run -s setupbuild && find $npm_package_config_tmpsrv/ -mindepth 1 -exec rm -rf {} +;",
 
-    "assets": "npm run tagbuild && npm run appcache",
-    "build": "npm run clean && npm run compile && npm run assets",
+    "build": "npm run clean && npm run compile && npm run tagbuild",
     "watch": "./bin/watchcode.js 'npm run build' --wait=.25 $PWD/$npm_package_config_source",
     "deploy": "./bin/deploy.sh \"$npm_package_config_tmpsrv/\""
   },
@@ -38,9 +36,8 @@
     "tmpsrv": "tmp",
     "source": "app/content",
     "layouts": "app/layouts",
-    "tagver": "TAG_VERSION",
-    "tagbug": "TAG_FEEDBACK_URL",
-    "tagapp": "TAG_APP_URL",
+    "taghash": "TAG_VERSION_HASH",
+    "tagtree": "TAG_VERSION_TREE",
     "devport": "2223"
   },
   "dependencies": {
