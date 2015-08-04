@@ -15,7 +15,8 @@ colRed='\e[1;31m'
 colGrn='\e[1;32m'
 
 popdBranch="$(git symbolic-ref --short HEAD)"
-targetBranch='gh-pages'
+srcBranch='src'
+targetBranch='master'
 repoDir="$(npm root)"
 repoDir="${repoDir%/node_modules}"
 pushTarget=origin
@@ -40,7 +41,7 @@ buildDeployCommitMsg() {
 
 getCurrentHash() {
   local hashHead
-  hashHead="$(git show-ref --hash heads/master)"
+  hashHead="$(git show-ref --hash heads/$srcBranch)"
   printf '%s' "${hashHead:0:10}"
 }
 
