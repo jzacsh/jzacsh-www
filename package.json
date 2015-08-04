@@ -36,7 +36,7 @@
   "config": {
     "gdriveart": "0B61bPXQ61mAFUTd3STUtX094S00",
     "tmpsrv": "tmp",
-    "source": "app/contents",
+    "source": "app/content",
     "layouts": "app/layouts",
     "tagver": "TAG_VERSION",
     "tagbug": "TAG_FEEDBACK_URL",
