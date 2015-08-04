@@ -25,6 +25,9 @@ pushTarget=origin
 # command...)
 buildDir="$1"
 
+
+[ "$popdBranch" = "$srcBranch" ] || exit 99
+
 # returns 1 if there is stuff uncommitted, or untracked in the repo
 isRepoDirty() {
   test -n "$(git diff --shortstat 2>&1)" ||
@@ -91,7 +94,7 @@ git checkout "$popdBranch"
 buildTarBall="$(mktemp -t "${mkTmpTemplate}.XXXXXXX.tgz")"
 npm install > /dev/null # too noisy
 npm run clean
-npm run build
+npm run build || exit 89
 cd "$buildDir"
 tar -zcvf "$buildTarBall" ./*
 
