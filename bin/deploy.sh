@@ -7,10 +7,6 @@ set -e
 set -x
 
 
-# TODO remove this!
-git() { echo -e 'DEBUGGING FIRST!\t' $@; }
-
-
 #
 # basic info and tools...
 #
