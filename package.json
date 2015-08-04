@@ -13,9 +13,9 @@
     "compile": "susi $npm_package_config_source/ $npm_package_config_tmpsrv/ $npm_package_config_layouts/",
     "version": "git show-ref --hash heads/master | tee | cut -c 1-10",
     "versionurl": "echo \"$npm_package_homepage/tree/$(npm run -s version)\"",
-    "versiondate": "git show -s --format=%cd \"$(npm run -s version)\"",
+    "versiondate": "git show -s --format='%cd' \"$(npm run -s version)\"",
 
-    "tagtarget": "echo \"$npm_package_config_tmpsrv/*.html\"",
+    "tagtarget": "find \"$npm_package_config_tmpsrv/\" -type f -name '*.html'",
     "tagverhash": "sed -i \"s|$npm_package_config_taghash|`npm run -s version`|\" $(npm run -s tagtarget)",
     "tagtreeurl": "sed -i \"s|$npm_package_config_tagtree|`npm run -s versionurl`|\" $(npm run -s tagtarget)",
     "tagdate": "sed -i \"s|$npm_package_config_tagdate|`npm run -s versiondate`|\" $(npm run -s tagtarget)",
@@ -23,7 +23,8 @@
 
     "clean": "npm run -s setupbuild && find $npm_package_config_tmpsrv/ -mindepth 1 -exec rm -rf {} +;",
 
-    "build": "npm run clean && npm run compile && npm run tagbuild",
+    "assets": "cp -rf $npm_package_config_assets/* $npm_package_config_tmpsrv/",
+    "build": "npm run clean && npm run compile && npm run assets && npm run tagbuild",
     "watch": "./bin/watchcode.js 'npm run build' --wait=.25 $PWD/$npm_package_config_source",
     "deploy": "./bin/deploy.sh \"$npm_package_config_tmpsrv/\""
   },
@@ -37,6 +38,7 @@
     "gdriveart": "0B61bPXQ61mAFUTd3STUtX094S00",
     "tmpsrv": "tmp",
     "source": "app/content",
+    "assets": "app/assets",
     "layouts": "app/layouts",
     "taghash": "TAG_VERSION_HASH",
     "tagtree": "TAG_VERSION_TREE",
