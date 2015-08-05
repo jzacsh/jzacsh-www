@@ -22,7 +22,7 @@
     "clean": "npm run -s setupbuild && find $npm_package_config_tmpsrv/ -mindepth 1 -exec rm -rf {} +;",
     "assets": "cp -rf $npm_package_config_assets/* $npm_package_config_tmpsrv/",
     "build": "npm run clean && npm run compile && npm run assets && npm run tagbuild",
-    "watch": "./bin/watchcode.js 'npm run build' --wait=.25 $PWD/$npm_package_config_source",
+    "watch": "./bin/watch.sh 'npm run build' $npm_package_config_source/",
     "deploy": "./bin/deploy.sh \"$npm_package_config_tmpsrv/\""
   },
   "repository": {
