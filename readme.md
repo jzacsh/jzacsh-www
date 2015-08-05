@@ -31,7 +31,13 @@ To modify/list above commands
 npm run  # prints list based on package.json `scripts` map
 ```
 
-To automatically generate and deploy a new `master` branch:
+### Deploying to Github as User Site
+
+History of deploys can be seen on the `master` branch
+[history in github's "network pane"](https://github.com/jzacsh/jzacsh.github.com/network)
+
+To automatically generate _(`npm run build`)_ and deploy _(`git {commit,push}`)
+a new `master` branch to github:
 ```bash
 npm run deploy
 ```
