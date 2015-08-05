@@ -5,5 +5,10 @@ body {
   padding: 0;
 }
 
-header nav { text-align: right; }
-footer { text-align: center; }
+header, footer { text-align: center; }
+
+header { margin-bottom: 1.5em; }
+header h1 {
+  text-align: left;
+  color: #383838;
+}

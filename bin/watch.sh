@@ -10,7 +10,11 @@ captureChanges() { command $cmd; }
 
 captureChanges  # kick off one test run
 watchForChanges(){
-  inotifywait --event modify --recursive $watchTarget
+  inotifywait \
+    --event attrib \
+    --recursive \
+    --exclude='.s[a-w][a-z]' \
+    $watchTarget
 
   captureChanges # capture modification
 
