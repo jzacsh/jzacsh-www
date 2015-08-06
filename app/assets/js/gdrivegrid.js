@@ -236,16 +236,15 @@ Artwork.prototype.getRandomSubset_ = function(subsetSize) {
     return this.index_.artwork.slice();  // bad request, mock new array
   }
 
-  var getRandArt = Artwork.
-      getRandomInt_.bind(null  /*this*/, 0, this.index_.artwork.length);
+  var getRandArt = Artwork.getRandomIntExclusive_.
+      bind(null  /*this*/, 0, this.index_.artwork.length);
 
   var tries = 0, maxTries = 2 * subsetSize; // while loops make me nervous
 
   var subset = [], inSubset = {};
   while (++tries < maxTries && subset.length < subsetSize) {
     var randArt = this.index_.artwork[getRandArt()];
-    if (!randArt ||
-        typeof randArt == 'object' ||
+    if (typeof randArt == 'object' ||
         inSubset[randArt]) {
       continue;
     }
@@ -273,8 +272,8 @@ Artwork.prototype.getRandomSubset_ = function(subsetSize) {
  * @return {number}
  * @private
  */
-Artwork.getRandomInt_ = function(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+Artwork.getRandomIntExclusive_ = function(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
 };
 
 
