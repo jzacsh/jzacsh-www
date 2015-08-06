@@ -2,7 +2,7 @@ body {
   color: #444;
   font-size: 12pt;
   margin: 0;
-  padding: 0;
+  padding: 1ex;
 }
 
 header { margin-bottom: 2em; }
