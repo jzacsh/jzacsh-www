@@ -13,7 +13,7 @@ watchForChanges(){
   inotifywait \
     --event attrib \
     --recursive \
-    --exclude='.s[a-w][a-z]' \
+    --exclude='\.s[a-w][a-z]' \
     $watchTarget
 
   captureChanges # capture modification

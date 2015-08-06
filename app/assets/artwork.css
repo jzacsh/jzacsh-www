@@ -1,0 +1,26 @@
+ul.grid {
+  margin: 0.5em;
+  padding-left: 0;
+}
+
+.thumbnail {
+  position: relative;
+  overflow: hidden;
+  width: 50%;
+  height: 50%;
+  display: inline;
+  padding: 0;
+
+  font-size: 8em;
+  margin: .3em;
+}
+
+.thumbnail img {
+  left: 50%;
+  height: 100%;
+  width: auto;
+
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}

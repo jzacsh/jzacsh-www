@@ -1,5 +1,8 @@
 {
-  "title": "Sketchbooks & Paintings"
+  "title": "Sketchbooks & Paintings",
+  "layout": "jslib",
+  "jspath": "js/gdrivegrid.js",
+  "jsargs": "0B61bPXQ61mAFR0NmaThNSVNZSVU"
 }
 
 ---

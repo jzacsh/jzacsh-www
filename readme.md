@@ -1,7 +1,14 @@
 Code for Jonathan Zacsh's personal website.
 
 ## Development
+
 **NOTE**: Pre-requisite that you run `npm install` once.
+
+This is a a repository of mostly text _(written in markdown)_ - and a tiny bit of
+coded - that is automatically turned into a directory of static HTML assets
+using:
+  1. some glue code via `package.json` `scipts` API
+  2. [SuSi](https://github.com/AVGP/susi) static site generator _(ie: `npm run build`)_
 
 ### Git Branches
   1. Source & content: `src` branch
