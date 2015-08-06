@@ -207,9 +207,10 @@ Artwork.prototype.renderGrid = function() {
   }
 
   this.getRandomSubset_(16  /*size*/).forEach(function(work) {
-    if (typeof work == 'object') {
-      // TODO(zacsh): deal with this case when you break artwork into "vector"
-      // vs "raster" vs "doodle"
+    if (typeof work == 'object' ||
+        work == Artwork.INDEX_PATH) {
+      // TODO(zacsh): deal with this typeof == object case when you break
+      // artwork into "vector" vs "raster" vs "doodle"
       return;
     }
 
