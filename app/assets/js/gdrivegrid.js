@@ -115,15 +115,14 @@ var Artwork = function(gdriveHost, win) {
   /** @private {Artwork.DirListing} */
   this.index_ = null;
 
-  /**
-   * Activity we need to block on.
-   *
-   * @type {!Array.<!Promise>}
-   */
-  this.queue = [];
+  /** @private {!Array.<!Promise>} */
+  this.queue_ = [];
+
+  /** @private {!Object.<string, boolean>} */
+  this.isLoaded_ = {};
 
   // Fetch artwork index
-  this.queue.push(
+  this.queue_.push(
       this.gdriveHost_.
         getRelativeFile(Artwork.INDEX_PATH).
         then(function(index) {
@@ -145,9 +144,19 @@ Artwork.DirListing;
 Artwork.INDEX_PATH = 'index.json';
 
 
+/** @const {number} standard size of sections to add to grid */
+Artwork.GRID_ADDITION = 8;
+
+
 /** enum {boolean} */
 Artwork.Enabled = {
   CAPTION: false
+};
+
+
+/** @return {!Promise} to be ready to render artwork. */
+Artwork.prototype.ready = function() {
+  return Promise.all(this.queue_);
 };
 
 
@@ -194,35 +203,63 @@ Artwork.prototype.addArtToGrid_ = function(fileName) {
   }
 
   this.gridEl_.appendChild(thumbNailEl);
+  this.isLoaded_[fileName] = true;
   return thumbNailEl;
 };
 
 
-/** Renders a visual grid of artwork on the page. */
-Artwork.prototype.renderGrid = function() {
+/**
+ * Renders a visual grid of artwork on the page.
+ * @param {!Array.<string>} artwork
+ */
+Artwork.prototype.addToGrid = function(artwork) {
   if (!this.gridEl_) {
-    this.gridEl_ = this.doc_.createElement('ul');
-    this.gridEl_.setAttribute('class', 'grid');
-    this.containerEl_.appendChild(this.gridEl_);
+    this.buildGrid_();
   }
 
-  this.getRandomSubset_(16  /*size*/).forEach(function(work) {
-    if (typeof work == 'object' ||
-        work == Artwork.INDEX_PATH) {
-      // TODO(zacsh): deal with this typeof == object case when you break
-      // artwork into "vector" vs "raster" vs "doodle"
-      return;
-    }
-
-    if (work.match(/\.svg$/)) {
-      // TODO(zacsh) remove this guard once i'm serving multiple sizes; ie:
-      // using this cron script, again:
-      // github.com/jzacsh/bin/blob/master/share/prep_images
+  artwork.forEach(function(work) {
+    if (!this.isGoodAdd_(work)) {
       return;
     }
 
     this.addArtToGrid_(work);
   }.bind(this));
+};
+
+
+/** @private */
+Artwork.prototype.buildGrid_ = function() {
+  this.gridEl_ = this.doc_.createElement('ul');
+  this.gridEl_.setAttribute('class', 'grid');
+  this.containerEl_.appendChild(this.gridEl_);
+
+  // debugger;
+  var buttonEl = this.doc_.createElement('button');
+  buttonEl.textContent = 'Load more';
+  buttonEl.addEventListener('click', this.addMoreArt.bind(this));
+  this.containerEl_.appendChild(buttonEl);
+};
+
+
+/**
+ * @param {string|!Object} artwork value of {@link Artwork.DirListing}.
+ * @return {boolean}
+ * @private
+ */
+Artwork.prototype.isGoodAdd_ = function(artwork) {
+  return Boolean(
+      // TODO(zacsh): deal with this when you break artwork into "vector" vs
+      // "raster" vs "doodle"
+      typeof artwork != 'object' &&
+
+      // TODO(zacsh) remove this guard once i'm serving multiple sizes; ie:
+      // using this cron script, again:
+      // github.com/jzacsh/bin/blob/master/share/prep_images
+      !artwork.match(/\.svg$/) &&
+
+      artwork != Artwork.INDEX_PATH &&
+
+      !this.isLoaded_[artwork]);
 };
 
 
@@ -238,27 +275,37 @@ Artwork.prototype.getRandomSubset_ = function(subsetSize) {
   }
 
   var getRandArt = Artwork.getRandomIntExclusive_.
-      bind(null  /*this*/, 0, this.index_.artwork.length);
+      bind(null  /*this*/, 0  /*min*/, this.index_.artwork.length);
 
   var tries = 0, maxTries = 2 * subsetSize; // while loops make me nervous
 
-  var subset = [], inSubset = {};
+  var subset = [];
   while (++tries < maxTries && subset.length < subsetSize) {
     var randArt = this.index_.artwork[getRandArt()];
-    if (typeof randArt == 'object' ||
-        inSubset[randArt]) {
-      continue;
-    }
-    if (randArt.match(/\.svg$/)) {
-      // TODO(zacsh) remove this guard once the following is running again on
-      // cron: github.com/jzacsh/bin/blob/master/share/prep_images
+    if (!this.isGoodAdd_(randArt)) {
       continue;
     }
 
-    inSubset[randArt] = true;
     subset.push(randArt);
   }
   return subset;
+};
+
+
+/** Loads random small subset of artwork into the grid. */
+Artwork.prototype.addRandomArt = function() {
+  this.addToGrid(this.getRandomSubset_(Artwork.GRID_ADDITION  /*size*/));
+};
+
+
+/** Loads random small subset of artwork into the grid. */
+Artwork.prototype.addMoreArt = function() {
+  var added = 0;
+  this.addToGrid(this.index_.artwork.filter(function(artwork, i) {
+    var willAdd = added < Artwork.GRID_ADDITION && this.isGoodAdd_(artwork);
+    added += willAdd;
+    return willAdd;
+  }.bind(this)));
 };
 
 
@@ -281,6 +328,7 @@ Artwork.getRandomIntExclusive_ = function(min, max) {
 var gdriveHost = new GdriveHost(window.jslibJsargs);
 var artwork = new Artwork(gdriveHost, this  /*window*/);
 
-Promise.all(artwork.queue).then(function() {
-  artwork.renderGrid();
+
+artwork.ready().then(function() {
+  artwork.addRandomArt();
 });

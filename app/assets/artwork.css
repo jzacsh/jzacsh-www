@@ -1,3 +1,10 @@
+#artwork button {
+  width: 50%;
+  display: block;
+  margin: 0 auto;
+  padding: 1ex;
+}
+
 ul.grid {
   margin: 0.5em;
   padding-left: 0.5em;
