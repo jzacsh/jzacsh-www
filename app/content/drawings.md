@@ -7,7 +7,7 @@
 
 ---
 
-Below are some scanned drawings from a time when filled multiple new pages
+Below are some scanned drawings from a time when I filled multiple new pages
 per-day in a sketchbook. Some drawings here _may_ also be vector drawings, created in
 [inkscpae](https://inkscape.org) with a wacom bamboo tablet _([eg "nerd
 friend"](https://googledrive.com/host/0B61bPXQ61mAFR0NmaThNSVNZSVU/20100519_001_nerd-friend.svg))_.
