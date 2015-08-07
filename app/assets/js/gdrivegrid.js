@@ -233,7 +233,6 @@ Artwork.prototype.buildGrid_ = function() {
   this.gridEl_.setAttribute('class', 'grid');
   this.containerEl_.appendChild(this.gridEl_);
 
-  // debugger;
   var buttonEl = this.doc_.createElement('button');
   buttonEl.textContent = 'Load more';
   buttonEl.addEventListener('click', this.addMoreArt.bind(this));
