@@ -8,6 +8,7 @@
 ul.grid {
   margin: 0.5em;
   padding-left: 0.5em;
+  overflow: hidden;
 }
 
 .thumbnail {
