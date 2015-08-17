@@ -58,6 +58,32 @@ gitRmRepoContents() {
   fi
 }
 
+fatalError() {
+  local err="$1"
+  local msg="$2"
+  shift 2
+
+  printf "${colRed}ERROR:\t${colEnd}$msg" $@ >&2
+
+  cleanup; exit $err
+}
+
+cleanup() {
+  if [ -n "$mkTmpTemplate" ];then
+    printf 'Cleaning up temp files, suffixed, "%s"-\n' "$mkTmpTemplate"
+    if [ -n "$buildTarBall" ];then rm "$buildTarBall";fi
+    if [ -n "$tempRepo" ];then     rm -rf "$tempRepo";fi
+  fi
+}
+
+# capture "set -e"; see:
+#   man bash | less +/^\w*SHELL.BUILTIN.COMMANDS
+dieErr() {
+  printf 'Caught ERR, cleaning up before exit...\n' >&2
+  cleanup
+}
+trap dieErr ERR
+
 
 #
 # actual deploy steps...
@@ -69,11 +95,9 @@ cd "$repoDir"  # ensure we're at the root of the repo
 versionDeploy="$(npm run -s version)"
 if isRepoDirty; then
   if [ "$1" = -p ];then
-    printf 'NOT IMPLEMENTED: -p(rompt) to force deploy\n' >&2
-    exit 99
+    fatalError 99 'NOT IMPLEMENTED: -p(rompt) to force deploy\n'
   else
-    printf "${colRed}MUST FIX${colEnd} before deploying: repo is dirty or has untracked files.\n" >&2
-    exit 1
+    fatalError 1 'MUST FIX before deploying: repo is dirty or has untracked files.\n'
   fi
 fi
 
@@ -105,19 +129,18 @@ git checkout "$targetBranch"
 gitRmRepoContents > /dev/null  # clean house
 tar -xvf "$buildTarBall"
 git add .
-isRepoDirty || {
-  printf 'Nothing to deploy: v.%s builds identical assets to %s at %s\n' \
-      "$versionDeploy" "$targetBranch" "$(getCurrentHash)" >&2
-  exit 2
-}
+
+if ! isRepoDirty;then
+  fatalError 2 \
+    'Nothing to deploy: v.%s built identically to %s at %s\n' \
+    "$versionDeploy" "$targetBranch" "$(getCurrentHash)"
+fi
+
 git commit -a -m "$(buildDeployCommitMsg "$versionDeploy")" >/dev/null  # too noisy
 ghPagesDeployHash="$(getCurrentHash)"
 git push "$remotePushedTarget" "$targetBranch"
 
-# cleanup after ourselves
-printf 'Cleaning up temp files, suffixed, "%s"-\n' "$mkTmpTemplate"
-rm "$buildTarBall"
-rm -rf "$tempRepo"
+cleanup  # cleanup after ourselves
 
 cd "$repoDir"
 printf "\n\n${colGrn}DEPLOY PUSHED${colEnd}: %s/tree/%s\n" \
