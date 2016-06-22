@@ -30,7 +30,7 @@ To see contents of an `npm run build`:
 ```bash
 xdg-open tmp/  # inspect
 
-python -m SimpleHTTPServer 8000  # and serve it, if you'd like
+python3 -m http.server  # and serve it, if you'd like
 ```
 
 To modify/list above commands
