@@ -1,6 +1,6 @@
 {
   "name": "jzacsh.github.com",
-  "description": "statically generated personal website",
+  "description": "statically generated personal website at https://j.zac.sh",
   "directories": {
     "bin": "bin"
   },
@@ -23,7 +23,7 @@
     "assets": "cp -rf $npm_package_config_assets/* $npm_package_config_tmpsrv/",
     "build": "npm run clean && npm run compile && npm run assets && npm run tagbuild",
     "watch": "./bin/watch.sh 'npm run build' \"$npm_package_config_source/\"",
-    "deploy": "gh-pages-deploy \"$npm_package_config_tmpsrv/\""
+    "deploy": "rsync --recursive \"$npm_package_config_tmpsrv/\" keycdn:zones/jzacsh/"
   },
   "repository": {
     "type": "git",
@@ -43,7 +43,6 @@
     "devport": "2223"
   },
   "dependencies": {
-    "gh-pages-deploy": "git+https://gist.github.com/93c3f39a7bdfb5f665c8.git#98d8709",
     "minimist": "^1.1.2",
     "susi": "^0.2.3",
     "watch": "^0.16.0"
