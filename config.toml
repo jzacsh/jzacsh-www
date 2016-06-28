@@ -1,3 +1,4 @@
 baseurl = "https://j.zac.sh"
 languageCode = "en-us"
 title = "About Me"
+publishdir = "tmp"
