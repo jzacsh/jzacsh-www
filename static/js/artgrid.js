@@ -25,7 +25,6 @@ httpRequest.get = function(url) {
 /** @enum {string} */
 httpRequest.Method = {GET: 'GET', POST: 'POST'};
 
-
 /**
  * Copy/pasted nearly verbatim from Apache2-licensed code snippet here:
  *   http://www.html5rocks.com/en/tutorials/es6/promises/
@@ -37,8 +36,18 @@ httpRequest.Method = {GET: 'GET', POST: 'POST'};
  */
 httpRequest.send = function(url, method) {
   return new Promise(function(resolve, reject) {
+    // Create CORS XHR object.
+    //   from www.html5rocks.com/en/tutorials/cors/
     var req = new XMLHttpRequest();
-    req.open(method, url);
+    if ("withCredentials" in req) {
+      req.open(method, url, true); // XHR for Chrome/Firefox/Opera/Safari.
+    } else if (typeof XDomainRequest != "undefined") {
+      req = new XDomainRequest(); // XDomainRequest for IE.
+      req.open(method, url);
+    } else {
+      throw new Error("CORS not suppored; you're on some awful browser...");
+    }
+
     req.onload = function() {
       if (req.status == 200) {
         resolve(req.response);
