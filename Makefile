@@ -6,7 +6,7 @@ TAGDATE   := TAG_VERSION_DATE
 TAG_SRC   := $(shell find $(TMPSRV) -type f -name '*.html')
 GIT_HEAD  := `git symbolic-ref --short HEAD`
 GIT_VER   := $(shell git show-ref --hash heads/$(GIT_HEAD) | tee | cut -c 1-10)
-GIT_TREE  := "https://github.com/jzacsh-www/tree/$(GIT_VER)"
+GIT_TREE  := "https://github.com/jzacsh/jzacsh-www/tree/$(GIT_VER)"
 GIT_DATE  := `git show -s --format='%cd' $(GIT_VER)`
 
 build: compile tagbuild
