@@ -54,18 +54,14 @@ httpRequest.send = function(url, method) {
 };
 
 
-/**
- * @param {string} publicFolderId
- * @constructor
- */
-var GdriveHost = function(publicFolderId) {
-  this.baseUrl = GdriveHost.BASE_URL + publicFolderId;
+/** @constructor */
+var GdriveHost = function() {
+  this.baseUrl = GdriveHost.BASE_URL
   this.get = httpRequest.get;
-
 };
 
 
-/** @const */
+/** @const {string} */
 GdriveHost.BASE_URL = 'https://content.j.zac.sh/art/';
 
 
@@ -91,20 +87,15 @@ GdriveHost.prototype.getRelativeFile = function(path) {
 
 /**
  * @param {!GdriveHost} gdriveHost
- * @param {!Window} win
+ * @param {!Document} doc
  * @constructor
  */
-var Artwork = function(gdriveHost, win) {
+var Artwork = function(gdriveHost, doc) {
   /** @private {!Document} */
-  this.doc_ = win.document;
+  this.doc_ = doc;
 
   /** @private {!Element} */
-  this.rootEl_ = this.doc_.querySelectorAll('#contents')[0];
-
-  /** @private {!Element} */
-  this.containerEl_ = this.doc_.createElement('div');
-  this.containerEl_.setAttribute('id', 'artwork');
-  this.rootEl_.appendChild(this.containerEl_);
+  this.containerEl_ = Artwork.injectContainer_(this.doc_);
 
   /** @private {?Element} */
   this.gridEl_ = null;
@@ -128,6 +119,23 @@ var Artwork = function(gdriveHost, win) {
         then(function(index) {
           this.index_ = JSON.parse(index);
         }.bind(this)));
+};
+
+
+/**
+ * @param {!Document} doc
+ * @return {!Element} container
+ * @private
+ */
+Artwork.injectContainer_ = function(doc) {
+  var rootNode = doc.querySelectorAll('footer')[0];
+
+  var containerEl = doc.createElement('div');
+  containerEl.setAttribute('id', 'artwork');
+  rootNode.parentNode.
+      insertBefore(containerEl, rootNode);
+
+  return containerEl;
 };
 
 
@@ -324,10 +332,12 @@ Artwork.getRandomIntExclusive_ = function(min, max) {
 };
 
 
-var gdriveHost = new GdriveHost(window.jslibJsargs);
-var artwork = new Artwork(gdriveHost, this  /*window*/);
+this.document.addEventListener('DOMContentLoaded', function() {
+  var gdriveHost = new GdriveHost();
+  var artwork = new Artwork(gdriveHost, this /*doc*/);
 
 
-artwork.ready().then(function() {
-  artwork.addRandomArt();
+  artwork.ready().then(function() {
+    artwork.addRandomArt();
+  });
 });
