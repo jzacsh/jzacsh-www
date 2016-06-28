@@ -1,5 +1,3 @@
-{{ $Title := "About Me" }}
-
 {{ partial "index_open.html" . }}
   
   <link href="/css/page.css" rel="stylesheet" type="text/css">
@@ -8,7 +6,18 @@
 
 {{ partial "header.html" . }}
 
-{{< gplusprofile "//plus.google.com/106377585049668973386" >}}
+<div class="widget-gplus" style="text-align: center;">
+  <div class="g-person"
+       data-href="//plus.google.com/106377585049668973386"
+       data-rel="author"></div>
+  <script type="text/javascript">
+    (function() {
+      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+      po.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+  </script>
+</div>
 
 {{ partial "footer.html" . }}
 {{ partial "index_close.html" . }}
