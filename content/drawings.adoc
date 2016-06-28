@@ -12,7 +12,7 @@ per-day in a sketchbook. Some drawings here _may_ also be vector drawings,
 created in {inkscape}[inkscape] with a wacom bamboo tablet ({nerdsvg}[eg "nerd
 friend"]).
 
-Lastly, I've started doodling a bit on the go, in a link:/doodle[**doodle**
+Lastly, I've started doodling a bit on the go, in a https://doodle.j.zac.sh[**doodle**
 mobile-app I created] ({burrito}[eg "burrito riding bicycle"]).
 
 == What's Shown Here
