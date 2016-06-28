@@ -1,0 +1,13 @@
+{{ partial "index_open.html" . }}
+
+  <link href="/css/post.css" rel="stylesheet" type="text/css">
+
+</head><body data-type="post">
+
+{{ partial "header.html" . }}
+
+Posted on <time>{{ .Date }}</time>
+{{ .Content }}
+
+{{ partial "footer.html" . }}
+{{ partial "index_close.html" . }}

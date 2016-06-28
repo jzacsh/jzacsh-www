@@ -1,0 +1,23 @@
++++
+title = "Sketchbooks & Doodles"
+type = "page"
++++
+
+:inkscape: https://inkscape.org
+:nerdsvg: https://content.j.zac.sh/art/20100519_001_nerd-friend.svg
+:burrito: https://content.j.zac.sh/art/burrito-riding-bicycle.jpg
+
+Below are some scanned drawings from a time when I filled multiple new pages
+per-day in a sketchbook. Some drawings here _may_ also be vector drawings,
+created in {inkscape}[inkscape] with a wacom bamboo tablet ({eg "nerd
+friend"}[nerdsvg]).
+
+Lastly, I've started doodling a bit on the go, in a link:/doodle[**doodle**
+mobile-app I created] ({burrito}[eg "burrito riding bicycle"]).
+
+== What's Shown Here
+Work shown below is a randomly loaded subset of my scanned work _(until I find
+time to create something nice small screens)_. In the meantime, feel free to
+link:art-index.html[checkout the full listing] of what's scanned.
+
+{{< script "artgrid.js" >}}

@@ -66,7 +66,7 @@ var GdriveHost = function(publicFolderId) {
 
 
 /** @const */
-GdriveHost.BASE_URL = 'https://googledrive.com/host/';
+GdriveHost.BASE_URL = 'https://content.j.zac.sh/art/';
 
 
 /**

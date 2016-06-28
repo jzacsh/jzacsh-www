@@ -1,0 +1,6 @@
++++
+title = "Running"
+type = "page"
++++
+
+{{< iframe "widget-strava" "https://www.strava.com/athletes/1251373/latest-rides/7fe439e0cde2528c0ba3d72df4f3e557808fb940" >}}

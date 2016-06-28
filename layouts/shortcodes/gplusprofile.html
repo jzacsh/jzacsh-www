@@ -1,11 +1,6 @@
-<!--#include virtual="index_open.ssi.html" -->
-<!--#include virtual="header.ssi.html" -->
-
-{{contents}}
-
 <div class="widget-gplus" style="text-align: center;">
   <div class="g-person"
-       data-href="//plus.google.com/106377585049668973386"
+       data-href="{{ index .Params 0 }}"
        data-rel="author"></div>
   <script type="text/javascript">
     (function() {
@@ -15,6 +10,3 @@
     })();
   </script>
 </div>
-
-<!--#include virtual="footer.ssi.html" -->
-<!--#include virtual="index_close.ssi.html" -->
