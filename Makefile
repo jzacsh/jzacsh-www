@@ -30,7 +30,7 @@ clean:
 # as a way to continue pushing to github, to maintain a `master` that shows the
 # snapshots website content for me
 archive:
-	@echol 'NOT IMPLEMENTED' gh-pages-deploy "$(TMPSRV)/"
+	@echo 'NOT IMPLEMENTED' gh-pages-deploy "$(TMPSRV)/"
 
 deploy: archive
 	rsync --recursive "$(TMPSRV)/" keycdn:zones/jzacsh/
