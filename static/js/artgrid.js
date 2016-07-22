@@ -286,18 +286,18 @@ Artwork.prototype.isGoodAdd_ = function(artwork) {
  */
 // TODO remove use of this once some sort of paging mechanism is in place
 Artwork.prototype.getRandomSubset_ = function(subsetSize) {
-  if (subsetSize === this.index_.artwork.length) {
-    return this.index_.artwork.slice();  // bad request, mock new array
+  if (subsetSize === this.index_.art.length) {
+    return this.index_.art.slice();  // bad request, mock new array
   }
 
   var getRandArt = Artwork.getRandomIntExclusive_.
-      bind(null  /*this*/, 0  /*min*/, this.index_.artwork.length);
+      bind(null  /*this*/, 0  /*min*/, this.index_.art.length);
 
   var tries = 0, maxTries = 2 * subsetSize; // while loops make me nervous
 
   var subset = [];
   while (++tries < maxTries && subset.length < subsetSize) {
-    var randArt = this.index_.artwork[getRandArt()];
+    var randArt = this.index_.art[getRandArt()];
     if (!this.isGoodAdd_(randArt)) {
       continue;
     }
@@ -317,7 +317,7 @@ Artwork.prototype.addRandomArt = function() {
 /** Loads random small subset of artwork into the grid. */
 Artwork.prototype.addMoreArt = function() {
   var added = 0;
-  this.addToGrid(this.index_.artwork.filter(function(artwork, i) {
+  this.addToGrid(this.index_.art.filter(function(artwork, i) {
     var willAdd = added < Artwork.GRID_ADDITION && this.isGoodAdd_(artwork);
     added += willAdd;
     return willAdd;
