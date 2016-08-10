@@ -281,6 +281,7 @@ Artwork.prototype.isGoodAdd_ = function(artwork) {
       !artwork.match(/\.svg$/) &&
 
       artwork != Artwork.INDEX_PATH &&
+      artwork != 'copying' &&
 
       !this.isLoaded_[artwork]);
 };
