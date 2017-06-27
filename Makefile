@@ -18,9 +18,9 @@ setupbuild: clean
 
 tagbuild: TAG_SRC=$(shell find $(TMPSRV) -type f -name '*.html')
 tagbuild:
-	sed -i "s|$(TAGHASH)|$(GIT_VER)|"  $(TAG_SRC)
-	sed -i "s|$(TAGTREE)|$(GIT_TREE)|" $(TAG_SRC)
-	sed -i "s|$(TAGDATE)|$(GIT_DATE)|" $(TAG_SRC)
+	sed --in-place "s|$(TAGHASH)|$(GIT_VER)|"  $(TAG_SRC)
+	sed --in-place "s|$(TAGTREE)|$(GIT_TREE)|" $(TAG_SRC)
+	sed --in-place "s|$(TAGDATE)|$(GIT_DATE)|" $(TAG_SRC)
 
 clean:
 	$(RM) -rf $(TMPSRV)/*
