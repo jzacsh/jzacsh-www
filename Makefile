@@ -32,6 +32,7 @@ clean:
 archive:
 	@echo 'NOT IMPLEMENTED' gh-pages-deploy "$(TMPSRV)/"
 
+# TODO(jzacsh) port to aws s3 version
 deploy: archive
 	rsync --recursive "$(TMPSRV)/" keycdn:zones/jzacsh/
 
