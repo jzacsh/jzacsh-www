@@ -3,7 +3,6 @@ TMPSRV    := tmp
 TAGHASH   := TAG_VERSION_HASH
 TAGTREE   := TAG_VERSION_TREE
 TAGDATE   := TAG_VERSION_DATE
-TAG_SRC   := $(shell find $(TMPSRV) -type f -name '*.html')
 GIT_HEAD  := `git symbolic-ref --short HEAD`
 GIT_VER   := $(shell git show-ref --hash heads/$(GIT_HEAD) | tee | cut -c 1-10)
 GIT_TREE  := "https://github.com/jzacsh/jzacsh-www/tree/$(GIT_VER)"
@@ -17,6 +16,7 @@ compile: setupbuild
 setupbuild: clean
 	mkdir -p $(TMPSRV)/
 
+tagbuild: TAG_SRC=$(shell find $(TMPSRV) -type f -name '*.html')
 tagbuild:
 	sed -i "s|$(TAGHASH)|$(GIT_VER)|"  $(TAG_SRC)
 	sed -i "s|$(TAGTREE)|$(GIT_TREE)|" $(TAG_SRC)
