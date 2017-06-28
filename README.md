@@ -48,7 +48,5 @@ History of deploys can be seen on the `master` branch
 To automatically generate _(`make build`)_ and deploy _(`git {commit,push}`)_
 a new `master` branch to github:
 ```bash
-npm run deploy
+make S3_BUCKET=my-bucket-name deploy
 ```
-
-Optionally: [KeyCDN's simple `curl` command to purge cache](https://www.keycdn.com/api#purge-zone-cache)

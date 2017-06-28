@@ -34,6 +34,6 @@ archive:
 
 # TODO(jzacsh) port to aws s3 version
 deploy: archive
-	rsync --recursive "$(TMPSRV)/" keycdn:zones/jzacsh/
+	cd "$(TMPSRV)/" && aws s3 sync --acl public-read . s3://$(S3_BUCKET)
 
 .PHONY: deploy archive, clean tagbuild build setupbuild compile
