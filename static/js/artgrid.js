@@ -39,7 +39,7 @@ httpRequest.send = function(url, method) {
     // Create CORS XHR object.
     //   from www.html5rocks.com/en/tutorials/cors/
     var req = new XMLHttpRequest();
-    if ("withCredentials" in req) {
+    if (req.withCredentials) {
       req.open(method, url, true); // XHR for Chrome/Firefox/Opera/Safari.
     } else if (typeof XDomainRequest != "undefined") {
       req = new XDomainRequest(); // XDomainRequest for IE.
