@@ -65,8 +65,19 @@ httpRequest.send = function(url, method) {
 
 /** @constructor */
 var GdriveHost = function() {
-  this.baseUrl = GdriveHost.BASE_URL;
+  this.baseUrl = GdriveHost.stripTrailingSlash_(GdriveHost.BASE_URL);
   this.get = httpRequest.get;
+};
+
+/**
+ * @param {string} url
+ * @return {string}
+ * @private
+ */
+GdriveHost.stripTrailingSlash_ = function(url) {
+  return url[url.length - 1] == '/' ?
+      url.slice(0, url.length - 1) :
+      url;
 };
 
 
