@@ -65,7 +65,7 @@ httpRequest.send = function(url, method) {
 
 /** @constructor */
 var GdriveHost = function() {
-  this.baseUrl = GdriveHost.BASE_URL
+  this.baseUrl = GdriveHost.BASE_URL;
   this.get = httpRequest.get;
 };
 
