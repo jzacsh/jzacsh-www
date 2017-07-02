@@ -41,7 +41,7 @@ httpRequest.send = function(url, method) {
     var req = new XMLHttpRequest();
     if (req.withCredentials) {
       req.open(method, url, true); // XHR for Chrome/Firefox/Opera/Safari.
-    } else if (typeof XDomainRequest != "undefined") {
+    } else if (typeof XDomainRequest != 'undefined') {
       req = new XDomainRequest(); // XDomainRequest for IE.
       req.open(method, url);
     } else {
