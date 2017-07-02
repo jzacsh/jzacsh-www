@@ -79,7 +79,7 @@ GdriveHost.BASE_URL = 'https://content.j.zac.sh/art/';
  * @return {string} Fully qualifieda path to {@code relativePath}.
  */
 GdriveHost.prototype.getUrl = function(relativePath) {
- return this.baseUrl + '/' + relativePath;
+  return this.baseUrl + '/' + relativePath;
 };
 
 
