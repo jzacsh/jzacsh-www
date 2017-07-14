@@ -36,4 +36,4 @@ archive:
 deploy: archive
 	cd "$(TMPSRV)/" && aws s3 sync --acl public-read . s3://$(S3_BUCKET)
 
-.PHONY: deploy archive, clean tagbuild build setupbuild compile
+.PHONY: deploy archive clean tagbuild build setupbuild compile
