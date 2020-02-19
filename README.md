@@ -48,8 +48,9 @@ History of deploys can be seen on the `master` branch
 To automatically generate _(`make build`)_ and deploy _(`git {commit,push}`)_
 a new `master` branch to github:
 ```bash
-TODO make this true again
 make deploy
+# if adapting, then read the variables passed inside this make target's script,
+# first!
 ```
 
 #### Deploying to AWS
