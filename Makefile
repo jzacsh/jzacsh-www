@@ -1,4 +1,5 @@
 TMPSRV    := tmp
+BINDIR    := bin
 
 TAGHASH   := TAG_VERSION_HASH
 TAGTREE   := TAG_VERSION_TREE
@@ -25,15 +26,16 @@ tagbuild:
 clean:
 	$(RM) -rf $(TMPSRV)/*
 
-# TODO was originally usig this
-# https://gist.github.com/93c3f39a7bdfb5f665c8.git#98d8709
-# as a way to continue pushing to github, to maintain a `master` that shows the
-# snapshots website content for me
-archive:
-	@echo 'NOT IMPLEMENTED' gh-pages-deploy "$(TMPSRV)/"
+deploy: build
+	$(BINDIR)/github-pages.sh $(GIT_VER) $(TMPSRV)
 
-# TODO(jzacsh) port to aws s3 version
-deploy: archive
+deployGcs: build
+	cd "$(TMPSRV)/" && gsutil rsync -d -r gs://$(GCS_BUCKET) .
+
+deployAws: build
 	cd "$(TMPSRV)/" && aws s3 sync --acl public-read . s3://$(S3_BUCKET)
 
-.PHONY: deploy archive clean tagbuild build setupbuild compile
+deployKcdn: build
+	rsync --recursive "$(TMPSRV)/" keycdn:zones/${KYCDN_ZONE}
+
+.PHONY: deploy clean tagbuild build setupbuild compile
