@@ -1,5 +1,6 @@
 TMPSRV    := tmp
 BINDIR    := bin
+DOMAIN    := j.zac.sh
 
 TAGHASH   := TAG_VERSION_HASH
 TAGTREE   := TAG_VERSION_TREE
@@ -27,7 +28,7 @@ clean:
 	$(RM) -rf $(TMPSRV)/*
 
 deploy: build
-	$(BINDIR)/github-pages.sh $(GIT_VER) $(TMPSRV)
+	$(BINDIR)/github-pages.sh $(GIT_VER) $(TMPSRV) $(DOMAIN)
 
 deployGcs: build
 	cd "$(TMPSRV)/" && gsutil rsync -d -r gs://$(GCS_BUCKET) .

@@ -8,6 +8,7 @@ set -x
 
 versionDeploy="$1"
 buildDir="$2"
+domainName="$3"
 
 staticContentDir="$(readlink -f "$buildDir")"
 
@@ -125,7 +126,9 @@ git checkout "$targetBranch"
 gitRmRepoContents > /dev/null
 # step 2: install new static content
 rsync --archive --acls --xattrs --verbose "$staticContentDir"/ ./
-# step 3: stage so git knows about new static content
+# step 3: write custom CNAME file for github
+echo -n "$domainName" > CNAME
+# step 4: stage so git knows about new static content
 git add .
 
 if ! isRepoDirty;then
@@ -134,11 +137,11 @@ if ! isRepoDirty;then
     "$versionDeploy" "$targetBranch" "$(getCurrentHash)"
 fi
 
-# step 4: write a custom commit message for new static content
+# step 5: write a custom commit message for new static content
 git commit -a -m "$(buildDeployCommitMsg "$versionDeploy")" >/dev/null  # too noisy
 ghPagesDeployHash="$(getCurrentHash)"
 
-# step 5: deploy new static content to github
+# step 6: deploy new static content to github
 git push "$remotePushedTarget" "$targetBranch"
 
 printf "\n\n${colGrn}DEPLOY PUSHED${colEnd}: %s/tree/%s\n" \
