@@ -79,7 +79,6 @@ cleanup() {
   [[ -n "$mkTmpTemplate" ]] || return 0
 
   printf 'Cleaning up temp files, suffixed, "%s"-\n' "$mkTmpTemplate"
-  if [[ -n "$buildTarBall" ]];then rm "$buildTarBall";fi
   if [[ -n "$tempRepo" ]];then rm -rf "$tempRepo";fi
 }
 
@@ -95,7 +94,6 @@ trap dieErr ERR
 #
 # actual deploy steps...
 #
-
 
 cd "$repoDir"  # ensure we're at the root of the repo
 
@@ -117,7 +115,7 @@ mkTmpTemplate="$(basename "$repoDir")-deploy-v$versionDeploy"
 
 
 # setup somewhere else, don't want to make a mess of current repo
-tempRepo="$(mktemp -d -t "${mkTmpTemplate}-repo.XXXXXXX")"
+tempRepo="$(mktemp -d -t  "${mkTmpTemplate}-repo.XXXXXXX")"
 git clone "$repoDir" "$tempRepo"
 cd "$tempRepo"
 git checkout "$targetBranch"
