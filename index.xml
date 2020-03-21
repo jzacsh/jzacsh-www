@@ -11,6 +11,17 @@
     
     
     <item>
+      <title>Doodles of Code</title>
+      <link>https://j.zac.sh/toycode/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://j.zac.sh/toycode/</guid>
+      <description>Here&amp;#8217;s a tiny collection of fun, usually unfinished, small weekend toy-projects/hacks. Doodles!
+ Simple, but Useful Tiny tools I&amp;#8217;ve actually used on a regular basis at different times:
+   runonchange: just a super bloated inotifywait loop (10x-bloat version of the shell script); mostly used to play with golang. would write it very differently today. Surprisingly Just Works so often that I keep using it. Notes from a lightning talk I gave on this.</description>
+    </item>
+    
+    <item>
       <title>Running</title>
       <link>https://j.zac.sh/running/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

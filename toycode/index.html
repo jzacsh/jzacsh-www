@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="description" content="Jonathan Zacsh's personal website" />
+  <meta name="author" content="Jonathan Zacsh" />
+  <meta name="keywords" content="jzacsh Jonathan Zacsh" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon"/>
+
+  <title>jzacsh: Doodles of Code</title>
+
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-79581456-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700' rel='stylesheet' type='text/css'>
+
+  
+  <link href="/css/index.css" rel="stylesheet" type="text/css">
+  <link href="/css/artwork.css" rel="stylesheet" type="text/css">
+
+
+  <link href="/css/page.css" rel="stylesheet" type="text/css">
+
+</head><body data-type="page">
+
+<header>
+  <h1>Doodles of Code</h1>
+  <nav id="menu">
+    <a href="/">about</a>
+    <a href="/drawings">drawings</a>
+  </nav>
+</header>
+
+
+<div class="paragraph">
+<p>Here&#8217;s a tiny collection of fun, usually unfinished, small weekend
+toy-projects/hacks. Doodles!</p>
+</div>
+<div class="sect1">
+<h2 id="_simple_but_useful">Simple, but Useful</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Tiny tools I&#8217;ve <em>actually</em> used on a regular basis at different times:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/jzacsh/runonchange"><code>runonchange</code></a>: just a super bloated <code>inotifywait</code> loop
+(10x-bloat version of <a href="https://github.com/jzacsh/bin/blob/master/share/notifychanges">the shell script</a>);  mostly used to
+play with golang. would write it very differently today. Surprisingly Just
+Works so often that I keep using it. <a href="https://gist.github.com/jzacsh/372f94908c82ac905cb3ad20fca485fd#file-readme-adoc">Notes</a> from a lightning
+talk I gave on this.</p>
+</li>
+<li>
+<p><a href="https://github.com/jzacsh/punch"><code>punch</code></a>: simple time keeper; used in my early days as an engineer to
+learn about <code>getopts</code> builtin, and then again years later to learn about
+golang. Also surprised me when I ended up actually being able to use and trust
+it for a couple years.</p>
+</li>
+<li>
+<p>tiny scripts for point about a machine: <a href="https://github.com/jzacsh/bin/blob/master/share/pagebin"><code>pagebin</code></a> and <a href="https://github.com/jzacsh/bin/blob/master/share/descbin"><code>descbin</code></a></p>
+</li>
+<li>
+<p><a href="https://github.com/jzacsh/fpreviewext"><code>fpreviewext</code></a>: tiny, simple project to display <code><a href="file://&#8230;&#8203" class="bare">file://&#8230;&#8203</a>;</code> contents
+inlined - used mostly to learn how to write a chrome extension with
+TypeScript, but now I really use thsi tool daily.</p>
+</li>
+<li>
+<p><a href="https://github.com/jzacsh/dotfiles/tree/master/.host"><code>~/.host/pick</code> script</a>: back in 2009-ish I was trying to share my dotfiles
+between machines, but wanted slight tweaks depending on certain attributes of
+the host machine said files were downloaded to. This solution has worked with
+neraly zero changes since then, surprisingly well. It&#8217;s just a
+file-naming convention really.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abandonned_but_fun">Abandonned, but Fun</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Playing with golang as part of a Real Analysis exam:
+<a href="https://gist.github.com/jzacsh/994f6a62d979b22a23145c5487775879" class="bare">https://gist.github.com/jzacsh/994f6a62d979b22a23145c5487775879</a></p>
+</li>
+<li>
+<p><a href="https://gist.github.com/jzacsh/842c211e2e524a70c6a8c7c8788ff253">webdeskgo</a>: playing with LXC and a tiny golang web server to generate pdf
+booklets by shelling out to <code>pdfbook</code> and not worry <em>too</em> much about what gets
+uploaded. I&#8217;d <strong>highly</strong> discourage using this an any exposed environment.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Actually, I&#8217;d discourage using this at all. It&#8217;s way easier to just call
+<code>pdfbook</code> forever, and never spend the effort installing this thing. This
+was more an attempt to prototype what lxc can be used for, and how I might
+write tiny webapps I don&#8217;t care about the security of.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://gist.github.com/jzacsh/4510d9e6454b1a930b7520f1be1ce3ed"><code>scanfix</code></a>; tiny golang <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup> tool I was using for a while when I&#8217;d scan textbooks on a flatbed
+scanner.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Some partially completed doodles involving PC backups:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/jzacsh/sysrestic"><code>sysrestic</code></a>: spirit of convention by configuration;
+never-quite-completed attempt to capture all the annoying startup/setup work
+to have a sane, encrypted backup system that works with a modern (systemd) PC.</p>
+</li>
+<li>
+<p><a href="https://github.com/jzacsh/fbf">friends backup friends</a>: mostly design documents and the
+research/starting-stages to prototype a fun concept. Ran out of weekend-energy
+on this one, but might go back to it some day. Was fun to think through.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>I&#8217;m mostly keeping this page here for my own easy reference, but if you find
+something useful let me know, I&#8217;d love to hear it!</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. If it&#8217;s not evident yet from this page&#44; I try very to <em>avoid</em> writing long scripts in Bash&#44; and write them in a proper programming language instead.  Hence all the strange golang tools.
+</div>
+</div>
+
+
+<footer>
+  <nav class="social-media">
+    Elsewhere:
+    <a class="keybase" href="https://keybase.io/jzacsh">Keybase</a>,
+    <a class="github" href="https://github.com/jzacsh">Github</a>,
+    <a class="twitter" href="https://twitter.com/jzacsh">Twitter</a>,
+    <a class="mastodon" href="https://qoto.org/@jzacsh">Mastodon</a>
+  </nav>
+
+  <p class="stale-stamp" style="font-size: x-small;">
+    Last update Sat Mar 21 16:11:33 2020 -0500
+    <em>(on <a href="https://github.com/jzacsh/jzacsh-www/tree/acdfaec561">@acdfaec561</a>)</em>
+  </p>
+</footer>
+
+</body></html>
+
