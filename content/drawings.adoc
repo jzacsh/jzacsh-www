@@ -4,8 +4,8 @@ type = "page"
 +++
 
 :inkscape: https://inkscape.org
-:nerdsvg: https://art.j.zac.sh/art/20100519_001_nerd-friend.svg
-:burrito: https://art.j.zac.sh/art/burrito-riding-bicycle.jpg
+:nerdsvg: https://content-j-zac-sh.s3.amazonaws.com/art/20100519_001_nerd-friend.svg
+:burrito: https://content-j-zac-sh.s3.amazonaws.com/art/burrito-riding-bicycle.jpg
 :doodleurl: https://study.j.zac.sh/doodle
 
 Below are some scanned drawings from a time when I filled multiple new pages

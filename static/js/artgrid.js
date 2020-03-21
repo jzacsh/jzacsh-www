@@ -82,7 +82,7 @@ GdriveHost.stripTrailingSlash_ = function(url) {
 
 
 /** @const {string} */
-GdriveHost.BASE_URL = 'https://art.j.zac.sh/art/';
+GdriveHost.BASE_URL = 'https://content-j-zac-sh.s3.amazonaws.com/art/';
 
 
 /**
