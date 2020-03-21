@@ -15,6 +15,7 @@ type = "page"
 :webdeskgo: https://gist.github.com/jzacsh/842c211e2e524a70c6a8c7c8788ff253
 :hackntell43: https://gist.github.com/jzacsh/372f94908c82ac905cb3ad20fca485fd#file-readme-adoc
 :scanfix: https://gist.github.com/jzacsh/4510d9e6454b1a930b7520f1be1ce3ed
+:riemann: https://gist.github.com/jzacsh/994f6a62d979b22a23145c5487775879
 
 Here's a tiny collection of fun, usually unfinished, small weekend
 toy-projects/hacks. Doodles!
@@ -45,8 +46,8 @@ Tiny tools I've _actually_ used on a regular basis at different times:
 
 == Abandonned, but Fun
 
-* Playing with golang as part of a Real Analysis exam:
-  https://gist.github.com/jzacsh/994f6a62d979b22a23145c5487775879
+* Playing with golang as part of a Real Analysis exam: a {riemann}[Riemann sum
+  calculator].
 * {webdeskgo}[webdeskgo]: playing with LXC and a tiny golang web server to
   generate pdf booklets by shelling out to `pdfbook` and not worry _too_ much
   about what gets uploaded. I'd **highly** discourage using this an any exposed
