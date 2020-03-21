@@ -1,0 +1,75 @@
++++
+title = "Doodles of Code"
+type = "page"
++++
+
+:sysrestic: https://github.com/jzacsh/sysrestic
+:fbf: https://github.com/jzacsh/fbf
+:runonchange: https://github.com/jzacsh/runonchange
+:punch: https://github.com/jzacsh/punch
+:fpreviewext: https://github.com/jzacsh/fpreviewext
+:inotWaitScript: https://github.com/jzacsh/bin/blob/master/share/notifychanges
+:pagebin: https://github.com/jzacsh/bin/blob/master/share/pagebin
+:descbin: https://github.com/jzacsh/bin/blob/master/share/descbin
+:dotHost: https://github.com/jzacsh/dotfiles/tree/master/.host
+:webdeskgo: https://gist.github.com/jzacsh/842c211e2e524a70c6a8c7c8788ff253
+:hackntell43: https://gist.github.com/jzacsh/372f94908c82ac905cb3ad20fca485fd#file-readme-adoc
+:scanfix: https://gist.github.com/jzacsh/4510d9e6454b1a930b7520f1be1ce3ed
+
+Here's a tiny collection of fun, usually unfinished, small weekend
+toy-projects/hacks. Doodles!
+
+== Simple, but Useful
+
+Tiny tools I've _actually_ used on a regular basis at different times:
+
+* {runonchange}[`runonchange`]: just a super bloated `inotifywait` loop
+  (10x-bloat version of {inotWaitScript}[the shell script]);  mostly used to
+  play with golang. would write it very differently today. Surprisingly Just
+  Works so often that I keep using it. {hackntell43}[Notes] from a lightning
+  talk I gave on this.
+* {punch}[`punch`]: simple time keeper; used in my early days as an engineer to
+  learn about `getopts` builtin, and then again years later to learn about
+  golang. Also surprised me when I ended up actually being able to use and trust
+  it for a couple years.
+* tiny scripts for point about a machine: {pagebin}[`pagebin`] and {descbin}[`descbin`]
+* {fpreviewext}[`fpreviewext`]: tiny, simple project to display `file://...` contents
+  inlined - used mostly to learn how to write a chrome extension with
+  TypeScript, but now I really use thsi tool daily. 
+* {dotHost}[`~/.host/pick` script]: back in 2009-ish I was trying to share my dotfiles
+  between machines, but wanted slight tweaks depending on certain attributes of
+  the host machine said files were downloaded to. This solution has worked with
+  neraly zero changes since then, surprisingly well. It's just a
+  file-naming convention really.
+
+== Abandonned, but Fun
+
+* Playing with golang as part of a Real Analysis exam:
+  https://gist.github.com/jzacsh/994f6a62d979b22a23145c5487775879
+* {webdeskgo}[webdeskgo]: playing with LXC and a tiny golang web server to generate pdf
+  booklets by shelling out to `pdfbook` and not worry _too_ much about what gets
+  uploaded. I'd **highly** discourage using this an any exposed environment.
+
+**  Actually, I'd discourage using this at all. It's way easier to just call
+    `pdfbook` forever, and never spend the effort installing this thing. This
+    was more an attempt to prototype what lxc can be used for, and how I might
+    write tiny webapps I don't care about the security of.
+
+* {scanfix}[`scanfix`]; tiny golang footnote:[If it's not evident yet from this
+  page&#44; I try very to _avoid_ writing long scripts in Bash&#44; and write
+  them in a proper programming language instead.  Hence all the strange golang
+  tools.] tool I was using for a while when I'd scan textbooks on a flatbed
+  scanner.
+
+
+Some partially completed doodles involving PC backups:
+
+* {sysrestic}[`sysrestic`]: spirit of convention by configuration;
+  never-quite-completed attempt to capture all the annoying startup/setup work
+  to have a sane, encrypted backup system that works with a modern (systemd) PC.
+* {fbf}[friends backup friends]: mostly design documents and the
+  research/starting-stages to prototype a fun concept. Ran out of weekend-energy
+  on this one, but might go back to it some day. Was fun to think through.
+
+I'm mostly keeping this page here for my own easy reference, but if you find
+something useful let me know, I'd love to hear it!
