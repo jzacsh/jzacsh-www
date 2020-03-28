@@ -22,6 +22,16 @@
     </item>
     
     <item>
+      <title>Reads</title>
+      <link>https://j.zac.sh/reads/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://j.zac.sh/reads/</guid>
+      <description>Feel free to friend me to chat about SciFi and other good reads at goodreads.com/jzacsh
+ .gr_grid_container { /* customize grid container div here. eg: width: 500px; */ } .gr_grid_book_container { /* customize book cover container div here */ float: left; width: 98px; height: 160px; padding: 0px 0px; overflow: hidden; }     </description>
+    </item>
+    
+    <item>
       <title>Running</title>
       <link>https://j.zac.sh/running/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
