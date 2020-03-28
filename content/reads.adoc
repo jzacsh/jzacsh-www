@@ -1,0 +1,31 @@
++++
+title = "Reads"
+type = "page"
++++
+
+Feel free to friend me to chat about SciFi and other good reads at
+link:https://goodreads.com/jzacsh[goodreads.com/jzacsh]
+
+{{< rawmarkup >}}
+  <style type="text/css" media="screen">
+    .gr_grid_container {
+      /* customize grid container div here. eg: width: 500px; */
+    }
+
+    .gr_grid_book_container {
+      /* customize book cover container div here */
+      float: left;
+      width: 98px;
+      height: 160px;
+      padding: 0px 0px;
+      overflow: hidden;
+    }
+  </style>
+
+  <div id="gr_grid_widget_1585437984"></div>
+
+  <script src="https://www.goodreads.com/review/grid_widget/11576245.recent%20reads?cover_size=medium&hide_link=true&hide_title=true&num_books=50&order=d&shelf=read&sort=date_added&widget_id=1585438345" type="text/javascript" charset="utf-8"></script>
+
+  <hr style="width:100%; visibility: hidden;" />
+
+{{< /rawmarkup >}}
