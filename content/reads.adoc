@@ -3,8 +3,10 @@ title = "Reads"
 type = "page"
 +++
 
+:compare: https://www.goodreads.com/user/compare/11576245?utf8=%E2%9C%93&shelf=to-read
+
 Feel free to friend me to chat about SciFi and other good reads at
-link:https://goodreads.com/jzacsh[goodreads.com/jzacsh]
+link:https://goodreads.com/jzacsh[goodreads.com/jzacsh].
 
 {{< rawmarkup >}}
   <style type="text/css" media="screen">
@@ -29,3 +31,6 @@ link:https://goodreads.com/jzacsh[goodreads.com/jzacsh]
   <hr style="width:100%; visibility: hidden;" />
 
 {{< /rawmarkup >}}
+
+If you use goodreads too, then you can find a book {compare}[we both want to
+read].
