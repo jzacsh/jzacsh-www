@@ -26,7 +26,7 @@ link:https://goodreads.com/jzacsh[goodreads.com/jzacsh].
 
   <div id="gr_grid_widget_1585437984"></div>
 
-  <script src="https://www.goodreads.com/review/grid_widget/11576245.recent%20reads?cover_size=medium&hide_link=true&hide_title=true&num_books=50&order=d&shelf=read&sort=date_read&widget_id=1585438345" type="text/javascript" charset="utf-8"></script>
+  <script src="https://www.goodreads.com/review/grid_widget/11576245.recent%20reads?cover_size=medium&hide_link=true&hide_title=true&num_books=200&order=d&shelf=read&sort=date_read&widget_id=1585438345" type="text/javascript" charset="utf-8"></script>
 
   <hr style="width:100%; visibility: hidden;" />
 
