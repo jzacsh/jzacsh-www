@@ -1,36 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://j.zac.sh/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://j.zac.sh/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://j.zac.sh/toycode/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://j.zac.sh/reads/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://j.zac.sh/running/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://j.zac.sh/drawings/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://j.zac.sh/tags/</loc>
-    <priority>0</priority>
   </url>
-  
 </urlset>

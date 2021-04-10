@@ -1,23 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>About Me</title>
     <link>https://j.zac.sh/</link>
     <description>Recent content on About Me</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    
-	<atom:link href="https://j.zac.sh/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en-us</language><atom:link href="https://j.zac.sh/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Doodles of Code</title>
       <link>https://j.zac.sh/toycode/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://j.zac.sh/toycode/</guid>
-      <description>Here&amp;#8217;s a tiny collection of fun, usually unfinished, small weekend toy-projects/hacks. Doodles!
- Simple, but Useful Tiny tools I&amp;#8217;ve actually used on a regular basis at different times:
+      <description>Here’s a tiny collection of fun, usually unfinished, small weekend toy-projects/hacks. Doodles!
+ Simple, but Useful Tiny tools I’ve actually used on a regular basis at different times:
    runonchange: just a super bloated inotifywait loop (10x-bloat version of the shell script); mostly used to play with golang. would write it very differently today. Surprisingly Just Works so often that I keep using it. Notes from a lightning talk I gave on this.</description>
     </item>
     
@@ -46,9 +42,9 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://j.zac.sh/drawings/</guid>
-      <description>Below are some scanned drawings from a time when I filled multiple new pages per-day in a sketchbook. Some drawings here may also be vector drawings, created in inkscape with a wacom bamboo tablet (eg &#34;nerd friend&#34;).
- Lastly, I&amp;#8217;ve started doodling a bit on the go, in a doodle mobile app I created (eg &#34;burrito riding bicycle&#34;).
- What&amp;#8217;s Shown Here Work shown below is a randomly loaded subset of my scanned work (until I find time to create something nice small screens).</description>
+      <description>Below are some scanned drawings from a time when I filled multiple new pages per-day in a sketchbook. Some drawings here may also be vector drawings, created in inkscape with a wacom bamboo tablet (eg &amp;#34;nerd friend&amp;#34;).
+ Lastly, I’ve started doodling a bit on the go, in a doodle mobile app I created (eg &amp;#34;burrito riding bicycle&amp;#34;).
+ What’s Shown Here Work shown below is a randomly loaded subset of my scanned work (until I find time to create something nice small screens).</description>
     </item>
     
   </channel>
