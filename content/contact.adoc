@@ -12,4 +12,4 @@ type = "page"
 * {matrixTo}[`@jzacsh:matrix.org`]
 ** identified as `jzacsh[m]` on freenode
 * https://signal.org if you have my number.
-* email j@zac.sh (link:/pgp.asc[PGP `0D602C2`])
+* email j@zac.sh (link:/pgp.txt[PGP `0D602C2`])
