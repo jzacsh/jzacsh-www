@@ -1,0 +1,15 @@
++++
+title = "Chat Directly"
+type = "page"
++++
+
+:hide-uri-scheme:
+
+:matrixTo: https://matrix.to/#/@jzacsh:matrix.org
+:pgp: /pgp.asc
+
+.Some methods to contact me directly:
+* {matrixTo}[`@jzacsh:matrix.org`]
+** identified as `jzacsh[m]` on freenode
+* https://signal.org if you have my number.
+* email j@zac.sh (link:/pgp.asc[PGP `0D602C2`])
