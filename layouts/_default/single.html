@@ -9,13 +9,15 @@
 
 <body data-type="page">
 
-<div class="content">
+<div id="content">
 
   {{ partial "header.html" . }}
 
-  {{ .Content }}
+  <section id="matter">
+    {{ .Content }}
+  </section>
   
-</div> <!--//.content-->
+</div> <!--//#content-->
 
 {{ partial "footer.html" . }}
 

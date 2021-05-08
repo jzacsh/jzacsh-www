@@ -9,19 +9,19 @@
 
 <body data-type="post">
 
-<div class="content">
+<div id="content">
 
   {{ partial "header.html" . }}
 
-  <section class="post">
+  <section id="matter">
 
-    Posted on <time>{{ .Date }}</time>
+    <p>Posted on <time>{{ .Date }}</time></p>
 
     {{ .Content }}
 
-  </section> <!--//.post-->
+  </section> <!--//#post-->
 
-</div> <!--//.content-->
+</div> <!--//#content-->
 
 {{ partial "footer.html" . }}
 

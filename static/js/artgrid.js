@@ -108,14 +108,15 @@ GdriveHost.prototype.getRelativeFile = function(path) {
 /**
  * @param {!GdriveHost} gdriveHost
  * @param {!Document} doc
+ * @param {!Element} root
  * @constructor
  */
-var Artwork = function(gdriveHost, doc) {
+var Artwork = function(gdriveHost, doc, root) {
   /** @private {!Document} */
   this.doc_ = doc;
 
   /** @private {!Element} */
-  this.containerEl_ = Artwork.injectContainer_(this.doc_);
+  this.containerEl_ = Artwork.injectContainer_(this.doc_, root);
 
   /** @private {?Element} */
   this.gridEl_ = null;
@@ -144,17 +145,14 @@ var Artwork = function(gdriveHost, doc) {
 
 /**
  * @param {!Document} doc
+ * @param {!Element} rootNode
  * @return {!Element} container
  * @private
  */
-Artwork.injectContainer_ = function(doc) {
-  var rootNode = doc.querySelectorAll('footer')[0];
-
+Artwork.injectContainer_ = function(doc, rootNode) {
   var containerEl = doc.createElement('div');
   containerEl.setAttribute('id', 'artwork');
-  rootNode.parentNode.
-      insertBefore(containerEl, rootNode);
-
+  rootNode.appendChild(containerEl, rootNode);
   return containerEl;
 };
 
@@ -361,8 +359,10 @@ Artwork.getRandomIntExclusive_ = function(min, max) {
 
 
 this.document.addEventListener('DOMContentLoaded', function() {
+  var rootNode = this.querySelector('section#matter');
+
   var gdriveHost = new GdriveHost();
-  var artwork = new Artwork(gdriveHost, this /*doc*/);
+  var artwork = new Artwork(gdriveHost, this /*doc*/, rootNode);
 
 
   artwork.ready().then(function() {
