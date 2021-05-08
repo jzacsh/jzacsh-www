@@ -7,9 +7,14 @@ type = "page"
 
 :matrixTo: https://matrix.to/#/@jzacsh:matrix.org
 :pgp: /pgp.asc
+:e2eee: footnote:e2ee[Has the benefit of being trivially easy to chat with me \
+   privately, unlike WhatsApp, Hangouts, SMS, typical email, etc.]
+:keybaseDeath: https://github.com/keybase/client/issues/24105
 
-.Some methods to contact me directly:
-* {matrixTo}[`@jzacsh:matrix.org`]
-** identified as `jzacsh[m]` on freenode
-* https://signal.org if you have my number.
-* email j@zac.sh (link:/pgp.txt[PGP `0D602C2`])
+.Ways to reach me, in *order of preference*:
+1. Chat with me at {matrixTo}[`@jzacsh:matrix.org`], directly{e2eee}.
+2. If you have my phone number, chat via https://signal.org messenger{e2eee},
+3. Email j@zac.sh (link:/pgp.txt[PGP `0D602C2`])
+4. Via https://keybase.io/jzacsh, assuming {keybaseDeath}[that platform doesn't
+   die soon].
+5. On freenode IRC, I'm bridged in and identified as `jzacsh[m]`
