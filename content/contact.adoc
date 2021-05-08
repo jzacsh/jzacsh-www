@@ -5,16 +5,31 @@ type = "page"
 
 :hide-uri-scheme:
 
+:mastadon: https://joinmastodon.org
 :matrixTo: https://matrix.to/#/@jzacsh:matrix.org
 :pgp: /pgp.asc
 :e2eee: footnote:e2ee[Has the benefit of being trivially easy to chat with me \
    privately, unlike WhatsApp, Hangouts, SMS, typical email, etc.]
 :keybaseDeath: https://github.com/keybase/client/issues/24105
+:remnants: footnote:timeline[The last couple "timelines" I have are as \
+   empty as my Facebook has always been, but if you're curious I'm on \
+   {mastadon}[the Mastadon network] at https://qoto.org/@jzacsh (and a private \
+   https://instagram.com/jzaksh)]
 
-.Ways to reach me, in *order of preference*:
+== Real Way to Reach Me
+
+.Ways to reach me, in order of preference:
 1. Chat with me at {matrixTo}[`@jzacsh:matrix.org`], directly{e2eee}.
 2. If you have my phone number, chat via https://signal.org messenger{e2eee},
 3. Email j@zac.sh (link:/pgp.txt[PGP `0D602C2`])
 4. Via https://keybase.io/jzacsh, assuming {keybaseDeath}[that platform doesn't
    die soon].
 5. On freenode IRC, I'm bridged in and identified as `jzacsh[m]`
+
+== No but where's your Timeline?
+
+If the above links appear useless because you simply want to know where to
+"follow" me - I truly don't upkeep{remnants} a public profile anywhere (and I
+haven't since I last used Facebook around 2006-2009).
+
+But really just *email or chat me above* and say Hi, and  we'll stay in touch :)
