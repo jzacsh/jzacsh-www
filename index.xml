@@ -12,11 +12,12 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://j.zac.sh/contact/</guid>
-      <description>Some methods to contact me directly:   @jzacsh:matrix.org
-  identified as jzacsh[m] on freenode
-     signal.org if you have my number.
-  email j@zac.sh (PGP 0D602C2)
-   </description>
+      <description>Ways to reach me, in order of preference:  Chat with me at @jzacsh:matrix.org, directly[1].
+  If you have my phone number, chat via signal.org messenger[1],
+  Email j@zac.sh (PGP 0D602C2)
+  Via keybase.io/jzacsh, assuming that platform doesn’t die soon.
+  On freenode IRC, I’m bridged in and identified as jzacsh[m]
+    1. Has the benefit of being trivially easy to chat with me privately, unlike WhatsApp, Hangouts, SMS, typical email, etc.</description>
     </item>
     
     <item>
