@@ -9,10 +9,12 @@
 
 <body data-type="page">
 
-{{ partial "header.html" . }}
-
 <div class="content">
+
+  {{ partial "header.html" . }}
+
   {{ .Content }}
+  
 </div> <!--//.content-->
 
 {{ partial "footer.html" . }}

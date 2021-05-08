@@ -1,13 +1,28 @@
-{{ partial "index_open.html" . }}
+<!doctype html>
+<html lang="en">
+<head>
+  {{ partial "head_basics.html" . }}
 
   <link href="/css/post.css" rel="stylesheet" type="text/css">
 
-</head><body data-type="post">
+</head>
 
-{{ partial "header.html" . }}
+<body data-type="post">
 
-Posted on <time>{{ .Date }}</time>
-{{ .Content }}
+<div class="content">
+
+  {{ partial "header.html" . }}
+
+  <section class="post">
+
+    Posted on <time>{{ .Date }}</time>
+
+    {{ .Content }}
+
+  </section> <!--//.post-->
+
+</div> <!--//.content-->
 
 {{ partial "footer.html" . }}
-{{ partial "index_close.html" . }}
+
+</body></html>
