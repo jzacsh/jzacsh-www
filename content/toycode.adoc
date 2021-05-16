@@ -41,7 +41,7 @@ Tiny tools I've _actually_ used on a regular basis at different times:
 * {dotHost}[`~/.host/pick`] script: back in 2009-ish I was trying to share my
   dotfiles between machines, but wanted slight tweaks depending on certain
   attributes of the host machine said files were downloaded to. This solution
-  has worked with neraly zero changes since then, surprisingly well. It's just a
+  has worked with nearly zero changes since then, surprisingly well. It's just a
   file-naming convention really.
 
 == Abandonned, but Fun
