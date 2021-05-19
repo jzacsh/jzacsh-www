@@ -1,0 +1,9 @@
++++
+title = "Book Trade"
+type = "page"
++++
+
+{{< rawmarkup >}}
+    <script type="text/javascript" src="/js/papaparse.min.js"></script>
+    <script type="text/javascript" src="/js/parsereads.js"></script>
+{{< /rawmarkup >}}
