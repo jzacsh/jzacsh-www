@@ -76,3 +76,12 @@ you'll find [the limitation that you cannot use HTTPs][googNoHttps].
 ```bash
 make GCS_BUCKET=my-bucket-name deployGcs
 ```
+
+## License
+
+All content, unless otherwise noticed, is licensed under Apache per `./LICENSE`
+in this folder. Exceptions:
+
+| License | Project | File |
+| ======= | ======= | ==== |
+| MIT | [Papa Parse](https://github.com/mholt/PapaParse) | static/js/papaparse.min.js |
